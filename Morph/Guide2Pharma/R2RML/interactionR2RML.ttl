@@ -1,0 +1,318 @@
+#########################
+#Liam Bruce - 24/04/2017#
+#########################
+
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ex: <http://example.com/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://www.guidetopharmacology.org/data/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix chembl: <http://identifiers.org/chembl.compound/>.
+@prefix gtp: <http://www.guidetopharmacology.org/data/>.
+@prefix gtpo: <http://www.guidetopharmacology.org/ns/>.
+@prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
+@prefix ncbi: <http://purl.obolibrary.org/obo/NCBITaxon_>.
+@prefix pmid: <http://identifiers.org/pubmed/>.
+@prefix uniprot: <http://identifiers.org/uniprot/>.
+	
+#######################################
+# Generate key interaction data - id, #
+# participants, type and taxonomy     #
+#######################################
+	
+	<TriplesMap1>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT
+		interaction.interaction_id AS id,
+		interaction.ligand_id AS ligand,
+		interaction.object_id AS target,
+		interaction.type AS type,
+		species.ncbi_taxonomy_id AS ncbi,
+		CASE
+		WHEN type = 'Allosteric modulator' THEN 'AllostericModulator'
+		WHEN type = 'Antagonist' THEN 'Antagonist'
+		WHEN type = 'Activator' THEN 'Activator'
+		WHEN type = 'Antibody' THEN 'Antibody'
+		WHEN type = 'Agonist' THEN 'Agonist'
+		WHEN type = 'Gating inhibitor' THEN 'GatingInhibitor'
+		WHEN type = 'Channel blocker' THEN 'ChannelBlocker'
+		WHEN type = 'None' THEN 'None'
+		WHEN type = 'Subunit-specific' THEN 'SubunitSpecific'
+		WHEN type = 'Inhibitor' THEN 'Inhibitor'
+		END AS actiontype,
+		action,
+		CASE
+		WHEN action = 'Negative' THEN 'Negative'
+		WHEN action = 'Full agonist' THEN 'FullAgonist'
+		WHEN action = 'Potentiation' THEN 'Potentiation'
+		WHEN action = 'Non-competitive' THEN 'NonCompetitive'
+		WHEN action = 'Agonist' THEN 'AgonistAction'
+		WHEN action = 'Slows inactivation' THEN 'SlowsInactivation'
+		WHEN action = 'Voltage-dependent inhibition' THEN 'VoltageDependentInhibition'
+		WHEN action = 'Binding' THEN 'Binding'
+		WHEN action = 'None' THEN 'NoAction'
+		WHEN action = 'Partial agonist' THEN 'PartialAgonist'
+		WHEN action = 'Positive' THEN 'Positive'
+		WHEN action = 'Unknown' THEN 'Unknown'
+		WHEN action = 'Competitive' THEN 'Competitive'
+		WHEN action = 'Neutral' THEN 'Neutral'
+		WHEN action = 'Activation' THEN 'Activation'
+		WHEN action = 'Biphasic' THEN 'Biphasic'
+		WHEN action = 'Mixed' THEN 'Mixed'
+		WHEN action = 'Pore blocker' THEN 'PoreBlocker'
+		WHEN action = 'Irreversible inhibition' THEN 'Irreversible'
+		WHEN action = 'Antagonist' THEN 'AntagonistAction'
+		WHEN action = 'Inverse agonist' THEN 'InverseAgonist'
+		WHEN action = 'Feedback inhibition' THEN 'FeedbackInhibition'
+		WHEN action = 'Irreversible agonist' THEN 'IrreversibleAgonist'
+		WHEN action = 'Inhibition' THEN 'Inhibition'
+		WHEN action = 'Biased agonist' THEN 'BiasedAgonist'
+		END AS interactionaction
+		FROM interaction, species
+		WHERE interaction.species_id = species.species_id;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/interaction{id}" ]; 
+	
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type; 
+      rr:objectMap	[ rr:constant gtpo:Interaction ];
+    ];
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:hasLigand ; 
+      rr:objectMap	[ rr:template "http://www.guidetopharmacology.org/data/ligand{ligand}" ];
+    ];
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:hasTarget;
+        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/data/target{target}" ];
+	];
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:hasType;
+        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/data/{actiontype}" ];
+	];
+	 rr:predicateObjectMap [ 
+      rr:predicate	gtpo:hasAction;
+      rr:objectMap	[ rr:template "http://www.guidetopharmacology.org/data/{interactionaction}" ];
+    ];
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:hasTaxonomy;
+        rr:objectMap [ rr:template "http://purl.obolibrary.org/obo/NCBITaxon_{ncbi}" ];
+	]
+	.
+
+#######################################################
+# Generates the blank node for storing affinity data, #
+# where there exists an affinity value                #
+#######################################################
+	
+	<TriplesMap2>
+	a rr:TriplesMap;
+	rr:logicalTable [ rr:sqlQuery """
+	SELECT interaction_id AS id
+	FROM interaction 
+	WHERE affinity_units <> '-' 
+	AND (affinity_high IS NOT NULL OR affinity_median IS NOT NULL);
+	""";];
+	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/data/interaction{id}";];
+	rr:predicateObjectMap
+	[
+		rr:predicate gtpo:hasAffinity;
+		rr:objectMap [ 
+		rr:template "affinity{id}";
+		rr:termType rr:BlankNode;
+		];
+	]
+	.
+	
+###############################################################
+# Generate affinity data for actions with high and low values #
+###############################################################
+	
+	<TriplesMap3>
+    a rr:TriplesMap;
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT affinity_low AS low,
+		interaction_id AS id,
+		affinity_high AS high, 
+		affinity_units,
+		CASE 
+		WHEN affinity_units = 'pIC50' THEN 'BAO_0000199'
+		WHEN affinity_units = 'pEC50' THEN 'BAO_0002583'
+		WHEN affinity_units = 'pKB' THEN 'pKB'
+		WHEN affinity_units = 'pKi' THEN 'pKi'
+		WHEN affinity_units = 'pA2' THEN 'BAO_0003038'
+		WHEN affinity_units = 'pKd' THEN 'pKd'
+		WHEN affinity_units = '-' THEN '-'
+		END AS units		
+		FROM interaction 
+		WHERE affinity_low IS NOT NULL 
+		AND affinity_high IS NOT NULL;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "affinity{id}";
+					rr:termType rr:BlankNode;]; 
+	
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:hasHighValue ; 
+      rr:objectMap	[ rr:column "high" ];
+    ];
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:hasLowValue;
+        rr:objectMap [ rr:column "low" ];
+	];
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:hasUnits;
+        rr:objectMap [ rr:template "http://www.bioassayontology.org/bao/bao_complete.owl#{units}" ];
+	]
+	.
+		
+#########################################################
+# Generate affinity data for actions with median values #
+#########################################################	
+	
+	<TriplesMap4>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+			SELECT affinity_median AS value,
+			interaction_id AS id, 
+			affinity_units,
+			CASE 
+			WHEN affinity_units = 'pIC50' THEN 'BAO_0000199'
+			WHEN affinity_units = 'pEC50' THEN 'BAO_0002583'
+			WHEN affinity_units = 'pKB' THEN 'pKB'
+			WHEN affinity_units = 'pKi' THEN 'pKi'
+			WHEN affinity_units = 'pA2' THEN 'BAO_0003038'
+			WHEN affinity_units = 'pKd' THEN 'pKd'
+			END AS units
+			FROM interaction 
+			WHERE affinity_units <> '-'
+			AND affinity_median IS NOT NULL;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "affinity{id}";
+					rr:termType rr:BlankNode;]; 
+	
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:hasValue; 
+      rr:objectMap	[ rr:column "value" ];
+    ];
+	 rr:predicateObjectMap [
+       rr:predicate gtpo:hasUnits;
+       rr:objectMap [ rr:template "http://www.bioassayontology.org/bao/bao_complete.owl#{units}" ];
+	]
+	.
+
+############################################################
+# Generate interaction affinity references using pubmed id #
+############################################################
+	
+
+	<TriplesMap5>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT interaction_id AS id, 
+		pubmed_id as pmid
+		FROM interaction_affinity_refs I, reference R 
+		WHERE I.reference_id = r.reference_id
+		AND pubmed_id IS NOT NULL;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/interaction{id}" ]; 
+	
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:hasReference; 
+      rr:objectMap	[ rr:template "http://identifiers.org/pubmed/{pmid}" ];
+    ]
+	.
+	
+#####################################################
+# Generate class definitions for interaction action #
+#####################################################
+	
+	<TriplesMap6>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT distinct type,
+		CASE
+		WHEN type = 'Allosteric modulator' THEN 'AllostericModulator'
+		WHEN type = 'Antagonist' THEN 'Antagonist'
+		WHEN type = 'Activator' THEN 'Activator'
+		WHEN type = 'Antibody' THEN 'Antibody'
+		WHEN type = 'Agonist' THEN 'Agonist'
+		WHEN type = 'Gating inhibitor' THEN 'GatingInhibitor'
+		WHEN type = 'Channel blocker' THEN 'ChannelBlocker'
+		WHEN type = 'None' THEN 'None'
+		WHEN type = 'Subunit-specific' THEN 'SubunitSpecific'
+		WHEN type = 'Inhibitor' THEN 'Inhibitor'
+		END AS actiontype 
+		FROM interaction;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/{actiontype}" ]; 
+	
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type; 
+      rr:objectMap	[ rr:template "http://www.guidetopharmacology.com/ns/{actiontype}" ];
+    ]
+	.
+
+##########################################################
+# Generate class definitions for interaction action type #
+##########################################################
+	
+	<TriplesMap7>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT distinct action,
+		CASE
+		WHEN action = 'Negative' THEN 'Negative'
+		WHEN action = 'Full agonist' THEN 'FullAntagonist'
+		WHEN action = 'Potentiation' THEN 'Potentiation'
+		WHEN action = 'Non-competitive' THEN 'NonCompetitive'
+		WHEN action = 'Agonist' THEN 'AgonistAction'
+		WHEN action = 'Slows inactivation' THEN 'SlowsInactivation'
+		WHEN action = 'Voltage-dependent inhibition' THEN 'VoltageDependentInhibition'
+		WHEN action = 'Binding' THEN 'Binding'
+		WHEN action = 'None' THEN 'NoAction'
+		WHEN action = 'Partial agonist' THEN 'PartialAgonist'
+		WHEN action = 'Positive' THEN 'Positive'
+		WHEN action = 'Unknown' THEN 'Unknown'
+		WHEN action = 'Competitive' THEN 'Competitive'
+		WHEN action = 'Neutral' THEN 'Neutral'
+		WHEN action = 'Activation' THEN 'Activation'
+		WHEN action = 'Biphasic' THEN 'Biphasic'
+		WHEN action = 'Mixed' THEN 'Mixed'
+		WHEN action = 'Pore blocker' THEN 'PoreBlocker'
+		WHEN action = 'Irreversible inhibition' THEN 'Irreversible'
+		WHEN action = 'Antagonist' THEN 'AntagonistAction'
+		WHEN action = 'Inverse agonist' THEN 'InverseAgonist'
+		WHEN action = 'Feedback inhibition' THEN 'FeedbackInhibition'
+		WHEN action = 'Irreversible agonist' THEN 'IrreversibleAgonist'
+		WHEN action = 'Inhibition' THEN 'Inhibition'
+		WHEN action = 'Biased agonist' THEN 'BiasedAgonist'
+		END AS interactionaction
+		FROM interaction;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/{interactionaction}" ]; 
+	
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type;
+      rr:objectMap	[ rr:template "http://www.guidetopharmacology.com/ns/{interactionaction}" ];
+    ]
+	.

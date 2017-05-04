@@ -1,0 +1,262 @@
+#########################
+#Liam Bruce - 24/04/2017#
+#########################
+
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ex: <http://example.com/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://www.guidetopharmacology.org/data/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix chembl: <http://identifiers.org/chembl.compound/>.
+@prefix gtp: <http://www.guidetopharmacology.org/data/>.
+@prefix gtpo: <http://www.guidetopharmacology.org/ns/>.
+@prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
+@prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_>.
+@prefix pmid: <http://identifiers.org/pubmed/>.
+@prefix uniprot: <http://identifiers.org/uniprot/>.
+
+#################################
+# Generate key target data - id #
+# name, annotation status       #
+#################################
+
+<TriplesMap1>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT 
+		distinct object.object_id AS id,
+		object.name AS name,
+		object.annotation_status,
+		CASE
+			WHEN object.annotation_status = '1' THEN 'AnnotatedExpertReviewed'
+			WHEN object.annotation_status = '2' THEN 'AnnotatedExpertReviewed'
+			WHEN object.annotation_status = '3' THEN 'AnnotatedAwaitingReview'
+			WHEN object.annotation_status = '4' THEN 'UnderDevelopment'
+			WHEN object.annotation_status = '5' THEN 'UnderDevelopment'
+		END AS status
+		FROM object;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/target{id}"]; 
+	
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type ; 
+      rr:objectMap	[ rr:constant gtpo:Target ];
+    ];
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdfs:label ; 
+      rr:objectMap	[ rr:column "name" ];
+    ];
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:nomenclature ; 
+      rr:objectMap	[ rr:column "name" ];
+    ];
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:annotationStatus;
+        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/data/{status}" ];
+	]
+	.
+	
+	
+####################################
+# Generate target family relations #
+####################################
+
+	<TriplesMap2>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT 
+		object.object_id AS id,
+		family.family_id AS family
+		FROM object, receptor2family, family
+		WHERE family.family_id = receptor2family.family_id 
+		AND object.object_id = receptor2family.object_id;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/target{id}"]; 
+	
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:hasTargetFamily;
+        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/data/targetFamily{family}" ];
+	]
+	.
+#####################################################################
+# Generates blank node for the cross reference data and taxonomy id #
+# where they exist                                                  #
+#####################################################################
+	
+	<TriplesMap3>
+	a rr:TriplesMap;
+	rr:logicalTable [ rr:sqlQuery """
+		SELECT O.object_id AS id, 
+		database_id as DB, 
+		placeholder AS external_id,
+		S.species_id AS species,
+		ncbi_taxonomy_id AS ncbi
+		FROM object O, database_link DL, species S
+		WHERE O.object_id = DL.object_id 
+		AND S.species_id = DL.species_id 
+		AND database_id = 5;
+		""";];
+	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/data/target{id}";];
+	rr:predicateObjectMap
+	[
+		rr:predicate gtpo:hasRef;
+		rr:objectMap [ 
+		rr:template "ref{id}_{species}";
+		rr:termType rr:BlankNode;
+		];
+	]
+	.	
+	
+##########################################
+# Generates reference data in blank node #
+##########################################
+	
+	<TriplesMap4>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT O.object_id AS id, 
+		database_id as DB, 
+		placeholder AS external_id,
+		S.species_id AS species,
+		ncbi_taxonomy_id AS ncbi,
+		CASE 
+		WHEN database_id = 5 THEN 'http://identifiers.org/Uniprot/'
+		END AS namespace
+		FROM object O, database_link DL, species S
+		WHERE O.object_id = DL.object_id 
+		AND S.species_id = DL.species_id 
+		AND database_id = 5;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "ref{id}_{species}";
+					rr:termType rr:BlankNode; ]; 
+	
+	 rr:predicateObjectMap [
+        rr:predicate gtpo:xref;
+        rr:objectMap [ rr:template "{namespace}{external_id}" ];
+	];
+	 rr:predicateObjectMap [
+		rr:predicate gtpo:hasTaxonomy;
+		rr:objectMap [ rr:template "http://purl.obolibrary.org/obo/NCBITaxon_{ncbi}"];
+	]
+	.
+	
+#####################################
+# Generate target family data - id, #
+# name and family class             #
+#####################################
+
+	
+	<TriplesMap5>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT distinct family_id AS id, 
+		name, 
+		type 
+		FROM family;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/targetFamily{id}"; ]; 
+
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type ; 
+      rr:objectMap	[ rr:constant gtpo:TargetFamily ];
+    ];
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdfs:label; 
+      rr:objectMap	[ rr:column "name" ]
+    ];
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:targetFamilyName; 
+      rr:objectMap	[ rr:column "name" ]
+    ];
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:hasTargetFamilyClass; 
+      rr:objectMap	[ rr:template "http://www.guidetopharmacology.org/data/targetFamilyClass_{type}" ]
+    ]
+	.
+
+#######################################
+# Generate target family class data - #
+# id and name                         #
+#######################################
+	
+	<TriplesMap6>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+			SELECT 
+			distinct(type),
+			CASE 
+			WHEN type = 'vgic' THEN 'Voltage-gated ion channel'
+			WHEN type = 'catalytic_receptor' THEN 'Catalytic Receptor'
+			WHEN type = 'nhr' THEN 'Nuclear hormone receptors'
+			WHEN type = 'enzyme' THEN 'Enzyme'
+			WHEN type = 'grouping' THEN 'Grouping'
+			WHEN type = 'gpcr' THEN 'G-protein coupled receptors'
+			WHEN type = 'other_protein' THEN 'Other protein'
+			WHEN type = 'transporter' THEN 'Transporter'
+			WHEN type = 'other_ic' THEN 'Other ion channel'
+			WHEN type = 'lgic' THEN 'Ligand-gated ion channel'
+			END AS familyclassname
+			FROM family;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/targetFamilyClass_{type}";]; 
+
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type ; 
+      rr:objectMap	[ rr:constant gtpo:TargetFamilyClass ];
+    ];
+	rr:predicateObjectMap
+    [ 
+      rr:predicate	rdfs:label; 
+      rr:objectMap	[ rr:column "familyclassname" ]
+    ];
+    rr:predicateObjectMap
+    [ 
+      rr:predicate	gtpo:targetFamilyClassName; 
+      rr:objectMap	[ rr:column "familyclassname" ]
+    ].
+	
+##########################################
+# Generate classes for annotation_status #
+##########################################
+	
+	<TriplesMap7>
+    a rr:TriplesMap;
+        
+    rr:logicalTable [ rr:sqlQuery """
+		SELECT 
+		distinct annotation_status,
+		CASE
+			WHEN object.annotation_status = '1' OR object.annotation_status = '2' THEN 'AnnotatedExpertReviewed'
+			WHEN object.annotation_status = '3' THEN 'AnnotatedAwaitingReview'
+			WHEN object.annotation_status = '5' OR object.annotation_status = '4' THEN 'UnderDevelopment'
+		END AS status
+		FROM object WHERE object.annotation_status = 1 OR object.annotation_status = 3 OR object.annotation_status = 5;
+		""";] ;
+	
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/{status}";]; 
+		rr:predicateObjectMap
+    [ 
+      rr:predicate	rdf:type ; 
+      rr:objectMap	[ rr:template "http://www.guidetopharmacology.com/ns/{status}" ];
+    ];
+	.
