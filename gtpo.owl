@@ -125,9 +125,12 @@
 
 ###  http://www.guidetopharmacology.org/ns/hasSpecies
 <http://www.guidetopharmacology.org/ns/hasSpecies> rdf:type owl:ObjectProperty ;
-                                                   rdfs:domain <http://www.guidetopharmacology.org/ns/Interaction> ,
-                                                               <http://www.guidetopharmacology.org/ns/Ligand> ,
-                                                               <http://www.guidetopharmacology.org/ns/Target> ;
+                                                   rdfs:domain [ rdf:type owl:Class ;
+                                                                 owl:unionOf ( <http://www.guidetopharmacology.org/ns/Interaction>
+                                                                               <http://www.guidetopharmacology.org/ns/Ligand>
+                                                                               <http://www.guidetopharmacology.org/ns/Target>
+                                                                             )
+                                                               ] ;
                                                    rdfs:comment "Cross reference to NCBI taxonomy" .
 
 
