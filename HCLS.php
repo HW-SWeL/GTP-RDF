@@ -15,7 +15,7 @@ Liam Bruce 01/04/2017
    See the License for the specific language governing permissions and
    limitations under the License.
  */
- 
+
 /*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
 $version_number = readline("Please enter version number:") or $version_number = 1;
 while($version_number < 0){
@@ -23,7 +23,7 @@ while($version_number < 0){
 }
 $db_version = readline("Please enter the Guide to Pharmacology database version used (YYYY.version)") or $db_version = date(Y).$version_number;
 
-$db_version = "public_iuphardb_v".$db_version.".zip"; 
+$db_version = "public_iuphardb_v".$db_version.".zip";
 
 /**
 Issue Date Input and Validation
@@ -86,17 +86,17 @@ $date_created = $year_created."-".$month_created."-".$day_created;
 ####################################################################
 ####################################################################
  */
-$summaryfile = fopen("Output\\Summary.ttl", "w") or die("Unable to open summary file!");
-$versionfile = fopen("Output\\Version.ttl", "w") or die("Unable to open version file!");
-$ligandfile = fopen("Output\\DistributionLigand.ttl", "w") or die("Unable to open ligand distribution file!");
-$targetfile = fopen("Output\\DistributionTarget.ttl", "w") or die("Unable to open target distribution file!");
-$interactionfile = fopen("Output\\DistributionInteraction.ttl", "w") or die("Unable to open interaction distribution file!");
+$summaryfile = fopen("Data/Summary.ttl", "w") or die("Unable to open summary file!");
+$versionfile = fopen("Data/Version.ttl", "w") or die("Unable to open version file!");
+$ligandfile = fopen("Data/DistributionLigand.ttl", "w") or die("Unable to open ligand distribution file!");
+$targetfile = fopen("Data/DistributionTarget.ttl", "w") or die("Unable to open target distribution file!");
+$interactionfile = fopen("Data/DistributionInteraction.ttl", "w") or die("Unable to open interaction distribution file!");
 
 /*Set different print values for each file*/
 /*List of imports, is part of every dataset description*/
-$import = "@base <http://www.guidetopharmacology.org/DATA/>.
-@prefix : <http://www.guidetopharmacology.org/DATA/>.
-@prefix gtpm: <http://www.guidetopharmacology.org/description/>.
+$import = "@base <http://www.guidetopharmacology.org/GRAC/>.
+@prefix : <http://www.guidetopharmacology.org/GRAC/>.
+@prefix gtpo: <http://www.guidetopharmacology.org/ns/gtpo/>.
 @prefix sio: <http://semanticscience.org/resource/SIO_>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -120,9 +120,9 @@ $import = "@base <http://www.guidetopharmacology.org/DATA/>.
 
 
 /*License for Guide to Pharmacology*/
-$license = "\"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL). 
+$license = "\"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL).
 				Its contents are licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license.
-				
+
 For a general citation of the database please cite the article published in the Nucleic Acids Research Database Issue.
 
     Southan C, Sharman JL, Benson HE, Faccenda E, Pawson AJ, Alexander SPH, Buneman OP, Davenport AP, McGrath JC, Peters JA, Spedding M, Catterall WA, Fabbro D, Davies JA; NC-IUPHAR. (2016) The IUPHAR/BPS Guide to PHARMACOLOGY in 2016: towards curated quantitative interactions between 1300 protein targets and 6000 ligands. Nucl. Acids Res. 44 (Database Issue): D1054-68.
@@ -142,7 +142,7 @@ Work using the detailed target pages and family introductions (information from 
 
 $summary = "
 #Summary
-:gtp 
+:gtp
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology\"@en;
 	dct:alternative \"Guide to Pharmacology RDF\"@en;
@@ -161,8 +161,8 @@ $summary = "
 
 $version = "
 #Version
-:gtp".$version_number."  
-	rdf:type dctypes:Dataset; 
+:gtp".$version_number."
+	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number."\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number."\"@en;
 	dct:description \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
@@ -174,7 +174,7 @@ $version = "
 	foaf:page <http://www.guidetopharmacology.org>;
     dcat:distribution gtpm:gtp".$version_number."Ligand;
    	dcat:distribution gtpm:gtp".$version_number."Target;
-	dcat:distribution gtpm:gtp".$version_number."Interaction;   
+	dcat:distribution gtpm:gtp".$version_number."Interaction;
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
 	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
@@ -187,7 +187,7 @@ $version = "
 	pav:version \"".$version_number."\"^^xsd:string;
 	dcat:source :".$db_version.";
 	.";
-	
+
 /*Ligand Distribution level dataset description for Guide to Pharmacology*/
 
 $ligand = "

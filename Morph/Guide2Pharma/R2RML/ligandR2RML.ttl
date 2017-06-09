@@ -5,12 +5,12 @@
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@base <http://www.guidetopharmacology.org/data/> .
+@base <http://www.guidetopharmacology.org/GRAC/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix chembl: <http://identifiers.org/chembl.compound/>.
-@prefix gtp: <http://www.guidetopharmacology.org/data/>.
-@prefix gtpo: <http://www.guidetopharmacology.org/ns/>.
+@prefix gtp: <http://www.guidetopharmacology.org/GRAC/>.
+@prefix gtpo: <http://www.guidetopharmacology.org/ns/gtpo/>.
 @prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
 @prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_>.
 @prefix pmid: <http://identifiers.org/pubmed/>.
@@ -24,72 +24,72 @@
 
 <TriplesMap1>
     a rr:TriplesMap;
-        
+
     rr:logicalTable [ rr:sqlQuery """
-		SELECT 
-		L.ligand_id AS id, 
-		name AS name, 
-		type, 
-		approved, 
-		CASE 
-			WHEN type = 'Synthetic organic' THEN '6' 
-			WHEN type = 'Natural product' THEN '1' 
-			WHEN type = 'Metabolite' THEN '3' 
-			WHEN type = 'Inorganic' THEN '2' 
-			WHEN type = 'Antibody' THEN '5' 
-			WHEN type = 'Peptide' THEN '4' 
+		SELECT
+		L.ligand_id AS id,
+		name AS name,
+		type,
+		approved,
+		CASE
+			WHEN type = 'Synthetic organic' THEN '6'
+			WHEN type = 'Natural product' THEN '1'
+			WHEN type = 'Metabolite' THEN '3'
+			WHEN type = 'Inorganic' THEN '2'
+			WHEN type = 'Antibody' THEN '5'
+			WHEN type = 'Peptide' THEN '4'
 		END AS chemicalclass,
-		CASE 
-			WHEN approved = 't' THEN 't' 
-			WHEN approved = 'f' THEN 'f' 
-			ELSE approved = 'f' 
-		END AS approval 
+		CASE
+			WHEN approved = 't' THEN 't'
+			WHEN approved = 'f' THEN 'f'
+			ELSE approved = 'f'
+		END AS approval
 		FROM ligand L;
 		""";] ;
-	
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/ligand{id}" ]; 
-	
+
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}" ];
+
 	rr:predicateObjectMap
-    [ 
-      rr:predicate	rdf:type; 
+    [
+      rr:predicate	rdf:type;
       rr:objectMap	[ rr:constant gtpo:Ligand ];
     ];
 	rr:predicateObjectMap
-    [ 
-      rr:predicate	rdfs:label; 
+    [
+      rr:predicate	rdfs:label;
       rr:objectMap	[ rr:column "name" ]
     ];
     rr:predicateObjectMap
-    [ 
-      rr:predicate	gtpo:ligandName; 
+    [
+      rr:predicate	gtpo:ligandName;
       rr:objectMap	[ rr:column "name" ];
     ];
 	rr:predicateObjectMap [
         rr:predicate gtpo:hasChemicalClass;
-        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/data/chemicalClass{chemicalclass}" ];
+        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/chemicalClass{chemicalclass}" ];
 	];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:approved;
         rr:objectMap [ rr:column "approval" ];
 	]
 	.
-	
+
 ############################
 # Generate ligand comments #
 ############################
-	
+
 	<TriplesMap2>
 	a rr:TriplesMap;
 	rr:logicalTable[rr:sqlQuery"""
-	SELECT 
-	ligand_id AS id, 
-	comments AS comment 
-	FROM ligand 
+	SELECT
+	ligand_id AS id,
+	comments AS comment
+	FROM ligand
 	WHERE comments <> '';
 	""";];
-	
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/data/ligand{id}"];
-	
+
+	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}"];
+
 	rr:predicateObjectMap
 	[
 	rr:predicate gtpo:comment;
@@ -100,19 +100,19 @@
 ##############################
 # Generate ligand iupac name #
 ##############################
-	
+
 	<TriplesMap3>
 	a rr:TriplesMap;
 	rr:logicalTable[rr:sqlQuery"""
-	SELECT 
-	ligand_id AS id, 
-	iupac_name AS iupac 
-	FROM ligand 
+	SELECT
+	ligand_id AS id,
+	iupac_name AS iupac
+	FROM ligand
 	WHERE iupac_name <> '';
 	""";];
-	
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/data/ligand{id}"];
-	
+
+	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}"];
+
 	rr:predicateObjectMap
 	[
 	rr:predicate gtpo:iupacName;
@@ -123,20 +123,20 @@
 ############################
 # Generate ligand synonyms #
 ############################
-	
+
 	<TriplesMap4>
 	a rr:TriplesMap;
 	rr:logicalTable[rr:sqlQuery"""
-	SELECT 
-	L.ligand_id AS id, 
-	synonym AS synonym 
+	SELECT
+	L.ligand_id AS id,
+	synonym AS synonym
 	FROM ligand L, ligand2synonym L2S
 	WHERE L.ligand_id = L2S.ligand_id
 	AND  synonym <> '';
 	""";];
-	
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/data/ligand{id}"];
-	
+
+	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}"];
+
 	rr:predicateObjectMap
 	[
 	rr:predicate gtpo:synonym;
@@ -147,25 +147,25 @@
 #######################################################################
 # Generate ligand database references, except UniProt which is placed #
 # in a blank node pair with taxonomy by the next two Triples Maps     #
-#######################################################################	
+#######################################################################
 
 	<TriplesMap5>
     a rr:TriplesMap;
-        
+
     rr:logicalTable [ rr:sqlQuery """
-		SELECT L.ligand_id AS id, 
-		database_id, 
-		placeholder AS external_id, 
-		CASE 
+		SELECT L.ligand_id AS id,
+		database_id,
+		placeholder AS external_id,
+		CASE
 		WHEN database_id = 33 THEN 'http://identifiers.org/chembl.compound/'
-		END AS  namespace 
+		END AS  namespace
 		FROM ligand L, ligand_database_link LDL
 		WHERE database_id = 33
 		AND LDL.ligand_id = L.ligand_id;
 		""";] ;
-	
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/ligand{id}" ]; 
-	
+
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}" ];
+
 	 rr:predicateObjectMap [
         rr:predicate gtpo:xref;
         rr:objectMap [ rr:template "{namespace}{external_id}" ];
@@ -176,25 +176,25 @@
 ####################################
 # Generate ligand structure data - #
 # InChI identifiers & SMILES       #
-####################################	
-	
+####################################
+
 	<TriplesMap6>
     a rr:TriplesMap;
-        
+
     rr:logicalTable [ rr:sqlQuery """
 		SELECT
 		ligand_id AS id,
-		isomeric_standard_inchi AS inchi, 
-		isomeric_standard_inchi_key AS key, 
-		isomeric_smiles AS iso, 
-		nonisomeric_smiles AS smiles 
+		isomeric_standard_inchi AS inchi,
+		isomeric_standard_inchi_key AS key,
+		isomeric_smiles AS iso,
+		nonisomeric_smiles AS smiles
 		FROM ligand_structure;
 		""";] ;
-	
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/ligand{id}" ]; 
+
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}" ];
 	rr:predicateObjectMap
-	[ 
-      rr:predicate	gtpo:inChI ; 
+	[
+      rr:predicate	gtpo:inChI ;
       rr:objectMap	[ rr:column "inchi" ];
     ];
 	 rr:predicateObjectMap [
@@ -211,102 +211,102 @@
 		rr:objectMap [rr:column "smiles"];
 	]
 	.
-##################################	
+##################################
 # Generate chemical class data - #
-# id, name and label             #	
+# id, name and label             #
 ##################################
 
 	<TriplesMap7>
     a rr:TriplesMap;
-        
+
     rr:logicalTable [ rr:sqlQuery """
-		SELECT 
+		SELECT
 		distinct type,
-		CASE 
-			WHEN type = 'Synthetic organic' THEN '6' 
-			WHEN type = 'Natural product' THEN '1' 
-			WHEN type = 'Metabolite' THEN '3' 
-			WHEN type = 'Inorganic' THEN '2' 
-			WHEN type = 'Antibody' THEN '5' 
-			WHEN type = 'Peptide' THEN '4' 
+		CASE
+			WHEN type = 'Synthetic organic' THEN '6'
+			WHEN type = 'Natural product' THEN '1'
+			WHEN type = 'Metabolite' THEN '3'
+			WHEN type = 'Inorganic' THEN '2'
+			WHEN type = 'Antibody' THEN '5'
+			WHEN type = 'Peptide' THEN '4'
 		END as id
 		FROM ligand;
 		""";] ;
-	
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/data/chemicalClass{id}" ]; 
-	
+
+    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/chemicalClass{id}" ];
+
 	rr:predicateObjectMap
-    [ 
-      rr:predicate	rdf:type; 
+    [
+      rr:predicate	rdf:type;
       rr:objectMap	[ rr:constant gtpo:ChemicalClass ];
     ];
 	rr:predicateObjectMap
-    [ 
-      rr:predicate	rdfs:label ; 
+    [
+      rr:predicate	rdfs:label ;
       rr:objectMap	[ rr:column "type" ];
     ];
     rr:predicateObjectMap
-    [ 
-      rr:predicate	gtpo:chemicalClassName ; 
+    [
+      rr:predicate	gtpo:chemicalClassName ;
       rr:objectMap	[ rr:column "type" ]
     ]
 	.
-	
+
 #####################################################################
 # Generates blank node for the cross reference data and taxonomy id #
 # where they exist                                                  #
 #####################################################################
-	
+
 	<TriplesMap8>
 	a rr:TriplesMap;
 	rr:logicalTable [ rr:sqlQuery """
-		SELECT L.ligand_id AS id, 
-		database_id as DB, 
+		SELECT L.ligand_id AS id,
+		database_id as DB,
 		placeholder AS external_id,
 		S.species_id AS species,
-		ncbi_taxonomy_id AS ncbi 
-		FROM ligand L, ligand_database_link LDL, species S 
-		WHERE L.ligand_id = LDL.ligand_id 
-		AND S.species_id = LDL.species_id 
+		ncbi_taxonomy_id AS ncbi
+		FROM ligand L, ligand_database_link LDL, species S
+		WHERE L.ligand_id = LDL.ligand_id
+		AND S.species_id = LDL.species_id
 		AND database_id = 5;
 		""";];
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/data/target{id}";];
+	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/target{id}";];
 	rr:predicateObjectMap
 	[
 		rr:predicate gtpo:hasRef;
-		rr:objectMap [ 
+		rr:objectMap [
 		rr:template "ref{species}_{id}";
 		rr:termType rr:BlankNode;
 		];
 	]
-	.	
-	
+	.
+
 ###################################################################
 # Generates reference data in blank node  for cross reference and #
 # taxonomy.                                                       #
 ###################################################################
-	
+
 	<TriplesMap9>
     a rr:TriplesMap;
-        
+
     rr:logicalTable [ rr:sqlQuery """
-		SELECT L.ligand_id AS id, 
-		database_id as DB, 
+		SELECT L.ligand_id AS id,
+		database_id as DB,
 		placeholder AS external_id,
 		S.species_id AS species,
 		ncbi_taxonomy_id AS ncbi,
-		CASE 
+		CASE
 		WHEN database_id = 5 THEN 'http://identifiers.org/Uniprot/'
-		END AS namespace 
-		FROM ligand L, ligand_database_link LDL, species S 
-		WHERE L.ligand_id = LDL.ligand_id 
-		AND S.species_id = LDL.species_id 
+		END AS namespace
+		FROM ligand L, ligand_database_link LDL, species S
+		WHERE L.ligand_id = LDL.ligand_id
+		AND S.species_id = LDL.species_id
 		AND database_id = 5;
 		""";] ;
-	
+
     rr:subjectMap [ rr:template "ref{species}_{id}";
-					rr:termType rr:BlankNode; ]; 
-	
+					rr:termType rr:BlankNode; ];
+
 	 rr:predicateObjectMap [
         rr:predicate gtpo:xref;
         rr:objectMap [ rr:template "{namespace}{external_id}" ];
