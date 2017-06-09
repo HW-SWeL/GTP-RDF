@@ -112,8 +112,11 @@
 
 ###  http://www.guidetopharmacology.org/ns/hasRef
 <http://www.guidetopharmacology.org/ns/hasRef> rdf:type owl:ObjectProperty ;
-                                               rdfs:domain <http://www.guidetopharmacology.org/ns/Ligand> ,
-                                                           <http://www.guidetopharmacology.org/ns/Target> ;
+                                               rdfs:domain [ rdf:type owl:Class ;
+                                                             owl:unionOf ( <http://www.guidetopharmacology.org/ns/Ligand>
+                                                                           <http://www.guidetopharmacology.org/ns/Target>
+                                                                         )
+                                                           ] ;
                                                rdfs:comment "Reference to Blank node pair, containing cross reference and taxonomy" .
 
 
