@@ -94,29 +94,30 @@ $interactionfile = fopen("Data/DistributionInteraction.ttl", "w") or die("Unable
 
 /*Set different print values for each file*/
 /*List of imports, is part of every dataset description*/
-$import = "@base <http://www.guidetopharmacology.org/GRAC/>.
-@prefix : <http://www.guidetopharmacology.org/GRAC/>.
-@prefix gtpo: <http://www.guidetopharmacology.org/ns/gtpo/>.
-@prefix sio: <http://semanticscience.org/resource/SIO_>.
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix chembl: <http://identifiers.org/chembl.compound/>.
-@prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
-@prefix xsd: <http://www.xsd.org>.
-@prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_>.
-@prefix pmid: <http://identifiers.org/pubmed/>.
-@prefix dctypes: <http://purl.org/dc/dcmitype/>.
-@prefix dcat: <http://www.w3.org/ns/dcat#>.
-@prefix dct: <http://purl.org/dc/terms/>.
-@prefix foaf: <http://xmlns.com/foaf/0.1/>.
-@prefix freq: <http://purl.org/cld/freq/>.
-@prefix idot: <http://identifiers.org/idot/>.
-@prefix lexvo: <http://lexvo.org/ontology#>.
-@prefix pav: <http://purl.org/pav/>.
-@prefix prov: <http://www.w3.org/ns/prov#>.
-@prefix void: <http://rdfs.org/ns/void#>.
-@prefix void-ext: <http://ldf.fi/void-ext#>.
-@prefix uniprot: <http://identifiers.org/uniprot/>.";
+$import = "
+  BASE <http://www.guidetopharmacology.org/GRAC/>
+  PREFIX : <http://www.guidetopharmacology.org/GRAC/>
+  PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+  PREFIX cito: <http://purl.org/spar/cito/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
+  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  PREFIX freq: <http://purl.org/cld/freq/>
+  PREFIX idot: <http://identifiers.org/idot/>
+  PREFIX lexvo: <http://lexvo.org/ontology#>
+  PREFIX pav: <http://purl.org/pav/>
+  PREFIX prov: <http://www.w3.org/ns/prov#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX schemaorg: <http://schema.org/>
+  PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
+  PREFIX sio: <http://semanticscience.org/resource/>
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  PREFIX void: <http://rdfs.org/ns/void/>
+  PREFIX void-ext: <http://ldf.fi/void-ext#>";
 
 
 /*License for Guide to Pharmacology*/
@@ -136,25 +137,31 @@ For nomenclature and work using the concise family view pages please cite the re
 Work using the detailed target pages and family introductions (information from IUPHAR-DB) should give the webpage address and acknowledge the NC-IUPHAR contributors who provided the information. Full citation information can be found at the bottom of each page. Example citation formats:
 
     Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/FamilyDisplayForward?familyId=4
-    Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors: α1A-adrenoceptor. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=22\"\"\";";
+    Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors: α1A-adrenoceptor. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=22\"\"\"@en;";
 
 /*Summary level dataset description for Guide to Pharmacology*/
 
 $summary = "
 #Summary
-:gtp
+<http://www.guidetopharmacology.org/GRAC/>
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology\"@en;
-	dct:alternative \"Guide to Pharmacology RDF\"@en;
-	dct:description \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
+	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
+	dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;
 	foaf:page <http://www.guidetopharmacology.org>;
-	dct:publisher [foaf:page<http://www.guidetopharmacology.org>];
+	dct:publisher <http://www.guidetopharmacology.org>;
+  schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
+  dcat:keyword \"Ligand\", \"Target\", \"Protein\";
 	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
 	dct:rights ".$license."
+  cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
+#PROVENANCE&CHANGE
+  pav:hasCurrentVersion :gtp".$version_number.";
+  dct:accrualPeriodicity freq:quarterly;
 .";
 
 /*Version level dataset description for Guide to Pharmacology*/
@@ -282,10 +289,8 @@ $interaction = "
 
 /*Write description to each file*/
 
-/**Summary File will only write on version 1**/
-if($version_number == 1){
 fwrite($summaryfile,$import.$summary);
-echo "Summary Description Generated".PHP_EOL;}
+echo "Summary Description Generated".PHP_EOL;
 fwrite($versionfile,$import.$version);
 echo "Version Description Generated".PHP_EOL;
 fwrite($ligandfile,$import.$ligand);
