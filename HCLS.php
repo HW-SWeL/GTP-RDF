@@ -2,6 +2,7 @@
 <?php
 /*
 Liam Bruce 01/04/2017
+Alasdair Gray
 
    Licensed under the Apache License, Version 2.0.
    you may not use this file except in compliance with the License.
@@ -16,6 +17,27 @@ Liam Bruce 01/04/2017
    limitations under the License.
  */
 
+ date_default_timezone_set('Europe/London');
+ function validateDate($date){
+     $d = DateTime::createFromFormat('Y-m-d', $date);
+     return $d && $d->format('Y-m-d') === $date;
+ }
+
+ function enter_date($date_type) {
+   $date = readline("Please enter the ".$date_type." date (YYYY-mm-dd) [".date("Y-m-d")."]: ")
+   or $date = date("Y-m-d");
+   return $date;
+ }
+
+function date_input($date_type){
+  $date = enter_date($date_type);
+  while (!validateDate($date)) {
+    echo "ERROR entering date. Please enter a valid date in the form YYYY-mm-dd.\n";
+    $date = enter_date($date_type);
+  }
+  return $date;
+}
+
 /*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
 $version_number = readline("Please enter version number:") or $version_number = 1;
 while($version_number < 0){
@@ -28,59 +50,14 @@ $db_version = "public_iuphardb_v".$db_version.".zip";
 /**
 Issue Date Input and Validation
 **/
-$year_issued = readline("Please enter issue year (YYYY): ")
-or $year_issued = date("Y");
-$month_issued = readline("Please enter issue month (mm): ")
-or $month_issued = date("m");
-$day_issued = readline("Please enter issue day (dd): ")
-or $day_issued = date("d");
-
-while(checkdate($month_issued,$day_issued,$year_issued) == false){
-    $year_issued = readline("Please enter issue year (YYYY): ")
-    or $year_issued = date("Y");
-    $month_issued = readline("Please enter issue month (mm): ")
-    or $month_issued = date("m");
-    $day_issued = readline("Please enter issue day (dd): ")
-    or $day_issued = date("d");
-}
-
-if(strlen($month_issued) <2){
-    $month_issued = "0".$month_issued;
-}
-if(strlen($day_issued) <2){
-    $day_issued = "0".$day_issued;
-}
-
-$date_issued = $year_issued."-".$month_issued."-".$day_issued;
+$date_issued = date_input("issue");
 
 /**
 Creation Date Input and Validation
 **/
 
-$year_created = readline("Please enter creation year (YYYY): ")
-or $year_created = date("Y");
-$month_created = readline("Please enter creation month (mm): ")
-or $month_created = date("m");
-$day_created = readline("Please enter creation day (dd): ")
-or $day_created = date("d");
+$date_created = date_input("creation");
 
-while(checkdate($month_created,$day_created,$year_created) == false){
-    $year_created = readline("Please enter creation year (YYYY): ")
-    or $year_created = date("Y");
-    $month_created = readline("Please enter creation month (mm): ")
-    or $month_created = date("m");
-    $day_created = readline("Please enter creation day (dd): ")
-    or $day_created = date("d");
-}
-
-if(strlen($month_created) <2){
-    $month_created = "0".$month_created;
-}
-if(strlen($day_created) <2){
-    $day_created = "0".$day_created;
-}
-
-$date_created = $year_created."-".$month_created."-".$day_created;
 /*
 ####################################################################
 ####################################################################
