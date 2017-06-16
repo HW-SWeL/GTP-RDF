@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 /*
 Liam Bruce 01/04/2017
@@ -16,16 +15,17 @@ Alasdair Gray
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+date_default_timezone_set('Europe/London');
+$db_publish_date = date("Y-m-d");
 
- date_default_timezone_set('Europe/London');
  function validateDate($date){
      $d = DateTime::createFromFormat('Y-m-d', $date);
      return $d && $d->format('Y-m-d') === $date;
  }
 
  function enter_date($date_type) {
-   $date = readline("Please enter the ".$date_type." date (YYYY-mm-dd) [".date("Y-m-d")."]: ")
-   or $date = date("Y-m-d");
+   global $db_publish_date;
+   $date = readline("Please enter the ".$date_type." date (YYYY-mm-dd) [".$db_publish_date."]: ") or $date = $db_publish_date;
    return $date;
  }
 
@@ -38,14 +38,36 @@ function date_input($date_type){
   return $date;
 }
 
-/*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
-$version_number = readline("Please enter version number:") or $version_number = 1;
-while($version_number < 0){
-    $version_number = readline("Please enter version number:") or $version_number = 1;
+function get_db_parameters() {
+  $host = readline("Database host [localhost]: ") or $host = "localhost";
+  $port = readline("Database port [5432]: ") or $port = "5432";
+  $dbname = readline("Database name [Guide2Pharma]: ") or $dbname = "Guide2Pharma";
+  $user = readline("Database user [postgres]: ") or $user = "postgres";
+  $password = readline("Database password: ");
+  return "host=".$host." port=".$port." dbname=".$dbname." user=".$user." password=".$password;
 }
-$db_version = readline("Please enter the Guide to Pharmacology database version used (YYYY.version)") or $db_version = date(Y).$version_number;
 
-$db_version = "public_iuphardb_v".$db_version.".zip";
+/* Connect to Guide 2 Pharmacology database to retrieve some default values */
+$dbconnection = pg_connect(get_db_parameters());
+if($dbconnection) {
+  echo "Connected to Guide to Pharmacology database...";
+  $query = 'SELECT version_number, publish_date from version';
+  $result = pg_query($dbconnection, $query) or error('Query failed: ' . pg_last_error());
+  $row = pg_fetch_assoc($result);
+  $db_version_number = $row['version_number'];
+  $db_publish_date = $row['publish_date'];
+  echo "metadata extracted.\n";
+} else {
+  echo "Unable to connect to the database. Using dummy default values.\n";
+  $db_version_number = date('Y.m');
+  $db_publish_date = date('Y-m-d');
+}
+pg_close($dbconnection);
+
+/*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
+$rdf_version_number = readline("Please enter version number for the generated RDF [".$db_version_number.".1]: ") or $rdf_version_number = $db_version_number.".1";
+$version_number = readline("Please enter the Guide to Pharmacology database version used [".$db_version_number."]: ") or $version_number = $db_version_number;
+$db_source_file = "http://www.guidetopharmacology.org/DATA/public_iuphardb_v".$version_number.".zip";
 
 /**
 Issue Date Input and Validation
@@ -65,6 +87,7 @@ $date_created = date_input("creation");
  */
 $summaryfile = fopen("Data/Summary.ttl", "w") or die("Unable to open summary file!");
 $versionfile = fopen("Data/Version.ttl", "w") or die("Unable to open version file!");
+$postgresfile = fopen("Data/DistributionPostgres.ttl", "w") or die("Unable to open postgres distribution file!");
 $ligandfile = fopen("Data/DistributionLigand.ttl", "w") or die("Unable to open ligand distribution file!");
 $targetfile = fopen("Data/DistributionTarget.ttl", "w") or die("Unable to open target distribution file!");
 $interactionfile = fopen("Data/DistributionInteraction.ttl", "w") or die("Unable to open interaction distribution file!");
@@ -142,23 +165,21 @@ $summary = "
 .";
 
 /*Version level dataset description for Guide to Pharmacology*/
-
 $version = "
 #Version
 :gtp".$version_number."
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number."\"@en;
-	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number."\"@en;
+	dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number."\"@en;
 	dct:description \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
-	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
-	dct:publisher [foaf:page<http://www.guidetopharmacology.org>];
+	dct:creator <http://www.guidetopharmacology.org>;
+	dct:publisher <http://www.guidetopharmacology.org>;
 	foaf:page <http://www.guidetopharmacology.org>;
-    dcat:distribution gtpm:gtp".$version_number."Ligand;
-   	dcat:distribution gtpm:gtp".$version_number."Target;
-	dcat:distribution gtpm:gtp".$version_number."Interaction;
+  schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
+  dcat:distribution :gtp".$version_number.".postgres;
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
 	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
@@ -167,16 +188,28 @@ $version = "
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
-	dct:isVersionOf :gtp;
+	dct:isVersionOf <http://www.guidetopharmacology.org/GRAC/>;
 	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_version.";
-	.";
+	.
+  :gtp".$version_number."Ligand dcat:distribution :gtp".$version_number."Ligand.n3 .
+  :gtp".$version_number."Target dcat:distribution :gtp".$version_number."Target.n3 .
+  :gtp".$version_number."Interaction dcat:distribution :gtp".$version_number."Interaction.n3 .
+  ";
+
+/* Postgres data dump distribution description */
+$postgres = "
+#Postgres Distribution
+:gtp".$version_number.".postgres
+  rdf:type dctypes:Dataset, dcat:Distribution;
+  dcat:downloadURL <".$db_source_file.">;
+  .
+";
 
 /*Ligand Distribution level dataset description for Guide to Pharmacology*/
 
 $ligand = "
-#LIGAND Distribution
-:gtp".$version_number."Ligand
+#LIGAND n3 Distribution
+:gtp".$version_number."Ligand.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
@@ -198,15 +231,15 @@ $ligand = "
 	idot:exampleResource <http://www.guidetopharmacology.com/data/ligand2527>;
 #PROVENANCE&CHANGE
 	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_version.";
+	dcat:source :".$db_source_file.";
 .
 ";
 
 /*Target Distribution level dataset description for Guide to Pharmacology*/
 
 $target = "
-#TARGET Distribution
-:gtp".$version_number."Target
+#TARGET n3 Distribution
+:gtp".$version_number."Target.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number." Target Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Target Distribution\"@en;
@@ -228,15 +261,15 @@ $target = "
 	idot:exampleResource <http://www.guidetopharmacology.com/data/2400>;
 #PROVENANCE&CHANGE
 	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_version.";
+	dcat:source :".$db_source_file.";
 .
 ";
 
 /*interaction Distribution level dataset description for Guide to Pharmacology*/
 
 $interaction = "
-#Distribution
-:gtp".$version_number."Interaction
+#Interaction n3 Distribution
+:gtp".$version_number."Interaction.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
@@ -259,7 +292,7 @@ $interaction = "
 	idot:exampleResource <http://www.guidetopharmacology.com/data/interaction2833>;
 #PROVENANCE&CHANGE
 	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_version.";
+	dcat:source :".$db_source_file.";
 .
 ";
 
@@ -270,10 +303,12 @@ fwrite($summaryfile,$import.$summary);
 echo "Summary Description Generated".PHP_EOL;
 fwrite($versionfile,$import.$version);
 echo "Version Description Generated".PHP_EOL;
+fwrite($postgresfile,$import.$postgres);
+echo "Postgres Distribution Description Generated".PHP_EOL;
 fwrite($ligandfile,$import.$ligand);
-echo "Ligand Distribution Description Generated".PHP_EOL;
+echo "Ligand n3 Distribution Description Generated".PHP_EOL;
 fwrite($targetfile,$import.$target);
-echo "Target Distribution Description Generated".PHP_EOL;
+echo "Target n3 Distribution Description Generated".PHP_EOL;
 fwrite($interactionfile,$import.$interaction);
-echo "interaction Distribution Description Generated".PHP_EOL;
+echo "Interaction n3 Distribution Description Generated".PHP_EOL;
 ?>
