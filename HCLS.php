@@ -120,9 +120,11 @@ $import = "
   PREFIX void-ext: <http://ldf.fi/void-ext#>";
 
 $GTP_DESCRIPTION = "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;";
+$GTP_PUBLISHER = "dct:publisher <http://www.guidetopharmacology.org>;";
 
 /*License for Guide to Pharmacology*/
-$license = "\"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL).
+$GTP_LICENSE = "dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
+  dct:rights \"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL).
 				Its contents are licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license.
 
 For a general citation of the database please cite the article published in the Nucleic Acids Research Database Issue.
@@ -150,13 +152,12 @@ $summary = "
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
   ".$GTP_DESCRIPTION."
 	foaf:page <http://www.guidetopharmacology.org>;
-	dct:publisher <http://www.guidetopharmacology.org>;
+	".$GTP_PUBLISHER."
   schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
   dcat:keyword \"Ligand\", \"Target\", \"Protein\";
-	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
-	dct:rights ".$license."
+	".$GTP_LICENSE."
   cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
@@ -177,14 +178,13 @@ $version = "
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
 	dct:creator <http://www.guidetopharmacology.org>;
-	dct:publisher <http://www.guidetopharmacology.org>;
+	".$GTP_PUBLISHER."
 	foaf:page <http://www.guidetopharmacology.org>;
   schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
   dcat:distribution :gtp".$version_number.".postgres;
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
-	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
-	dct:rights ".$license."
+	".$GTP_LICENSE."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
@@ -206,6 +206,14 @@ $postgres = "
   dct:title \"Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
   dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
   ".$GTP_DESCRIPTION."
+  dct:issued \"".$date_issued."\"^^xsd:date;
+	dct:created \"".$date_created."\"^^xsd:date;
+	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
+	".$GTP_PUBLISHER."
+	foaf:page <http://www.guidetopharmacology.org>;
+  dcat:theme sio:010432; #ligand
+	dcat:theme sio:010423; #target
+  ".$GTP_LICENSE."
   dcat:downloadURL <".$db_source_file.">;
   .
 ";
@@ -228,8 +236,7 @@ $ligand = "
 	foaf:page <http://www.guidetopharmacology.org>;
 	dcat:theme sio:010432; #ligand
 	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
-	dct:rights ".$license."
+	".$GTP_LICENSE."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 	void:vocabulary <http://identifiers.org/chembl.compound/>,<http://identifiers.org/uniprot/>, <http://purl.obolibrary.org/obo/NCBITaxon_> ;
 #IDENTIFIERS
@@ -257,9 +264,8 @@ $target = "
 	dct:publisher [foaf:page<http://www.guidetopharmacology.org>];
 	foaf:page <http://www.guidetopharmacology.org>;
 	dcat:theme sio:010423; #target
-	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
 	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	dct:rights ".$license."
+	".$GTP_LICENSE."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 	void:vocabulary <http://identifiers.org/uniprot/>, <http://purl.obolibrary.org/obo/NCBITaxon_>;
 #IDENTIFIERS
@@ -288,9 +294,8 @@ $interaction = "
 	foaf:page <http://www.guidetopharmacology.org>;
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
-	dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
 	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	dct:rights ".$license."
+	".$GTP_LICENSE."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 	void:vocabulary <http://www.bioassayontology.org/bao/bao_complete.owl>, <http://purl.obolibrary.org/obo/NCBITaxon_>, <http://identifiers.org/pubmed/>;
 #IDENTIFIERS
