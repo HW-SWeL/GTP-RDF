@@ -123,7 +123,7 @@ $GTP_DESCRIPTION = "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An e
 $GTP_PUBLISHER = "dct:publisher <http://www.guidetopharmacology.org>;";
 
 /*License for Guide to Pharmacology*/
-$GTP_LICENSE = "dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
+$GTP_LICENSE_RIGHTS = "dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
   dct:rights \"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL).
 				Its contents are licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license.
 
@@ -141,6 +141,17 @@ Work using the detailed target pages and family introductions (information from 
 
     Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/FamilyDisplayForward?familyId=4
     Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors: α1A-adrenoceptor. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=22\"\"\"@en;";
+$GTP_DATES = "dct:issued \"".$date_issued."\"^^xsd:date;
+	dct:created \"".$date_created."\"^^xsd:date;";
+$GTP_CREATOR = "dct:creator <http://www.guidetopharmacology.org>;";
+$GTP_PAGE_LOGO = "foaf:page <http://www.guidetopharmacology.org>;
+  schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;";
+$GTP_LIGAND_THEME = "dcat:keyword \"Ligand\";
+	dcat:theme sio:010432; #ligand";
+$GTP_TARGET_THEME = "dcat:keyword \"Target\", \"Protein\";
+	dcat:theme sio:010423; #target";
+$GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
+
 
 /*Summary level dataset description for Guide to Pharmacology*/
 
@@ -151,14 +162,12 @@ $summary = "
 	dct:title \"Guide to Pharmacology\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
   ".$GTP_DESCRIPTION."
-	foaf:page <http://www.guidetopharmacology.org>;
-	".$GTP_PUBLISHER."
-  schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
-	dcat:theme sio:010432; #ligand
-	dcat:theme sio:010423; #target
-  dcat:keyword \"Ligand\", \"Target\", \"Protein\";
-	".$GTP_LICENSE."
-  cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;
+  ".$GTP_PUBLISHER."
+  ".$GTP_PAGE_LOGO."
+  ".$GTP_LIGAND_THEME."
+  ".$GTP_TARGET_THEME."
+  ".$GTP_LICENSE_RIGHTS."
+  ".$GTP_CITATION."
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
@@ -174,18 +183,17 @@ $version = "
 	dct:title \"Guide to Pharmacology Version ".$version_number."\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number."\"@en;
   ".$GTP_DESCRIPTION."
-	dct:issued \"".$date_issued."\"^^xsd:date;
-	dct:created \"".$date_created."\"^^xsd:date;
+  ".$GTP_DATES."
 	dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
-	dct:creator <http://www.guidetopharmacology.org>;
+	".$GTP_CREATOR."
 	".$GTP_PUBLISHER."
-	foaf:page <http://www.guidetopharmacology.org>;
-  schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
+  ".$GTP_PAGE_LOGO."
   dcat:distribution :gtp".$version_number.".postgres;
-	dcat:theme sio:010432; #ligand
-	dcat:theme sio:010423; #target
-	".$GTP_LICENSE."
+  ".$GTP_LIGAND_THEME."
+  ".$GTP_TARGET_THEME."
+	".$GTP_LICENSE_RIGHTS."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
+  ".$GTP_CITATION."
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
@@ -206,14 +214,14 @@ $postgres = "
   dct:title \"Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
   dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
   ".$GTP_DESCRIPTION."
-  dct:issued \"".$date_issued."\"^^xsd:date;
-	dct:created \"".$date_created."\"^^xsd:date;
-	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
+  ".$GTP_DATES."
+	".$GTP_CREATOR."
 	".$GTP_PUBLISHER."
-	foaf:page <http://www.guidetopharmacology.org>;
-  dcat:theme sio:010432; #ligand
-	dcat:theme sio:010423; #target
-  ".$GTP_LICENSE."
+  ".$GTP_PAGE_LOGO."
+  ".$GTP_LIGAND_THEME."
+  ".$GTP_TARGET_THEME."
+  ".$GTP_LICENSE_RIGHTS."
+  ".$GTP_CITATION."
   dcat:downloadURL <".$db_source_file.">;
   .
 ";
@@ -232,11 +240,11 @@ $ligand = "
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
-	dct:publisher [foaf:page<http://www.guidetopharmacology.org>];
-	foaf:page <http://www.guidetopharmacology.org>;
+	".$GTP_PUBLISHER."
+  ".$GTP_PAGE_LOGO."
 	dcat:theme sio:010432; #ligand
 	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	".$GTP_LICENSE."
+	".$GTP_LICENSE_RIGHTS."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 	void:vocabulary <http://identifiers.org/chembl.compound/>,<http://identifiers.org/uniprot/>, <http://purl.obolibrary.org/obo/NCBITaxon_> ;
 #IDENTIFIERS
@@ -261,11 +269,11 @@ $target = "
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
-	dct:publisher [foaf:page<http://www.guidetopharmacology.org>];
-	foaf:page <http://www.guidetopharmacology.org>;
+	".$GTP_PUBLISHER."
+  ".$GTP_PAGE_LOGO."
 	dcat:theme sio:010423; #target
 	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	".$GTP_LICENSE."
+	".$GTP_LICENSE_RIGHTS."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 	void:vocabulary <http://identifiers.org/uniprot/>, <http://purl.obolibrary.org/obo/NCBITaxon_>;
 #IDENTIFIERS
@@ -290,12 +298,12 @@ $interaction = "
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
-	dct:publisher [foaf:page<http://www.guidetopharmacology.org>];
-	foaf:page <http://www.guidetopharmacology.org>;
+	".$GTP_PUBLISHER."
+  ".$GTP_PAGE_LOGO."
 	dcat:theme sio:010432; #ligand
 	dcat:theme sio:010423; #target
 	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	".$GTP_LICENSE."
+	".$GTP_LICENSE_RIGHTS."
 	dct:language <http://lexvo.org/id/iso639-3/eng>;
 	void:vocabulary <http://www.bioassayontology.org/bao/bao_complete.owl>, <http://purl.obolibrary.org/obo/NCBITaxon_>, <http://identifiers.org/pubmed/>;
 #IDENTIFIERS
@@ -313,14 +321,14 @@ $interaction = "
 
 fwrite($summaryfile,$import.$summary);
 echo "Summary Description Generated".PHP_EOL;
-fwrite($versionfile,$import.$version);
+fwrite($versionfile,$import.$version.$postgres);
 echo "Version Description Generated".PHP_EOL;
-fwrite($postgresfile,$import.$postgres);
-echo "Postgres Distribution Description Generated".PHP_EOL;
-fwrite($ligandfile,$import.$ligand);
-echo "Ligand n3 Distribution Description Generated".PHP_EOL;
-fwrite($targetfile,$import.$target);
-echo "Target n3 Distribution Description Generated".PHP_EOL;
-fwrite($interactionfile,$import.$interaction);
-echo "Interaction n3 Distribution Description Generated".PHP_EOL;
+#fwrite($postgresfile,$import.$postgres);
+#echo "Postgres Distribution Description Generated".PHP_EOL;
+#fwrite($ligandfile,$import.$ligand);
+#echo "Ligand n3 Distribution Description Generated".PHP_EOL;
+#fwrite($targetfile,$import.$target);
+#echo "Target n3 Distribution Description Generated".PHP_EOL;
+#fwrite($interactionfile,$import.$interaction);
+#echo "Interaction n3 Distribution Description Generated".PHP_EOL;
 ?>
