@@ -119,6 +119,7 @@ $import = "
   PREFIX void: <http://rdfs.org/ns/void/>
   PREFIX void-ext: <http://ldf.fi/void-ext#>";
 
+$GTP_DESCRIPTION = "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;";
 
 /*License for Guide to Pharmacology*/
 $license = "\"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL).
@@ -147,7 +148,7 @@ $summary = "
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
-	dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;
+  ".$GTP_DESCRIPTION."
 	foaf:page <http://www.guidetopharmacology.org>;
 	dct:publisher <http://www.guidetopharmacology.org>;
   schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;
@@ -171,7 +172,7 @@ $version = "
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number."\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number."\"@en;
-	dct:description \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
+  ".$GTP_DESCRIPTION."
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
@@ -197,13 +198,19 @@ $version = "
   ";
 
 /* Postgres data dump distribution description */
+//TODO: Complete Postgres Distribution Description
 $postgres = "
 #Postgres Distribution
 :gtp".$version_number.".postgres
   rdf:type dctypes:Dataset, dcat:Distribution;
+  dct:title \"Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
+  dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
+  ".$GTP_DESCRIPTION."
   dcat:downloadURL <".$db_source_file.">;
   .
 ";
+
+//TODO: Combine the n3 distributions into one and have a single description for them
 
 /*Ligand Distribution level dataset description for Guide to Pharmacology*/
 
@@ -212,8 +219,8 @@ $ligand = "
 :gtp".$version_number."Ligand.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
-	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
-	dct:desctiption \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
+	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
+  ".$GTP_DESCRIPTION."
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
@@ -243,7 +250,7 @@ $target = "
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number." Target Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Target Distribution\"@en;
-	dct:desctiption \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
+  ".$GTP_DESCRIPTION."
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
@@ -273,7 +280,7 @@ $interaction = "
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
-	dct:desctiption \"\"\"Guide to Pharmacology is a database of pharmacological targets and the substances that act on them, driven by experts\"\"\"@en;
+  ".$GTP_DESCRIPTION."
 	dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;
 	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
