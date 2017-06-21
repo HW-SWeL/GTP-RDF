@@ -259,7 +259,7 @@ $ligand = "
 	idot:exampleResource <http://www.guidetopharmacology.com/data/ligand2527>;
 #PROVENANCE&CHANGE
 	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_source_file.";
+	dcat:source <".$db_source_file.">;
 .
 ";
 
@@ -327,6 +327,6 @@ $interaction = "
 
 fwrite($summaryfile,$import.$summary);
 echo "Summary Description Generated".PHP_EOL;
-fwrite($versionfile,$import.$version.$postgres);
+fwrite($versionfile,$import.$version.$postgres.$ligand);
 echo "Version Description Generated".PHP_EOL;
 ?>
