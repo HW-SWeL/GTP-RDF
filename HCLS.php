@@ -146,6 +146,7 @@ $GTP_LIGAND_THEME = "dcat:keyword \"Ligand\";
 	dcat:theme sio:010432; #ligand";
 $GTP_TARGET_THEME = "dcat:keyword \"Target\", \"Protein\";
 	dcat:theme sio:010423; #target";
+$GTP_LANGUAGE = "dct:language <http://lexvo.org/id/iso639-3/eng>;";
 $GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
 
 
@@ -186,7 +187,7 @@ $version = "
   ".$GTP_LIGAND_THEME."
   ".$GTP_TARGET_THEME."
   ".$GTP_LICENSE_RIGHTS."
-  dct:language <http://lexvo.org/id/iso639-3/eng>;
+  ".$GTP_LANGUAGE."
   ".$GTP_CITATION."
   dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
 #IDENTIFIERS
@@ -204,7 +205,6 @@ $version = "
   ";
 
 /* Postgres data dump distribution description */
-//TODO: Complete Postgres Distribution Description
 $postgres = "
 #Postgres Distribution
 :gtp".$version_number.".postgres
@@ -219,13 +219,21 @@ $postgres = "
   ".$GTP_LIGAND_THEME."
   ".$GTP_TARGET_THEME."
   ".$GTP_LICENSE_RIGHTS."
+  ".$GTP_LANGUAGE."
   ".$GTP_CITATION."
+#IDENTIFIERS
+#PROVENANCE&CHANGE
+  pav:version \"".$version_number."\"^^xsd:string;
+  #pav:previousVersion ???
+  pav:createdWith <https://www.postgresql.org/>;
+#AVAILABILITY/DISTRIBUTIONS
+  dct:format \"application/sql\";
   dcat:downloadURL <".$db_source_file.">;
   .
 ";
 
 //TODO: Combine the n3 distributions into one and have a single description for them
-
+//TODO: Fix example identifier patterns to match the data
 /*Ligand Distribution level dataset description for Guide to Pharmacology*/
 
 $ligand = "
