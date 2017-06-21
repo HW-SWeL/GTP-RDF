@@ -85,12 +85,8 @@ $date_created = date_input("creation");
 ####################################################################
 ####################################################################
  */
-$summaryfile = fopen("Data/Summary.ttl", "w") or die("Unable to open summary file!");
-$versionfile = fopen("Data/Version.ttl", "w") or die("Unable to open version file!");
-$postgresfile = fopen("Data/DistributionPostgres.ttl", "w") or die("Unable to open postgres distribution file!");
-$ligandfile = fopen("Data/DistributionLigand.ttl", "w") or die("Unable to open ligand distribution file!");
-$targetfile = fopen("Data/DistributionTarget.ttl", "w") or die("Unable to open target distribution file!");
-$interactionfile = fopen("Data/DistributionInteraction.ttl", "w") or die("Unable to open interaction distribution file!");
+$summaryfile = fopen("Data/gtp.ttl", "w") or die("Unable to open summary file!");
+$versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to open version file!");
 
 /*Set different print values for each file*/
 /*List of imports, is part of every dataset description*/
@@ -143,7 +139,7 @@ Work using the detailed target pages and family introductions (information from 
     Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors: α1A-adrenoceptor. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=22\"\"\"@en;";
 $GTP_DATES = "dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;";
-$GTP_CREATOR = "dct:creator <http://www.guidetopharmacology.org>;";
+$GTP_CREATOR = "dct:creator <http://www.guidetopharmacology.org/GRAC/ContributorListForward>;";
 $GTP_PAGE_LOGO = "foaf:page <http://www.guidetopharmacology.org>;
   schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;";
 $GTP_LIGAND_THEME = "dcat:keyword \"Ligand\";
@@ -323,12 +319,4 @@ fwrite($summaryfile,$import.$summary);
 echo "Summary Description Generated".PHP_EOL;
 fwrite($versionfile,$import.$version.$postgres);
 echo "Version Description Generated".PHP_EOL;
-#fwrite($postgresfile,$import.$postgres);
-#echo "Postgres Distribution Description Generated".PHP_EOL;
-#fwrite($ligandfile,$import.$ligand);
-#echo "Ligand n3 Distribution Description Generated".PHP_EOL;
-#fwrite($targetfile,$import.$target);
-#echo "Target n3 Distribution Description Generated".PHP_EOL;
-#fwrite($interactionfile,$import.$interaction);
-#echo "Interaction n3 Distribution Description Generated".PHP_EOL;
 ?>
