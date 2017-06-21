@@ -180,25 +180,27 @@ $version = "
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number."\"@en;
   ".$GTP_DESCRIPTION."
   ".$GTP_DATES."
-	dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
 	".$GTP_CREATOR."
 	".$GTP_PUBLISHER."
   ".$GTP_PAGE_LOGO."
-  dcat:distribution :gtp".$version_number.".postgres;
   ".$GTP_LIGAND_THEME."
   ".$GTP_TARGET_THEME."
-	".$GTP_LICENSE_RIGHTS."
-	dct:language <http://lexvo.org/id/iso639-3/eng>;
+  ".$GTP_LICENSE_RIGHTS."
+  dct:language <http://lexvo.org/id/iso639-3/eng>;
   ".$GTP_CITATION."
+  dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
+  pav:version \"".$version_number."\"^^xsd:string;
 	dct:isVersionOf <http://www.guidetopharmacology.org/GRAC/>;
-	pav:version \"".$version_number."\"^^xsd:string;
+  #pav:previousVersion ???
+#AVAILABILITY/DISTRIBUTIONS
+  dcat:distribution :gtp".$version_number.".postgres;
 	.
-  :gtp".$version_number."Ligand dcat:distribution :gtp".$version_number."Ligand.n3 .
-  :gtp".$version_number."Target dcat:distribution :gtp".$version_number."Target.n3 .
-  :gtp".$version_number."Interaction dcat:distribution :gtp".$version_number."Interaction.n3 .
+:gtp".$version_number."Ligand dcat:distribution :gtp".$version_number."Ligand.n3 .
+:gtp".$version_number."Target dcat:distribution :gtp".$version_number."Target.n3 .
+:gtp".$version_number."Interaction dcat:distribution :gtp".$version_number."Interaction.n3 .
   ";
 
 /* Postgres data dump distribution description */
