@@ -147,6 +147,10 @@ $GTP_LIGAND_THEME = "dcat:keyword \"Ligand\";
 $GTP_TARGET_THEME = "dcat:keyword \"Target\", \"Protein\";
 	dcat:theme sio:010423; #target";
 $GTP_LANGUAGE = "dct:language <http://lexvo.org/id/iso639-3/eng>;";
+//TODO Complete set of vocabularies used in the data
+$GTP_RDF_VOCABS = "void:vocabulary <http://identifiers.org/chembl.compound/>,
+  <http://identifiers.org/uniprot/>,
+  <http://purl.obolibrary.org/obo/NCBITaxon_> ;";
 $GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
 
 
@@ -243,16 +247,15 @@ $ligand = "
 	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
   ".$GTP_DESCRIPTION."
-	dct:issued \"".$date_issued."\"^^xsd:date;
-	dct:created \"".$date_created."\"^^xsd:date;
-	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
+  ".$GTP_DATES."
+  ".$GTP_CREATOR."
 	".$GTP_PUBLISHER."
   ".$GTP_PAGE_LOGO."
-	dcat:theme sio:010432; #ligand
-	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	".$GTP_LICENSE_RIGHTS."
-	dct:language <http://lexvo.org/id/iso639-3/eng>;
-	void:vocabulary <http://identifiers.org/chembl.compound/>,<http://identifiers.org/uniprot/>, <http://purl.obolibrary.org/obo/NCBITaxon_> ;
+  ".$GTP_LIGAND_THEME."
+  ".$GTP_LICENSE_RIGHTS."
+  ".$GTP_LANGUAGE."
+  ".$GTP_RDF_VOCABS."
+  ".$GTP_CITATION."
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 	idot:exampleIdentifier \"ligand2527\"^^xsd:string;
@@ -260,6 +263,7 @@ $ligand = "
 #PROVENANCE&CHANGE
 	pav:version \"".$version_number."\"^^xsd:string;
 	dcat:source <".$db_source_file.">;
+  dct:format <https://www.w3.org/ns/formats/data/N3>;
 .
 ";
 
