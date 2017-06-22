@@ -112,7 +112,7 @@ $import = "
   PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
   PREFIX sio: <http://semanticscience.org/resource/>
   PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-  PREFIX void: <http://rdfs.org/ns/void/>
+  PREFIX void: <http://rdfs.org/ns/void#>
   PREFIX void-ext: <http://ldf.fi/void-ext#>";
 
 $GTP_DESCRIPTION = "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;";
