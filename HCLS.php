@@ -15,6 +15,9 @@ Alasdair Gray
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+
+include 'gtp.metadata.settings.php';
+
 date_default_timezone_set('Europe/London');
 $db_publish_date = date("Y-m-d");
 
@@ -108,35 +111,6 @@ checkDataDir();
 $summaryfile = fopen("Data/gtp.ttl", "w") or die("Unable to open summary file!");
 $versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to open version file!");
 
-$GTP_URI_BASE = "http://www.guidetopharmacology.org/GRAC/";
-
-/*Set different print values for each file*/
-/*List of imports, is part of every dataset description*/
-$import = "
-  BASE <".$GTP_URI_BASE.">
-  PREFIX : <".$GTP_URI_BASE.">
-  PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
-  PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-
-  PREFIX cito: <http://purl.org/spar/cito/>
-  PREFIX dcat: <http://www.w3.org/ns/dcat#>
-  PREFIX dctypes: <http://purl.org/dc/dcmitype/>
-  PREFIX dct: <http://purl.org/dc/terms/>
-  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-  PREFIX freq: <http://purl.org/cld/freq/>
-  PREFIX idot: <http://identifiers.org/idot/>
-  PREFIX lexvo: <http://lexvo.org/ontology#>
-  PREFIX pav: <http://purl.org/pav/>
-  PREFIX prov: <http://www.w3.org/ns/prov#>
-  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX schemaorg: <http://schema.org/>
-  PREFIX sd: <http://www.w3.org/ns/sparql-service-description#>
-  PREFIX sio: <http://semanticscience.org/resource/>
-  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-  PREFIX void: <http://rdfs.org/ns/void#>
-  PREFIX void-ext: <http://ldf.fi/void-ext#>";
-
 $GTP_DESCRIPTION = "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;";
 $GTP_PUBLISHER = "dct:publisher <http://www.guidetopharmacology.org>;";
 
@@ -182,7 +156,7 @@ $GTP_RDF_DATA_DOWNLOAD = "http://www.guidetopharmacology.org/DATA/rdf/".$version
 
 $summary = "
 #Summary
-<".$GTP_URI_BASE.">
+<".GTP_URI_BASE.">
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
@@ -222,7 +196,7 @@ $version = "
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
   pav:version \"".$version_number."\"^^xsd:string;
-	dct:isVersionOf <".$GTP_URI_BASE.">;
+	dct:isVersionOf <".GTP_URI_BASE.">;
   #pav:previousVersion ???
 #AVAILABILITY/DISTRIBUTIONS
   dcat:distribution :gtp".$version_number.".postgres;
@@ -282,9 +256,9 @@ $ligand = "
 #IDENTIFIERS
   ".$GTP_PREFIX."
   idot:identifierPattern \"ligand\\\\d+\"^^xsd:string;
-  void:uriRegexPattern \"".$GTP_URI_BASE."ligand\\\\d+\";
+  void:uriRegexPattern \"".GTP_URI_BASE."ligand\\\\d+\";
 	idot:exampleIdentifier \"ligand2527\"^^xsd:string;
-	void:exampleResource <".$GTP_URI_BASE."ligand2527>;
+	void:exampleResource <".GTP_URI_BASE."ligand2527>;
 #PROVENANCE&CHANGE
 	pav:version \"".$rdf_version_number."\"^^xsd:string;
 	dcat:source <".$db_source_file.">;
@@ -319,9 +293,9 @@ $target = "
 #IDENTIFIERS
 ".$GTP_PREFIX."
   idot:identifierPattern \"target\\\\d+\"^^xsd:string;
-  void:uriRegexPattern \"".$GTP_URI_BASE."target\\\\d+\";
+  void:uriRegexPattern \"".GTP_URI_BASE."target\\\\d+\";
 	idot:exampleIdentifier \"target2400\"^^xsd:string;
-	void:exampleResource <".$GTP_URI_BASE."target2400>;
+	void:exampleResource <".GTP_URI_BASE."target2400>;
 #PROVENANCE&CHANGE
 	pav:version \"".$rdf_version_number."\"^^xsd:string;
 	dcat:source <".$db_source_file.">;
@@ -357,9 +331,9 @@ $interaction = "
 #IDENTIFIERS
   ".$GTP_PREFIX."
   idot:identifierPattern \"interaction\\\\d+\"^^xsd:string;
-  void:uriRegexPattern \"".$GTP_URI_BASE."interaction\\\\d+\";
+  void:uriRegexPattern \"".GTP_URI_BASE."interaction\\\\d+\";
 	idot:exampleIdentifier \"interaction2833\"^^xsd:string;
-	void:exampleResource <".$GTP_URI_BASE."interaction2833>;
+	void:exampleResource <".GTP_URI_BASE."interaction2833>;
   #PROVENANCE&CHANGE
   	pav:version \"".$rdf_version_number."\"^^xsd:string;
   	dcat:source <".$db_source_file.">;
@@ -376,8 +350,8 @@ $interaction = "
 
 /*Write description to each file*/
 
-fwrite($summaryfile,$import.$summary);
+fwrite($summaryfile,HCLS_PREFIXES.$summary);
 echo "Summary Description Generated".PHP_EOL;
-fwrite($versionfile,$import.$version.$postgres.$ligand.$target.$interaction);
+fwrite($versionfile,HCLS_PREFIXES.$version.$postgres.$ligand.$target.$interaction);
 echo "Version Description Generated".PHP_EOL;
 ?>
