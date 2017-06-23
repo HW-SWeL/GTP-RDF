@@ -14,9 +14,14 @@ by our R2RML mappings.
 
 HCLS Dataset Descriptions Paper: https://www.w3.org/TR/hcls-dataset/
 
+## Dependencies
+
+The PHP script for generating HCLS Dataset Descriptions requires:
+- [pdo_pgsql](http://php.net/manual/en/ref.pdo-pgsql.php) PHP module to be installed so that it can connect to the GTP database
+
 ## Generating Guide to Pharmacology RDF Dump
 
-Before running the program: 
+Before running the program:
 
 Go to ```\Morph\Guide2Pharma``` and edit the database configuration in each morph.property file to fit your own.
 
@@ -34,7 +39,7 @@ The issue and creation dates may be in the future, should you want them to be.
 
 To generate our RDF output, we use R2RML which allows us to convert entire tables, views or just query results to RDF data.
 
-For our examples we use queries using the rr:sqlQuery function, to limit the data returned. Because of this it is very easy 
+For our examples we use queries using the rr:sqlQuery function, to limit the data returned. Because of this it is very easy
 for us to modify the output from our scripts by updating these queries to withdraw more or less data.
 
 R2RML allows two ways to create triples using subject maps and predicate / object maps.
@@ -50,12 +55,12 @@ these cases can be seen throughout our R2RML mapping files and allow us to assig
 
 We can also create blank nodes using ```[rr:termType rr:blankNode;]``` when describing a subject or object. This can be used to create pairs or groups of data
 in RDF, currently we use blank nodes for UniProt references paired with Taxonomies & interaction affinities which require values and units.
- 
+
 
 ## Modifying HCLS Dataset Descriptions
 
 Currently our HCLS generator asks for input for the common changes - version number and different dates - should other
-descriptors such as licenses need changed (or added), this can be done by editing our HCLS.php file. This is split into different 
+descriptors such as licenses need changed (or added), this can be done by editing our HCLS.php file. This is split into different
 segments for gathering variables, opening files, setting input and writing to appropriate files.
 
 
@@ -65,4 +70,3 @@ During the development of our platform, the units pKi, pKB and pKd were not desc
 Personel behind the BioAssay ontology, and they are currently working on it. However, because the units are not available these are currently assigned
 placeholder values in our interaction R2RML files, in Triples Maps 4&5. This can be easily edited to fit the BAO ontology, once it is updated by editing
 the associated SQL case statements.
-

@@ -18,16 +18,22 @@ Alasdair Gray
 date_default_timezone_set('Europe/London');
 $db_publish_date = date("Y-m-d");
 
- function validateDate($date){
-     $d = DateTime::createFromFormat('Y-m-d', $date);
-     return $d && $d->format('Y-m-d') === $date;
- }
+function checkDataDir() {
+  if (!is_dir('Data')) {
+    mkdir('Data', 0777, true);
+  }
+}
 
- function enter_date($date_type) {
-   global $db_publish_date;
-   $date = readline("Please enter the ".$date_type." date (YYYY-mm-dd) [".$db_publish_date."]: ") or $date = $db_publish_date;
-   return $date;
- }
+function validateDate($date){
+  $d = DateTime::createFromFormat('Y-m-d', $date);
+  return $d && $d->format('Y-m-d') === $date;
+}
+
+function enter_date($date_type) {
+  global $db_publish_date;
+  $date = readline("Please enter the ".$date_type." date (YYYY-mm-dd) [".$db_publish_date."]: ") or $date = $db_publish_date;
+  return $date;
+}
 
 function date_input($date_type){
   $date = enter_date($date_type);
@@ -48,21 +54,33 @@ function get_db_parameters() {
 }
 
 /* Connect to Guide 2 Pharmacology database to retrieve some default values */
-$dbconnection = pg_connect(get_db_parameters());
-if($dbconnection) {
-  echo "Connected to Guide to Pharmacology database...";
-  $query = 'SELECT version_number, publish_date from version';
-  $result = pg_query($dbconnection, $query) or error('Query failed: ' . pg_last_error());
-  $row = pg_fetch_assoc($result);
-  $db_version_number = $row['version_number'];
-  $db_publish_date = $row['publish_date'];
-  echo "metadata extracted.\n";
+if (extension_loaded(pdo_pgsql)) {
+  $dbconnection = pg_connect(get_db_parameters());
+  if($dbconnection) {
+    echo "Connected to Guide to Pharmacology database...";
+    $query = 'SELECT version_number, publish_date from version';
+    $result = pg_query($dbconnection, $query) or error('Query failed: ' . pg_last_error());
+    $row = pg_fetch_assoc($result);
+    $db_version_number = $row['version_number'];
+    $db_publish_date = $row['publish_date'];
+    echo "metadata extracted.\n";
+  } else {
+    echo "Unable to connect to the database. Using dummy default values.\n";
+    $db_version_number = date('Y.m');
+    $db_publish_date = date('Y-m-d');
+  }
+  pg_close($dbconnection);
 } else {
-  echo "Unable to connect to the database. Using dummy default values.\n";
-  $db_version_number = date('Y.m');
-  $db_publish_date = date('Y-m-d');
+  do {
+    $response = readline("WARNING: Do you wish to proceed with dummy values? [y|N] ") or $response = "n";
+  } while (!(strcasecmp($response, "y") == 0 or strcasecmp($response, "n") == 0));
+  if (strcasecmp($response, "y") == 0) {
+    $db_version_number = date('Y.m');
+    $db_publish_date = date('Y-m-d');
+  } else {
+    die();
+  }
 }
-pg_close($dbconnection);
 
 /*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
 $rdf_version_number = readline("Please enter version number for the generated RDF [".$db_version_number.".1]: ") or $rdf_version_number = $db_version_number.".1";
@@ -85,6 +103,7 @@ $date_created = date_input("creation");
 ####################################################################
 ####################################################################
  */
+checkDataDir();
 $summaryfile = fopen("Data/gtp.ttl", "w") or die("Unable to open summary file!");
 $versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to open version file!");
 
