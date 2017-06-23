@@ -114,8 +114,7 @@ $versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to o
 $GTP_DATES = "dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;";
 
-$GTP_PREFIX = "idot:preferredPrefix \"gtp\"^^xsd:string;";
-$GTP_RDF_DATA_DOWNLOAD = "http://www.guidetopharmacology.org/DATA/rdf/".$version_number."/";
+$GTP_RDF_DATA_DOWNLOAD = GTP_RDF_DATA_DIR.$version_number."/";
 
 /*Summary level dataset description for Guide to Pharmacology*/
 
@@ -133,7 +132,7 @@ $summary = "
   ".GTP_LICENSE_RIGHTS."
   ".GTP_CITATION."
 #IDENTIFIERS
-	idot:preferredPrefix \"gtp\"^^xsd:string;
+	".GTP_PREFERRED_PREFIX."
 #PROVENANCE&CHANGE
   pav:hasCurrentVersion :gtp".$version_number.";
   dct:accrualPeriodicity freq:quarterly;
@@ -158,7 +157,7 @@ $version = "
   ".GTP_CITATION."
   dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
 #IDENTIFIERS
-	idot:preferredPrefix \"gtp\"^^xsd:string;
+	".GTP_PREFERRED_PREFIX."
 #PROVENANCE&CHANGE
   pav:version \"".$version_number."\"^^xsd:string;
 	dct:isVersionOf <".GTP_URI_BASE.">;
@@ -219,7 +218,7 @@ $ligand = "
   ".GTP_RDF_VOCABS."
   ".GTP_CITATION."
 #IDENTIFIERS
-  ".$GTP_PREFIX."
+  ".GTP_PREFERRED_PREFIX."
   idot:identifierPattern \"ligand\\\\d+\"^^xsd:string;
   void:uriRegexPattern \"".GTP_URI_BASE."ligand\\\\d+\";
 	idot:exampleIdentifier \"ligand2527\"^^xsd:string;
@@ -256,7 +255,7 @@ $target = "
   ".GTP_RDF_VOCABS."
   ".GTP_CITATION."
 #IDENTIFIERS
-".$GTP_PREFIX."
+  ".GTP_PREFERRED_PREFIX."
   idot:identifierPattern \"target\\\\d+\"^^xsd:string;
   void:uriRegexPattern \"".GTP_URI_BASE."target\\\\d+\";
 	idot:exampleIdentifier \"target2400\"^^xsd:string;
@@ -294,7 +293,7 @@ $interaction = "
   ".GTP_RDF_VOCABS."
   ".GTP_CITATION."
 #IDENTIFIERS
-  ".$GTP_PREFIX."
+  ".GTP_PREFERRED_PREFIX."
   idot:identifierPattern \"interaction\\\\d+\"^^xsd:string;
   void:uriRegexPattern \"".GTP_URI_BASE."interaction\\\\d+\";
 	idot:exampleIdentifier \"interaction2833\"^^xsd:string;

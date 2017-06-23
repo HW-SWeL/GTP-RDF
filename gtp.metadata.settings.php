@@ -52,6 +52,13 @@ define("GTP_RDF_VOCABS", "void:vocabulary <http://identifiers.org/chembl.compoun
   <http://purl.obolibrary.org/obo/NCBITaxon_> ;");
 define("GTP_CITATION", "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;");
 
+#IDENTIFIERS
+define("GTP_PREFERRED_PREFIX", "idot:preferredPrefix \"gtp\"^^xsd:string;");
+
+#AVAILABILITY/DISTRIBUTIONS
+define("GTP_RDF_DATA_DIR", "http://www.guidetopharmacology.org/DATA/rdf/");
+
+#Turtle file header
 define("HCLS_PREFIXES", "BASE <".GTP_URI_BASE.">
 PREFIX : <".GTP_URI_BASE.">
 PREFIX cito: <http://purl.org/spar/cito/>
