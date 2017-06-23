@@ -156,6 +156,7 @@ $GTP_RDF_VOCABS = "void:vocabulary <http://identifiers.org/chembl.compound/>,
 $GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
 
 $GTP_PREFIX = "idot:preferredPrefix \"gtp\"^^xsd:string;";
+$GTP_DATA_DOWNLOAD = "http://www.guidetopharmacology.org/DATA/";
 
 /*Summary level dataset description for Guide to Pharmacology*/
 
@@ -266,9 +267,15 @@ $ligand = "
 	idot:exampleIdentifier \"ligand2527\"^^xsd:string;
 	void:exampleResource <".$GTP_URI_BASE."ligand2527>;
 #PROVENANCE&CHANGE
-	pav:version \"".$version_number."\"^^xsd:string;
+	pav:version \"".$rdf_version_number."\"^^xsd:string;
 	dcat:source <".$db_source_file.">;
+  pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
+#AVAILABILITY/DISTRIBUTIONS
   dct:format <https://www.w3.org/ns/formats/data/N3>;
+  void:accessURL <".$GTP_DATA_DOWNLOAD.">;
+  void:downloadURL <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+  void:dataDump <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+#STATISTICS
 .
 ";
 
