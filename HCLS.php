@@ -175,7 +175,7 @@ $GTP_RDF_VOCABS = "void:vocabulary <http://identifiers.org/chembl.compound/>,
 $GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
 
 $GTP_PREFIX = "idot:preferredPrefix \"gtp\"^^xsd:string;";
-$GTP_DATA_DOWNLOAD = "http://www.guidetopharmacology.org/DATA/";
+$GTP_RDF_DATA_DOWNLOAD = "http://www.guidetopharmacology.org/DATA/rdf/".$version_number."/";
 
 /*Summary level dataset description for Guide to Pharmacology*/
 
@@ -290,9 +290,9 @@ $ligand = "
   pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
 #AVAILABILITY/DISTRIBUTIONS
   dct:format <https://www.w3.org/ns/formats/data/N3>;
-  void:accessURL <".$GTP_DATA_DOWNLOAD.">;
-  void:downloadURL <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
-  void:dataDump <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+  void:accessURL <".$GTP_RDF_DATA_DOWNLOAD.">;
+  void:downloadURL <".$GTP_RDF_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+  void:dataDump <".$GTP_RDF_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
 #STATISTICS
 .
 ";
@@ -327,9 +327,9 @@ $target = "
   pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
 #AVAILABILITY/DISTRIBUTIONS
   dct:format <https://www.w3.org/ns/formats/data/N3>;
-  void:accessURL <".$GTP_DATA_DOWNLOAD.">;
-  void:downloadURL <".$GTP_DATA_DOWNLOAD."target".$rdf_version_number.".n3>;
-  void:dataDump <".$GTP_DATA_DOWNLOAD."target".$rdf_version_number.".n3>;
+  void:accessURL <".$GTP_RDF_DATA_DOWNLOAD.">;
+  void:downloadURL <".$GTP_RDF_DATA_DOWNLOAD."target".$rdf_version_number.".n3>;
+  void:dataDump <".$GTP_RDF_DATA_DOWNLOAD."target".$rdf_version_number.".n3>;
 #STATISTICS
 .
 ";
@@ -365,9 +365,9 @@ $interaction = "
     pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
   #AVAILABILITY/DISTRIBUTIONS
     dct:format <https://www.w3.org/ns/formats/data/N3>;
-    void:accessURL <".$GTP_DATA_DOWNLOAD.">;
-    void:downloadURL <".$GTP_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
-    void:dataDump <".$GTP_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
+    void:accessURL <".$GTP_RDF_DATA_DOWNLOAD.">;
+    void:downloadURL <".$GTP_RDF_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
+    void:dataDump <".$GTP_RDF_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
   #STATISTICS
 .
 ";
