@@ -83,8 +83,8 @@ if (extension_loaded(pdo_pgsql)) {
 }
 
 /*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
-$rdf_version_number = readline("Please enter version number for the generated RDF [".$db_version_number.".1]: ") or $rdf_version_number = $db_version_number.".1";
 $version_number = readline("Please enter the Guide to Pharmacology database version used [".$db_version_number."]: ") or $version_number = $db_version_number;
+$rdf_version_number = readline("Please enter version number for the generated RDF [".$db_version_number."]: ") or $rdf_version_number = $db_version_number;
 $db_source_file = "http://www.guidetopharmacology.org/DATA/public_iuphardb_v".$version_number.".zip";
 
 /**
@@ -226,9 +226,9 @@ $version = "
 #AVAILABILITY/DISTRIBUTIONS
   dcat:distribution :gtp".$version_number.".postgres;
 	.
-:gtp".$version_number."Ligand dcat:distribution :gtp".$version_number."Ligand.n3 .
-:gtp".$version_number."Target dcat:distribution :gtp".$version_number."Target.n3 .
-:gtp".$version_number."Interaction dcat:distribution :gtp".$version_number."Interaction.n3 .
+:gtp".$version_number."Ligand dcat:distribution :gtp".$rdf_version_number."Ligand.n3 .
+:gtp".$version_number."Target dcat:distribution :gtp".$rdf_version_number."Target.n3 .
+:gtp".$version_number."Interaction dcat:distribution :gtp".$rdf_version_number."Interaction.n3 .
   ";
 
 /* Postgres data dump distribution description */
@@ -260,15 +260,14 @@ $postgres = "
 ";
 
 //TODO: Combine the n3 distributions into one and have a single description for them
-//TODO: Fix example identifier patterns to match the data
 /*Ligand Distribution level dataset description for Guide to Pharmacology*/
 
 $ligand = "
 #LIGAND n3 Distribution
-:gtp".$version_number."Ligand.n3
+:gtp".$rdf_version_number."Ligand.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
-	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
-	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
+	dct:title \"Guide to Pharmacology Version ".$rdf_version_number." Ligand Distribution\"@en;
+	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$rdf_version_number." Ligand Distribution\"@en;
   ".$GTP_DESCRIPTION."
   ".$GTP_DATES."
   ".$GTP_CREATOR."
@@ -302,10 +301,10 @@ $ligand = "
 
 $target = "
 #TARGET n3 Distribution
-:gtp".$version_number."Target.n3
+:gtp".$rdf_version_number."Target.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
-	dct:title \"Guide to Pharmacology Version ".$version_number." Target Distribution\"@en;
-	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Target Distribution\"@en;
+	dct:title \"Guide to Pharmacology Version ".$rdf_version_number." Target Distribution\"@en;
+	dct:alternative \"Guide to Pharmacology RDF Version ".$rdf_version_number." Target Distribution\"@en;
   ".$GTP_DESCRIPTION."
   ".$GTP_DATES."
   ".$GTP_CREATOR."
@@ -329,8 +328,8 @@ $target = "
 #AVAILABILITY/DISTRIBUTIONS
   dct:format <https://www.w3.org/ns/formats/data/N3>;
   void:accessURL <".$GTP_DATA_DOWNLOAD.">;
-  void:downloadURL <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
-  void:dataDump <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+  void:downloadURL <".$GTP_DATA_DOWNLOAD."target".$rdf_version_number.".n3>;
+  void:dataDump <".$GTP_DATA_DOWNLOAD."target".$rdf_version_number.".n3>;
 #STATISTICS
 .
 ";
@@ -339,29 +338,37 @@ $target = "
 
 $interaction = "
 #Interaction n3 Distribution
-:gtp".$version_number."Interaction.n3
+:gtp".$rdf_version_number."Interaction.n3
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
-	dct:title \"Guide to Pharmacology Version ".$version_number." Ligand Distribution\"@en;
-	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Ligand Distribution\"@en;
+	dct:title \"Guide to Pharmacology Version ".$rdf_version_number." Interactions Distribution\"@en;
+	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$rdf_version_number." Interactions Distribution\"@en;
   ".$GTP_DESCRIPTION."
-	dct:issued \"".$date_issued."\"^^xsd:date;
-	dct:created \"".$date_created."\"^^xsd:date;
-	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
+  ".$GTP_DATES."
+  ".$GTP_CREATOR."
 	".$GTP_PUBLISHER."
   ".$GTP_PAGE_LOGO."
-	dcat:theme sio:010432; #ligand
-	dcat:theme sio:010423; #target
-	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	".$GTP_LICENSE_RIGHTS."
-	dct:language <http://lexvo.org/id/iso639-3/eng>;
-	void:vocabulary <http://www.bioassayontology.org/bao/bao_complete.owl>, <http://purl.obolibrary.org/obo/NCBITaxon_>, <http://identifiers.org/pubmed/>;
+  ".$GTP_LIGAND_THEME."
+  ".$GTP_TARGET_THEME."
+  ".$GTP_LICENSE_RIGHTS."
+  ".$GTP_LANGUAGE."
+  ".$GTP_RDF_VOCABS."
+  ".$GTP_CITATION."
 #IDENTIFIERS
-	idot:preferredPrefix \"gtp\"^^xsd:string;
+  ".$GTP_PREFIX."
+  idot:identifierPattern \"interaction\\\\d+\"^^xsd:string;
+  void:uriRegexPattern \"".$GTP_URI_BASE."interaction\\\\d+\";
 	idot:exampleIdentifier \"interaction2833\"^^xsd:string;
-	idot:exampleResource <http://www.guidetopharmacology.com/data/interaction2833>;
-#PROVENANCE&CHANGE
-	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_source_file.";
+	void:exampleResource <".$GTP_URI_BASE."interaction2833>;
+  #PROVENANCE&CHANGE
+  	pav:version \"".$rdf_version_number."\"^^xsd:string;
+  	dcat:source <".$db_source_file.">;
+    pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
+  #AVAILABILITY/DISTRIBUTIONS
+    dct:format <https://www.w3.org/ns/formats/data/N3>;
+    void:accessURL <".$GTP_DATA_DOWNLOAD.">;
+    void:downloadURL <".$GTP_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
+    void:dataDump <".$GTP_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
+  #STATISTICS
 .
 ";
 
@@ -370,6 +377,6 @@ $interaction = "
 
 fwrite($summaryfile,$import.$summary);
 echo "Summary Description Generated".PHP_EOL;
-fwrite($versionfile,$import.$version.$postgres.$ligand.$target);
+fwrite($versionfile,$import.$version.$postgres.$ligand.$target.$interaction);
 echo "Version Description Generated".PHP_EOL;
 ?>
