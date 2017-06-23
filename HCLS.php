@@ -307,23 +307,31 @@ $target = "
 	dct:title \"Guide to Pharmacology Version ".$version_number." Target Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$version_number." Target Distribution\"@en;
   ".$GTP_DESCRIPTION."
-	dct:issued \"".$date_issued."\"^^xsd:date;
-	dct:created \"".$date_created."\"^^xsd:date;
-	dct:creator [foaf:page <http://www.guidetopharmacology.org>];
+  ".$GTP_DATES."
+  ".$GTP_CREATOR."
 	".$GTP_PUBLISHER."
   ".$GTP_PAGE_LOGO."
-	dcat:theme sio:010423; #target
-	dct:format <https://www.w3.org/ns/formats/data/N3>;
-	".$GTP_LICENSE_RIGHTS."
-	dct:language <http://lexvo.org/id/iso639-3/eng>;
-	void:vocabulary <http://identifiers.org/uniprot/>, <http://purl.obolibrary.org/obo/NCBITaxon_>;
+  ".$GTP_TARGET_THEME."
+  ".$GTP_LICENSE_RIGHTS."
+  ".$GTP_LANGUAGE."
+  ".$GTP_RDF_VOCABS."
+  ".$GTP_CITATION."
 #IDENTIFIERS
-	idot:preferredPrefix \"gtp\"^^xsd:string;
+".$GTP_PREFIX."
+  idot:identifierPattern \"target\\\\d+\"^^xsd:string;
+  void:uriRegexPattern \"".$GTP_URI_BASE."target\\\\d+\";
 	idot:exampleIdentifier \"target2400\"^^xsd:string;
-	idot:exampleResource <http://www.guidetopharmacology.com/data/2400>;
+	void:exampleResource <".$GTP_URI_BASE."target2400>;
 #PROVENANCE&CHANGE
-	pav:version \"".$version_number."\"^^xsd:string;
-	dcat:source :".$db_source_file.";
+	pav:version \"".$rdf_version_number."\"^^xsd:string;
+	dcat:source <".$db_source_file.">;
+  pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
+#AVAILABILITY/DISTRIBUTIONS
+  dct:format <https://www.w3.org/ns/formats/data/N3>;
+  void:accessURL <".$GTP_DATA_DOWNLOAD.">;
+  void:downloadURL <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+  void:dataDump <".$GTP_DATA_DOWNLOAD."ligand".$rdf_version_number.".n3>;
+#STATISTICS
 .
 ";
 
@@ -362,6 +370,6 @@ $interaction = "
 
 fwrite($summaryfile,$import.$summary);
 echo "Summary Description Generated".PHP_EOL;
-fwrite($versionfile,$import.$version.$postgres.$ligand);
+fwrite($versionfile,$import.$version.$postgres.$ligand.$target);
 echo "Version Description Generated".PHP_EOL;
 ?>
