@@ -88,11 +88,13 @@ $date_created = date_input("creation");
 $summaryfile = fopen("Data/gtp.ttl", "w") or die("Unable to open summary file!");
 $versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to open version file!");
 
+$GTP_URI_BASE = "http://www.guidetopharmacology.org/GRAC/";
+
 /*Set different print values for each file*/
 /*List of imports, is part of every dataset description*/
 $import = "
-  BASE <http://www.guidetopharmacology.org/GRAC/>
-  PREFIX : <http://www.guidetopharmacology.org/GRAC/>
+  BASE <".$GTP_URI_BASE.">
+  PREFIX : <".$GTP_URI_BASE.">
   PREFIX ncit: <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#>
   PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
@@ -153,12 +155,13 @@ $GTP_RDF_VOCABS = "void:vocabulary <http://identifiers.org/chembl.compound/>,
   <http://purl.obolibrary.org/obo/NCBITaxon_> ;";
 $GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
 
+$GTP_PREFIX = "idot:preferredPrefix \"gtp\"^^xsd:string;";
 
 /*Summary level dataset description for Guide to Pharmacology*/
 
 $summary = "
 #Summary
-<http://www.guidetopharmacology.org/GRAC/>
+<".$GTP_URI_BASE.">
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
@@ -198,7 +201,7 @@ $version = "
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
   pav:version \"".$version_number."\"^^xsd:string;
-	dct:isVersionOf <http://www.guidetopharmacology.org/GRAC/>;
+	dct:isVersionOf <".$GTP_URI_BASE.">;
   #pav:previousVersion ???
 #AVAILABILITY/DISTRIBUTIONS
   dcat:distribution :gtp".$version_number.".postgres;
@@ -257,9 +260,11 @@ $ligand = "
   ".$GTP_RDF_VOCABS."
   ".$GTP_CITATION."
 #IDENTIFIERS
-	idot:preferredPrefix \"gtp\"^^xsd:string;
+  ".$GTP_PREFIX."
+  idot:identifierPattern \"ligand\\\\d+\"^^xsd:string;
+  void:uriRegexPattern \"".$GTP_URI_BASE."ligand\\\\d+\";
 	idot:exampleIdentifier \"ligand2527\"^^xsd:string;
-	idot:exampleResource <http://www.guidetopharmacology.com/data/ligand2527>;
+	void:exampleResource <".$GTP_URI_BASE."ligand2527>;
 #PROVENANCE&CHANGE
 	pav:version \"".$version_number."\"^^xsd:string;
 	dcat:source <".$db_source_file.">;
