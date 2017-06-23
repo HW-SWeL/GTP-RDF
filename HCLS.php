@@ -72,7 +72,8 @@ if (extension_loaded(pdo_pgsql)) {
   pg_close($dbconnection);
 } else {
   do {
-    $response = readline("WARNING: Do you wish to proceed with dummy values? [y|N] ") or $response = "n";
+    echo "WARNING: Unable to connect to Guide to Pharmacology database.\n";
+    $response = readline("Do you wish to proceed with dummy values? [y|N] ") or $response = "n";
   } while (!(strcasecmp($response, "y") == 0 or strcasecmp($response, "n") == 0));
   if (strcasecmp($response, "y") == 0) {
     $db_version_number = date('Y.m');
