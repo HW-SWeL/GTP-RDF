@@ -111,43 +111,8 @@ checkDataDir();
 $summaryfile = fopen("Data/gtp.ttl", "w") or die("Unable to open summary file!");
 $versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to open version file!");
 
-$GTP_DESCRIPTION = "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;";
-$GTP_PUBLISHER = "dct:publisher <http://www.guidetopharmacology.org>;";
-
-/*License for Guide to Pharmacology*/
-$GTP_LICENSE_RIGHTS = "dct:license <https://opendatacommons.org/licenses/odbl/>; #data license
-  dct:rights \"\"\"The Guide to PHARMACOLOGY database is licensed under the Open Data Commons Open Database License (ODbL).
-				Its contents are licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported license.
-
-For a general citation of the database please cite the article published in the Nucleic Acids Research Database Issue.
-
-    Southan C, Sharman JL, Benson HE, Faccenda E, Pawson AJ, Alexander SPH, Buneman OP, Davenport AP, McGrath JC, Peters JA, Spedding M, Catterall WA, Fabbro D, Davies JA; NC-IUPHAR. (2016) The IUPHAR/BPS Guide to PHARMACOLOGY in 2016: towards curated quantitative interactions between 1300 protein targets and 6000 ligands. Nucl. Acids Res. 44 (Database Issue): D1054-68.
-
-For citations of individual data please use the following guidelines:
-
-For nomenclature and work using the concise family view pages please cite the relevant section of the Concise Guide to PHARMACOLOGY 2013/14 published in the British Journal of Pharmacology. A full list of chapters is available in the Table of Contents. For example, for GPCRs, please cite the GPCR section of the Concise Guide. Further information is also given on individual database pages.
-
-    Alexander SPH, Kelly E, Marrion N, Peters JA, Benson HE, Faccenda E, Pawson AJ, Sharman JL, Southan C, Buneman OP, Catterall WA, Cidlowski JA, Davenport AP, Fabbro D, Fan G, McGrath JC, Spedding M, Davies JA and CGTP Collaborators. (2015) The Concise Guide to PHARMACOLOGY 2015/16. Br J Pharmacol. 172: 5729-5743.
-
-Work using the detailed target pages and family introductions (information from IUPHAR-DB) should give the webpage address and acknowledge the NC-IUPHAR contributors who provided the information. Full citation information can be found at the bottom of each page. Example citation formats:
-
-    Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/FamilyDisplayForward?familyId=4
-    Bylund DB, Bond RA, Eikenburg DC, Hieble JP, Hills R, Minneman KP, Parra S. Adrenoceptors: α1A-adrenoceptor. Last modified on 24/07/2013. Accessed on 19/08/2013. IUPHAR/BPS Guide to PHARMACOLOGY, http://www.guidetopharmacology.org/GRAC/ObjectDisplayForward?objectId=22\"\"\"@en;";
 $GTP_DATES = "dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;";
-$GTP_CREATOR = "dct:creator <http://www.guidetopharmacology.org/GRAC/ContributorListForward>;";
-$GTP_PAGE_LOGO = "foaf:page <http://www.guidetopharmacology.org>;
-  schemaorg:logo <http://www.guidetopharmacology.org/images/GTP_favicon_lg.ico>;";
-$GTP_LIGAND_THEME = "dcat:keyword \"Ligand\";
-	dcat:theme sio:010432; #ligand";
-$GTP_TARGET_THEME = "dcat:keyword \"Target\", \"Protein\";
-	dcat:theme sio:010423; #target";
-$GTP_LANGUAGE = "dct:language <http://lexvo.org/id/iso639-3/eng>;";
-//TODO Complete set of vocabularies used in the data
-$GTP_RDF_VOCABS = "void:vocabulary <http://identifiers.org/chembl.compound/>,
-  <http://identifiers.org/uniprot/>,
-  <http://purl.obolibrary.org/obo/NCBITaxon_> ;";
-$GTP_CITATION = "cito:citesAsAuthority <https://doi.org/10.1093/nar/gkv1037>;";
 
 $GTP_PREFIX = "idot:preferredPrefix \"gtp\"^^xsd:string;";
 $GTP_RDF_DATA_DOWNLOAD = "http://www.guidetopharmacology.org/DATA/rdf/".$version_number."/";
@@ -160,13 +125,13 @@ $summary = "
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
-  ".$GTP_DESCRIPTION."
-  ".$GTP_PUBLISHER."
-  ".$GTP_PAGE_LOGO."
-  ".$GTP_LIGAND_THEME."
-  ".$GTP_TARGET_THEME."
-  ".$GTP_LICENSE_RIGHTS."
-  ".$GTP_CITATION."
+  ".GTP_DESCRIPTION."
+  ".GTP_PUBLISHER."
+  ".GTP_PAGE_LOGO."
+  ".GTP_LIGAND_THEME."
+  ".GTP_TARGET_THEME."
+  ".GTP_LICENSE_RIGHTS."
+  ".GTP_CITATION."
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
 #PROVENANCE&CHANGE
@@ -181,16 +146,16 @@ $version = "
 	rdf:type dctypes:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$version_number."\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number."\"@en;
-  ".$GTP_DESCRIPTION."
+  ".GTP_DESCRIPTION."
   ".$GTP_DATES."
-	".$GTP_CREATOR."
-	".$GTP_PUBLISHER."
-  ".$GTP_PAGE_LOGO."
-  ".$GTP_LIGAND_THEME."
-  ".$GTP_TARGET_THEME."
-  ".$GTP_LICENSE_RIGHTS."
-  ".$GTP_LANGUAGE."
-  ".$GTP_CITATION."
+	".GTP_CREATOR."
+	".GTP_PUBLISHER."
+  ".GTP_PAGE_LOGO."
+  ".GTP_LIGAND_THEME."
+  ".GTP_TARGET_THEME."
+  ".GTP_LICENSE_RIGHTS."
+  ".GTP_LANGUAGE."
+  ".GTP_CITATION."
   dct:hasPart :gtp".$version_number."Ligand, :gtp".$version_number."Target, :gtp".$version_number."Interaction;
 #IDENTIFIERS
 	idot:preferredPrefix \"gtp\"^^xsd:string;
@@ -213,16 +178,16 @@ $postgres = "
   rdf:type dctypes:Dataset, dcat:Distribution;
   dct:title \"Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
   dct:alternative \"IUPHAR/BPS Guide to Pharmacology Version ".$version_number." PostgreSQL Database Distribution\"@en;
-  ".$GTP_DESCRIPTION."
+  ".GTP_DESCRIPTION."
   ".$GTP_DATES."
-	".$GTP_CREATOR."
-	".$GTP_PUBLISHER."
-  ".$GTP_PAGE_LOGO."
-  ".$GTP_LIGAND_THEME."
-  ".$GTP_TARGET_THEME."
-  ".$GTP_LICENSE_RIGHTS."
-  ".$GTP_LANGUAGE."
-  ".$GTP_CITATION."
+	".GTP_CREATOR."
+	".GTP_PUBLISHER."
+  ".GTP_PAGE_LOGO."
+  ".GTP_LIGAND_THEME."
+  ".GTP_TARGET_THEME."
+  ".GTP_LICENSE_RIGHTS."
+  ".GTP_LANGUAGE."
+  ".GTP_CITATION."
 #IDENTIFIERS
 #PROVENANCE&CHANGE
   pav:version \"".$version_number."\"^^xsd:string;
@@ -243,16 +208,16 @@ $ligand = "
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$rdf_version_number." Ligand Distribution\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$rdf_version_number." Ligand Distribution\"@en;
-  ".$GTP_DESCRIPTION."
+  ".GTP_DESCRIPTION."
   ".$GTP_DATES."
-  ".$GTP_CREATOR."
-	".$GTP_PUBLISHER."
-  ".$GTP_PAGE_LOGO."
-  ".$GTP_LIGAND_THEME."
-  ".$GTP_LICENSE_RIGHTS."
-  ".$GTP_LANGUAGE."
-  ".$GTP_RDF_VOCABS."
-  ".$GTP_CITATION."
+  ".GTP_CREATOR."
+	".GTP_PUBLISHER."
+  ".GTP_PAGE_LOGO."
+  ".GTP_LIGAND_THEME."
+  ".GTP_LICENSE_RIGHTS."
+  ".GTP_LANGUAGE."
+  ".GTP_RDF_VOCABS."
+  ".GTP_CITATION."
 #IDENTIFIERS
   ".$GTP_PREFIX."
   idot:identifierPattern \"ligand\\\\d+\"^^xsd:string;
@@ -280,16 +245,16 @@ $target = "
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$rdf_version_number." Target Distribution\"@en;
 	dct:alternative \"Guide to Pharmacology RDF Version ".$rdf_version_number." Target Distribution\"@en;
-  ".$GTP_DESCRIPTION."
+  ".GTP_DESCRIPTION."
   ".$GTP_DATES."
-  ".$GTP_CREATOR."
-	".$GTP_PUBLISHER."
-  ".$GTP_PAGE_LOGO."
-  ".$GTP_TARGET_THEME."
-  ".$GTP_LICENSE_RIGHTS."
-  ".$GTP_LANGUAGE."
-  ".$GTP_RDF_VOCABS."
-  ".$GTP_CITATION."
+  ".GTP_CREATOR."
+	".GTP_PUBLISHER."
+  ".GTP_PAGE_LOGO."
+  ".GTP_TARGET_THEME."
+  ".GTP_LICENSE_RIGHTS."
+  ".GTP_LANGUAGE."
+  ".GTP_RDF_VOCABS."
+  ".GTP_CITATION."
 #IDENTIFIERS
 ".$GTP_PREFIX."
   idot:identifierPattern \"target\\\\d+\"^^xsd:string;
@@ -317,17 +282,17 @@ $interaction = "
 	rdf:type dctypes:Dataset, dcat:Distribution, void:Dataset;
 	dct:title \"Guide to Pharmacology Version ".$rdf_version_number." Interactions Distribution\"@en;
 	dct:alternative \"IUPHAR/BPS Guide to Pharmacology RDF Version ".$rdf_version_number." Interactions Distribution\"@en;
-  ".$GTP_DESCRIPTION."
+  ".GTP_DESCRIPTION."
   ".$GTP_DATES."
-  ".$GTP_CREATOR."
-	".$GTP_PUBLISHER."
-  ".$GTP_PAGE_LOGO."
-  ".$GTP_LIGAND_THEME."
-  ".$GTP_TARGET_THEME."
-  ".$GTP_LICENSE_RIGHTS."
-  ".$GTP_LANGUAGE."
-  ".$GTP_RDF_VOCABS."
-  ".$GTP_CITATION."
+  ".GTP_CREATOR."
+	".GTP_PUBLISHER."
+  ".GTP_PAGE_LOGO."
+  ".GTP_LIGAND_THEME."
+  ".GTP_TARGET_THEME."
+  ".GTP_LICENSE_RIGHTS."
+  ".GTP_LANGUAGE."
+  ".GTP_RDF_VOCABS."
+  ".GTP_CITATION."
 #IDENTIFIERS
   ".$GTP_PREFIX."
   idot:identifierPattern \"interaction\\\\d+\"^^xsd:string;
