@@ -12,9 +12,3 @@ The Guide to Pharacology Docker Images provide the different services that form 
 
 The Guide to Pharmacology containers will download and use the latest data release, and provide the Virtuoso SPARQL endpoint and the [Lodestar Linked Data explorer](http://ebispot.github.io/lodestar/) developed by the [EBI](http://www.ebi.ac.uk/).
 
-**External services**: The following components of the Open PHACTS platform is not yet included in this release.
-
-- Chemical Resolution Service APIs (e.g. SMILEStoCSID and Similarity search)
-- Text to Concept search calls
-
-You can modify `docker-compose.yml` to enable usage of the public APIs for these, see the [External services](https://github.com/openphacts/ops-docker/blob/master/-external-services) section below.
