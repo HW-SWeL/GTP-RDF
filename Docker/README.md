@@ -12,3 +12,4 @@ The Guide to Pharacology Docker Images provide the different services that form 
 
 The Guide to Pharmacology containers will download and use the latest data release, and provide the Virtuoso SPARQL endpoint and the [Lodestar Linked Data explorer](http://ebispot.github.io/lodestar/) developed by the [EBI](http://www.ebi.ac.uk/).
 
+The Guide to Pharmacology Docker Images and these instructions are based on the [Open PHACTS Docker Images](https://github.com/openphacts/ops-docker/blob/121f73d4cb561e1557c050f5ccb97db08b3c0a0d/README.md).
