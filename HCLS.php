@@ -17,6 +17,7 @@ Alasdair Gray
  */
 
 include 'gtp.metadata.settings.php';
+include 'summary.description.php';
 
 date_default_timezone_set('Europe/London');
 $db_publish_date = date("Y-m-d");
@@ -115,28 +116,6 @@ $GTP_DATES = "dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;";
 
 $GTP_RDF_DATA_DOWNLOAD = GTP_RDF_DATA_DIR.$version_number."/";
-
-/*Summary level dataset description for Guide to Pharmacology*/
-
-$summary = "
-#Summary
-<".GTP_URI_BASE.">
-	rdf:type dctypes:Dataset;
-	dct:title \"Guide to Pharmacology\"@en;
-	dct:alternative \"IUPHAR/BPS Guide to Pharmacology\"@en;
-  ".GTP_DESCRIPTION."
-  ".GTP_PUBLISHER."
-  ".GTP_PAGE_LOGO."
-  ".GTP_LIGAND_THEME."
-  ".GTP_TARGET_THEME."
-  ".GTP_LICENSE_RIGHTS."
-  ".GTP_CITATION."
-#IDENTIFIERS
-	".GTP_PREFERRED_PREFIX."
-#PROVENANCE&CHANGE
-  pav:hasCurrentVersion :gtp".$version_number.";
-  dct:accrualPeriodicity freq:quarterly;
-.";
 
 /*Version level dataset description for Guide to Pharmacology*/
 $version = "
