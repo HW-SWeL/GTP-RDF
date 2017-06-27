@@ -1,0 +1,73 @@
+# Guide to Pharmacology
+# Docker Compose configuration
+# https://docs.docker.com/compose/yml/
+#
+# Each entry below defines a docker container,
+# some of which expose ports, e.g. this exposes
+# the internal port 80 as port 3002 to the world:
+#
+# ports:
+#   - "3002:80"
+#
+# To change the exposed port, change the number on the left
+#
+# Data is stored in Docker volumes, which by default would be
+# managed by Docker, e.g. created within /var/lib/docker
+# with a UUID.
+#
+# To use a different folder/partition, e.g. for backup purposes,
+# speed or disk requirements, modify "volumes:" for the
+# *data containers further down.
+#
+
+## NOTE: Be careful about indentation!
+
+version: '2'
+services:
+  # lod-star:
+  #   container_name: lod-star
+  #   image: gtp/gtp-rdf
+  #   ports:
+  #     - "3001:80"
+  #   links:
+  #     - virtuoso:SPARQL
+  #   #restart: always
+
+  # SPARQL server
+  virtuoso:
+    container_name: gtp-virtuoso
+    #image: stain/virtuoso
+    build: virtuoso
+    ports:
+      - "8890:8890"
+    volumes_from:
+      - virtuosodata
+    #restart: always
+
+  virtuosodata:
+    container_name: gtp-virtuosodata
+    image: busybox
+    volumes:
+      # To specify alternative data folder, use instad:
+      # - /media/big-SSD/virtuoso:/virtuoso
+      - /virtuoso
+
+  # ### Download from GTP website
+  # gtpdownloadrdf:
+  #   container_name: gtpdownloadrdf
+  #   build: openphacts-rdf
+  #   volumes:
+  # #    # To specify alternative data folder, use instad:
+  # #    # - /media/big-SSD/download:/download
+  # #    # - /media/big-SSD/staging:/staging
+  #     - /Users/alasdair/Workspace/GTP-RDF/Data:/download
+  #     - /Users/alasdair/Workspace/GTP-RDF/Data/staging:/staging
+  # #    # /download
+  # #
+  # ## Load into virtuoso
+  # virtuosostagingrdf:
+  #   container_name: gtp-virtuosostagingrdf
+  #   build: virtuosodata-fromrdf
+  #   volumes_from:
+  #     - virtuosodata
+  #     - gtpdownloadrdf
