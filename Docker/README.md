@@ -120,4 +120,4 @@ If you need to restart staging from blank, then first remove their data volumes:
 docker-compose rm -v mysqldata virtuosodata
 ```
 
-Then follow the procedure "Building data containers" above.
+Then follow the procedure [Building data containers](#Data-Containers) above.
