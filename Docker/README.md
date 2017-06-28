@@ -1,5 +1,10 @@
 # GTP Docker Images
 
+- [x] Get virtuoso and data container running and check in
+- [ ] Work on data download and data loading containers
+      - [ ] Data download does not seem to be firing it is created but nothing ends up in the logs
+      - [ ] Data staging seems to be running, no files are in the staging directory so no data is being loaded beyond the basic virtuoso data
+
 The [Guide to Pharmacology](http://www.guidetopharmacology.org/) database is available as [linked data](https://www.w3.org/standards/semanticweb/data). The platform that supports the linked data platform is installed as a series of [Docker](http://docker.com/) containers.
 
 - [Overview](#overview)
@@ -50,7 +55,29 @@ To override the default configurations of the Docker images, e.g. to change the 
 
 ## Data Containers
 
-The GTP Docker container uses separate [Data Volume Containers](http://docs.docker.com/userguide/dockervolumes/#creating-and-mounting-a-data-volume-container) to contain the Guide to Pharmacology RDF dataset. 
+The GTP Docker container uses separate [Data Volume Containers](http://docs.docker.com/userguide/dockervolumes/#creating-and-mounting-a-data-volume-container) to contain the Guide to Pharmacology RDF dataset. You should follow the instructions in one of the following subsections depending upon whether you are creating the data locally, or downloading the data.
+
+### Data Creation Container
+
+**TODO:** Create the data creation container, and the documentation, based on morphdb
+
+The following command will create the GTP-RDF data from a local PostgreSQL database containing the Guide to Pharmacology data. The generated RDF will then be loaded into the Virtuoso triple store.
+
+### Data Loading Container
+
+The following command will download the GTP-RDF data from the GTP site and then load it into the Virtuoso triple store.
+
+```docker-compose up -d virtuosostagingrdf```
+
+To follow the progress, use:
+
+```
+docker-compose ps
+docker-compose logs virtuosostagingrdf
+```
+
+Note that `docker-compose logs` may not terminate even if its contanier does, use *Ctrl-C* to cancel log listing.
+
 ## GTP Platform Commands
 
 ### Running the GTP Platform

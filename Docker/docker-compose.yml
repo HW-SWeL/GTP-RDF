@@ -52,22 +52,22 @@ services:
       # - /media/big-SSD/virtuoso:/virtuoso
       - /virtuoso
 
-  # ### Download from GTP website
-  # gtpdownloadrdf:
-  #   container_name: gtpdownloadrdf
-  #   build: openphacts-rdf
-  #   volumes:
-  # #    # To specify alternative data folder, use instad:
-  # #    # - /media/big-SSD/download:/download
-  # #    # - /media/big-SSD/staging:/staging
-  #     - /Users/alasdair/Workspace/GTP-RDF/Data:/download
-  #     - /Users/alasdair/Workspace/GTP-RDF/Data/staging:/staging
-  # #    # /download
-  # #
-  # ## Load into virtuoso
-  # virtuosostagingrdf:
-  #   container_name: gtp-virtuosostagingrdf
-  #   build: virtuosodata-fromrdf
-  #   volumes_from:
-  #     - virtuosodata
-  #     - gtpdownloadrdf
+  # Download from GTP website
+  # Currently using Alasdair's HWU website
+  gtpdownloadrdf:
+    container_name: gtpdownloadrdf
+    build: gtpdownload-rdf
+    volumes:
+      # To specify alternative data folder, use instad:
+      # - /media/big-SSD/download:/download
+      # - /media/big-SSD/staging:/staging
+      - /download
+      - /staging
+
+  ## Load into virtuoso
+  virtuosostagingrdf:
+    container_name: gtp-virtuosostagingrdf
+    build: virtuosodata-fromrdf
+    volumes_from:
+      - virtuosodata
+      - gtpdownloadrdf
