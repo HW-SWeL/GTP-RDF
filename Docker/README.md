@@ -67,22 +67,16 @@ The following command will create the GTP-RDF data from a local PostgreSQL datab
 
 The following command will download the GTP-RDF data from the GTP site and then load it into the Virtuoso triple store.
 
-```docker-compose up -d virtuosostagingrdf```
+```docker-compose up virtuosostagingrdf```
 
-To follow the progress, use:
+You should be able to see the progress.
 
-```
-docker-compose ps
-docker-compose logs virtuosostagingrdf
-```
-
-Note that `docker-compose logs` may not terminate even if its contanier does, use *Ctrl-C* to cancel log listing.
 
 ## GTP Platform Commands
 
 ### Running the GTP Platform
 
-To start the GTP platform:
+After loading, to start the GTP platform:
 
 ```docker-compose up -d```
 

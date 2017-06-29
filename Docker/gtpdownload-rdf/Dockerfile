@@ -8,6 +8,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y wget ari
 RUN mkdir /download
 WORKDIR /download
 COPY download.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/download.sh
 
 VOLUME /download
 # Expose for linking
