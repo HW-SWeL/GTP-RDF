@@ -1,10 +1,5 @@
 # GTP Docker Images
 
-- [x] Get virtuoso and data container running and check in
-- [ ] Work on data download and data loading containers
-      - [ ] Data download does not seem to be firing it is created but nothing ends up in the logs
-      - [ ] Data staging seems to be running, no files are in the staging directory so no data is being loaded beyond the basic virtuoso data
-
 The [Guide to Pharmacology](http://www.guidetopharmacology.org/) database is available as [linked data](https://www.w3.org/standards/semanticweb/data). The platform that supports the linked data platform is installed as a series of [Docker](http://docker.com/) containers.
 
 - [Overview](#overview)
@@ -15,6 +10,7 @@ The [Guide to Pharmacology](http://www.guidetopharmacology.org/) database is ava
   - [Running the GTP Platform](#running-the-gtp-platform)
   - [Checking the Status of the GTP Platform](#checking-the-status-of-the-GTP-platform)
   - [Stopping the GTP Platform](#Stopping-the-GTP-platform)
+  - [Removing the GTP Platform](#Removing-the-GTP-Platform)
 - [Upgrading the GTP Platform](#Upgrading-the-GTP-Platform)
 
 ## Overview
@@ -142,3 +138,12 @@ docker-compose rm -v virtuosodata
 ```
 
 Then follow the procedure [Building data containers](#Data-Containers) above.
+
+Sometimes it is beneficial to do a complete wipe and rebuild
+
+```
+docker-compose stop
+docker-compose rm -v
+docker-compose build
+```
+
