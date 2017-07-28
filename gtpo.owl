@@ -12,289 +12,285 @@
 @prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_> .
 @prefix chembl: <http://identifiers.org/chembl.compound/> .
 @prefix uniprot: <http://identifiers.org/uniprot/> .
-@base <http://www.guidetopharmacology.org/ns/gtpo/> .
+@base <http://www.guidetopharmacology.com/ns/gtpo/gtpo> .
 
-gtpo:gtpo rdf:type owl:Ontology ;
-                                               owl:versionInfo 0.2 ;
-                                               dct:creator "Alasdair J G Gray" ;
-                                               dct:license <http://creativecommons.org/licenses/by/4.0/> ;
-                                               dct:creator "Liam Bruce" ,
-                                                           <http://orcid.org/0000-0002-5711-4872> ;
-                                               dct:description "The Guide to Pharmacoloty Ontoloty (GTPO) is used to define entities, which appear in the Guide to Pharmacology RDF representation"^^xsd:string ;
-                                               rdfs:seeAlso <http://www.guidetopharmacology.org/> ;
-                                               dct:title "The Guide to Pharmacology Ontology" ;
-                                               vann:preferredNamespacePrefix "gtpo" .
+<http://www.guidetopharmacology.com/ns/gtpo/gtpo> rdf:type owl:Ontology ;
+                                                   owl:versionInfo 0.2 ;
+                                                   dct:creator "Alasdair J G Gray" ;
+                                                   dct:license <http://creativecommons.org/licenses/by/4.0/> ;
+                                                   dct:creator "Liam Bruce" ,
+                                                               <http://orcid.org/0000-0002-5711-4872> ;
+                                                   dct:description "The Guide to Pharmacoloty Ontoloty (GTPO) is used to define entities, which appear in the Guide to Pharmacology RDF representation"^^xsd:string ;
+                                                   rdfs:seeAlso <http://www.guidetopharmacology.org/> ;
+                                                   dct:title "The Guide to Pharmacology Ontology" ;
+                                                   vann:preferredNamespacePrefix "gtpo" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  gtpo:InChIID
+###  http://www.guidetopharmacology.com/ns/gtpo/InChIID
 gtpo:InChIID rdf:type owl:ObjectProperty ;
-                                                rdfs:domain gtpo:Ligand ;
-                                                rdfs:range xsd:string .
+             rdfs:domain gtpo:Ligand ;
+             rdfs:range xsd:string .
 
 
-###  gtpo:InChIKEY
+###  http://www.guidetopharmacology.com/ns/gtpo/InChIKEY
 gtpo:InChIKEY rdf:type owl:ObjectProperty ;
-                                                 rdfs:domain gtpo:Ligand ;
-                                                 rdfs:range xsd:string .
+              rdfs:domain gtpo:Ligand ;
+              rdfs:range xsd:string .
 
 
-###  gtpo:approved
+###  http://www.guidetopharmacology.com/ns/gtpo/approved
 gtpo:approved rdf:type owl:ObjectProperty ;
-                                                 rdfs:domain gtpo:Ligand ;
-                                                 rdfs:range xsd:string .
+              rdfs:domain gtpo:Ligand ;
+              rdfs:range xsd:string .
 
 
-###  gtpo:canonicalSMILES
+###  http://www.guidetopharmacology.com/ns/gtpo/canonicalSMILES
 gtpo:canonicalSMILES rdf:type owl:ObjectProperty ;
-                                                        rdfs:domain gtpo:Ligand ;
-                                                        rdfs:range xsd:string .
+                     rdfs:domain gtpo:Ligand ;
+                     rdfs:range xsd:string .
 
 
-###  gtpo:chemicalClassName
+###  http://www.guidetopharmacology.com/ns/gtpo/chemicalClassName
 gtpo:chemicalClassName rdf:type owl:ObjectProperty ;
-                                                          rdfs:domain gtpo:ChemicalClass ;
-                                                          rdfs:range xsd:string .
+                       rdfs:domain gtpo:ChemicalClass ;
+                       rdfs:range xsd:string .
 
 
-###  gtpo:comment
+###  http://www.guidetopharmacology.com/ns/gtpo/comment
 gtpo:comment rdf:type owl:ObjectProperty ;
-                                                rdfs:domain gtpo:Ligand ;
-                                                rdfs:range xsd:string .
+             rdfs:domain gtpo:Ligand ;
+             rdfs:range xsd:string .
 
 
-###  gtpo:hasAction
+###  http://www.guidetopharmacology.com/ns/gtpo/hasAction
 gtpo:hasAction rdf:type owl:ObjectProperty ;
-                                                  rdfs:domain gtpo:Target ;
-                                                  rdfs:range gtpo:Action ;
-                                                  rdfs:comment "Action of an interaction" .
+               rdfs:domain gtpo:Target ;
+               rdfs:range gtpo:Action ;
+               rdfs:comment "Action of an interaction" .
 
 
-###  gtpo:hasAffinity
+###  http://www.guidetopharmacology.com/ns/gtpo/hasAffinity
 gtpo:hasAffinity rdf:type owl:ObjectProperty ;
-                                                    rdfs:domain gtpo:Interaction ;
-                                                    rdfs:comment "Reference to blank node describing interaction affinity values and units" .
+                 rdfs:domain gtpo:Interaction ;
+                 rdfs:comment "Reference to blank node describing interaction affinity values and units" .
 
 
-###  gtpo:hasAnnotationStatus
+###  http://www.guidetopharmacology.com/ns/gtpo/hasAnnotationStatus
 gtpo:hasAnnotationStatus rdf:type owl:ObjectProperty ;
-                                                            rdfs:domain gtpo:Target ;
-                                                            rdfs:range gtpo:AnnotationStatus ;
-                                                            rdfs:comment "Annotation status of a given target" .
+                         rdfs:domain gtpo:Target ;
+                         rdfs:range gtpo:AnnotationStatus ;
+                         rdfs:comment "Annotation status of a given target" .
 
 
-###  gtpo:hasChemicalClass
+###  http://www.guidetopharmacology.com/ns/gtpo/hasChemicalClass
 gtpo:hasChemicalClass rdf:type owl:ObjectProperty ;
-                                                         rdfs:domain gtpo:Ligand ;
-                                                         rdfs:range gtpo:ChemicalClass ;
-                                                         rdfs:comment "Chemical class of a ligand" .
+                      rdfs:domain gtpo:Ligand ;
+                      rdfs:range gtpo:ChemicalClass ;
+                      rdfs:comment "Chemical class of a ligand" .
 
 
-###  gtpo:hasHighValue
-gtpo:hasHighValue rdf:type owl:ObjectProperty ;
-                                                     rdfs:domain gtpo:Interaction ;
-                                                     rdfs:range xsd:double .
-
-
-###  gtpo:hasLigand
+###  http://www.guidetopharmacology.com/ns/gtpo/hasLigand
 gtpo:hasLigand rdf:type owl:ObjectProperty ;
-                                                  rdfs:domain gtpo:Interaction ;
-                                                  rdfs:range gtpo:Ligand ;
-                                                  rdfs:comment "ligand participant of an interaction" .
+               rdfs:domain gtpo:Interaction ;
+               rdfs:range gtpo:Ligand ;
+               rdfs:comment "ligand participant of an interaction" .
 
 
-###  gtpo:hasLowValue
-gtpo:hasLowValue rdf:type owl:ObjectProperty ;
-                                                    rdfs:domain gtpo:Interaction ;
-                                                    rdfs:range xsd:double .
-
-
-###  gtpo:hasRef
+###  http://www.guidetopharmacology.com/ns/gtpo/hasRef
 gtpo:hasRef rdf:type owl:ObjectProperty ;
-                                               rdfs:domain [ rdf:type owl:Class ;
-                                                             owl:unionOf ( gtpo:Ligand
-                                                                           gtpo:Target
-                                                                         )
-                                                           ] ;
-                                               rdfs:comment "Reference to Blank node pair, containing cross reference and taxonomy" .
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( gtpo:Ligand
+                                        gtpo:Target
+                                      )
+                        ] ;
+            rdfs:comment "Reference to Blank node pair, containing cross reference and taxonomy" .
 
 
-###  gtpo:hasReference
+###  http://www.guidetopharmacology.com/ns/gtpo/hasReference
 gtpo:hasReference rdf:type owl:ObjectProperty ;
-                                                     rdfs:domain gtpo:Interaction ;
-                                                     rdfs:comment "Reference to PubMed id of article describing interaction" .
+                  rdfs:domain gtpo:Interaction ;
+                  rdfs:comment "Reference to PubMed id of article describing interaction" .
 
 
-###  gtpo:hasSpecies
+###  http://www.guidetopharmacology.com/ns/gtpo/hasSpecies
 gtpo:hasSpecies rdf:type owl:ObjectProperty ;
-                                                   rdfs:domain [ rdf:type owl:Class ;
-                                                                 owl:unionOf ( gtpo:Interaction
-                                                                               gtpo:Ligand
-                                                                               gtpo:Target
-                                                                             )
-                                                               ] ;
-                                                   rdfs:comment "Cross reference to NCBI taxonomy" .
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( gtpo:Interaction
+                                            gtpo:Ligand
+                                            gtpo:Target
+                                          )
+                            ] ;
+                rdfs:comment "Cross reference to NCBI taxonomy" .
 
 
-###  gtpo:hasTarget
+###  http://www.guidetopharmacology.com/ns/gtpo/hasTarget
 gtpo:hasTarget rdf:type owl:ObjectProperty ;
-                                                  rdfs:domain gtpo:Interaction ;
-                                                  rdfs:range gtpo:Target ;
-                                                  rdfs:comment "target participant of an interaction" .
+               rdfs:domain gtpo:Interaction ;
+               rdfs:range gtpo:Target ;
+               rdfs:comment "target participant of an interaction" .
 
 
-###  gtpo:hasTargetFamily
+###  http://www.guidetopharmacology.com/ns/gtpo/hasTargetFamily
 gtpo:hasTargetFamily rdf:type owl:ObjectProperty ;
-                                                        rdfs:domain gtpo:Target ;
-                                                        rdfs:range gtpo:TargetFamily ;
-                                                        rdfs:comment "target family of a target" .
+                     rdfs:domain gtpo:Target ;
+                     rdfs:range gtpo:TargetFamily ;
+                     rdfs:comment "target family of a target" .
 
 
-###  gtpo:hasTargetFamilyClass
+###  http://www.guidetopharmacology.com/ns/gtpo/hasTargetFamilyClass
 gtpo:hasTargetFamilyClass rdf:type owl:ObjectProperty ;
-                                                             rdfs:domain gtpo:TargetFamily ;
-                                                             rdfs:range gtpo:TargetFamilyClass ;
-                                                             rdfs:comment "Class of target family" .
+                          rdfs:domain gtpo:TargetFamily ;
+                          rdfs:range gtpo:TargetFamilyClass ;
+                          rdfs:comment "Class of target family" .
 
 
-###  gtpo:hasType
+###  http://www.guidetopharmacology.com/ns/gtpo/hasType
 gtpo:hasType rdf:type owl:ObjectProperty ;
-                                                rdfs:domain gtpo:Interaction ;
-                                                rdfs:range gtpo:Type ;
-                                                rdfs:comment "Action type of an interaction" .
+             rdfs:domain gtpo:Interaction ;
+             rdfs:range gtpo:Type ;
+             rdfs:comment "Action type of an interaction" .
 
 
-###  gtpo:hasUnit
+###  http://www.guidetopharmacology.com/ns/gtpo/hasUnit
 gtpo:hasUnit rdf:type owl:ObjectProperty ;
-                                                rdfs:domain gtpo:Interaction ;
-                                                rdfs:comment "Cross reference to unit description from BAO ontology" .
+             rdfs:domain gtpo:Interaction ;
+             rdfs:comment "Cross reference to unit description from BAO ontology" .
 
 
-###  gtpo:hasValue
-gtpo:hasValue rdf:type owl:ObjectProperty ;
-                                                 rdfs:domain gtpo:Interaction ;
-                                                 rdfs:range xsd:double .
-
-
-###  gtpo:isomericSMILES
+###  http://www.guidetopharmacology.com/ns/gtpo/isomericSMILES
 gtpo:isomericSMILES rdf:type owl:ObjectProperty ;
-                                                       rdfs:domain gtpo:Ligand ;
-                                                       rdfs:range xsd:string .
+                    rdfs:domain gtpo:Ligand ;
+                    rdfs:range xsd:string .
 
 
-###  gtpo:iupacName
+###  http://www.guidetopharmacology.com/ns/gtpo/iupacName
 gtpo:iupacName rdf:type owl:ObjectProperty ;
-                                                  rdfs:domain gtpo:Ligand ;
-                                                  rdfs:range xsd:string .
+               rdfs:domain gtpo:Ligand ;
+               rdfs:range xsd:string .
 
 
-###  gtpo:ligandName
+###  http://www.guidetopharmacology.com/ns/gtpo/ligandName
 gtpo:ligandName rdf:type owl:ObjectProperty ;
-                                                   rdfs:domain gtpo:Ligand ;
-                                                   rdfs:range xsd:string .
+                rdfs:domain gtpo:Ligand ;
+                rdfs:range xsd:string .
 
 
-###  gtpo:nomenclature
+###  http://www.guidetopharmacology.com/ns/gtpo/nomenclature
 gtpo:nomenclature rdf:type owl:ObjectProperty ;
-                                                     rdfs:domain gtpo:Target ;
-                                                     rdfs:range xsd:string .
+                  rdfs:domain gtpo:Target ;
+                  rdfs:range xsd:string .
 
 
-###  gtpo:synonym
+###  http://www.guidetopharmacology.com/ns/gtpo/synonym
 gtpo:synonym rdf:type owl:ObjectProperty ;
-                                                rdfs:domain gtpo:Ligand ;
-                                                rdfs:range xsd:string .
+             rdfs:domain gtpo:Ligand ;
+             rdfs:range xsd:string .
 
 
-###  gtpo:targetFamilyClassName
+###  http://www.guidetopharmacology.com/ns/gtpo/targetFamilyClassName
 gtpo:targetFamilyClassName rdf:type owl:ObjectProperty ;
-                                                              rdfs:domain gtpo:TargetFamilyClass ;
-                                                              rdfs:range xsd:string .
+                           rdfs:domain gtpo:TargetFamilyClass ;
+                           rdfs:range xsd:string .
 
 
-###  gtpo:targetFamilyName
+###  http://www.guidetopharmacology.com/ns/gtpo/targetFamilyName
 gtpo:targetFamilyName rdf:type owl:ObjectProperty ;
-                                                         rdfs:domain gtpo:TargetFamily ;
-                                                         rdfs:range xsd:string .
+                      rdfs:domain gtpo:TargetFamily ;
+                      rdfs:range xsd:string .
 
 
-###  gtpo:xref
+###  http://www.guidetopharmacology.com/ns/gtpo/xref
 gtpo:xref rdf:type owl:ObjectProperty ;
-                                             rdfs:domain [ rdf:type owl:Class ;
-                                                           owl:unionOf ( gtpo:Ligand
-                                                                         gtpo:Target
-                                                                       )
-                                                         ] ;
-                                             rdfs:comment "Cross reference to external database" .
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( gtpo:Ligand
+                                      gtpo:Target
+                                    )
+                      ] ;
+          rdfs:comment "Cross reference to external database" .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  gtpo:InChIID
+###  http://www.guidetopharmacology.com/ns/gtpo/InChIID
 gtpo:InChIID rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:InChIKEY
+###  http://www.guidetopharmacology.com/ns/gtpo/InChIKEY
 gtpo:InChIKEY rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:approved
+###  http://www.guidetopharmacology.com/ns/gtpo/approved
 gtpo:approved rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:canonicalSMILES
+###  http://www.guidetopharmacology.com/ns/gtpo/canonicalSMILES
 gtpo:canonicalSMILES rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:chemicalClassName
+###  http://www.guidetopharmacology.com/ns/gtpo/chemicalClassName
 gtpo:chemicalClassName rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:comment
+###  http://www.guidetopharmacology.com/ns/gtpo/comment
 gtpo:comment rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:hasHighValue
-gtpo:hasHighValue rdf:type owl:DatatypeProperty .
+###  http://www.guidetopharmacology.com/ns/gtpo/hasHighValue
+gtpo:hasHighValue rdf:type owl:DatatypeProperty ;
+                  rdfs:domain gtpo:Interaction ;
+                  rdfs:range xsd:double ;
+                  rdfs:comment "high value of an interaction affinity, also has low value" ;
+                  rdfs:label "has high value" ;
+                  rdfs:seeAlso gtpo:hasLowValue .
 
 
-###  gtpo:hasLowValue
-gtpo:hasLowValue rdf:type owl:DatatypeProperty .
+###  http://www.guidetopharmacology.com/ns/gtpo/hasLowValue
+gtpo:hasLowValue rdf:type owl:DatatypeProperty ;
+                 rdfs:domain gtpo:Interaction ;
+                 rdfs:range xsd:double ;
+                 rdfs:comment "Low value of an interaction affinity, also has high value" ;
+                 rdfs:label "has low value" ;
+                 rdfs:seeAlso gtpo:hasHighValue .
 
 
-###  gtpo:hasValue
-gtpo:hasValue rdf:type owl:DatatypeProperty .
+###  http://www.guidetopharmacology.com/ns/gtpo/hasMedianValue
+gtpo:hasMedianValue rdf:type owl:DatatypeProperty ;
+              rdfs:domain gtpo:Interaction ;
+              rdfs:range xsd:double ;
+              rdfs:comment "Median value of an interaction affinity" ;
+              rdfs:label "has median value" .
 
 
-###  gtpo:isomericSMILES
+###  http://www.guidetopharmacology.com/ns/gtpo/isomericSMILES
 gtpo:isomericSMILES rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:iupacName
+###  http://www.guidetopharmacology.com/ns/gtpo/iupacName
 gtpo:iupacName rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:ligandName
+###  http://www.guidetopharmacology.com/ns/gtpo/ligandName
 gtpo:ligandName rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:nomenclature
+###  http://www.guidetopharmacology.com/ns/gtpo/nomenclature
 gtpo:nomenclature rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:synonym
+###  http://www.guidetopharmacology.com/ns/gtpo/synonym
 gtpo:synonym rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:targetFamilyClassName
+###  http://www.guidetopharmacology.com/ns/gtpo/targetFamilyClassName
 gtpo:targetFamilyClassName rdf:type owl:DatatypeProperty .
 
 
-###  gtpo:targetFamilyName
+###  http://www.guidetopharmacology.com/ns/gtpo/targetFamilyName
 gtpo:targetFamilyName rdf:type owl:DatatypeProperty .
 
 
@@ -302,247 +298,243 @@ gtpo:targetFamilyName rdf:type owl:DatatypeProperty .
 #    Classes
 #################################################################
 
-###  http://www.xsd.orgdouble
-xsd:double rdf:type owl:Class .
-
-
 ###  http://www.xsd.orgstring
 xsd:string rdf:type owl:Class .
 
 
-###  gtpo:Action
+###  http://www.guidetopharmacology.com/ns/gtpo/Action
 gtpo:Action rdf:type owl:Class ;
-                                               rdfs:comment "Class describing different interaction actions, defined by Guide to Pharmacology" .
+            rdfs:comment "Class describing different interaction actions, defined by Guide to Pharmacology" .
 
 
-###  gtpo:Activation
+###  http://www.guidetopharmacology.com/ns/gtpo/Activation
 gtpo:Activation rdf:type owl:Class ;
-                                                   rdfs:subClassOf gtpo:Action .
+                rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Activator
+###  http://www.guidetopharmacology.com/ns/gtpo/Activator
 gtpo:Activator rdf:type owl:Class ;
-                                                  rdfs:subClassOf gtpo:Type .
+               rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:Agonist
+###  http://www.guidetopharmacology.com/ns/gtpo/Agonist
 gtpo:Agonist rdf:type owl:Class ;
-                                                rdfs:subClassOf gtpo:Type .
+             rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:AgonistAction
+###  http://www.guidetopharmacology.com/ns/gtpo/AgonistAction
 gtpo:AgonistAction rdf:type owl:Class ;
-                                                      rdfs:subClassOf gtpo:Action .
+                   rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:AllostericModulator
+###  http://www.guidetopharmacology.com/ns/gtpo/AllostericModulator
 gtpo:AllostericModulator rdf:type owl:Class ;
-                                                            rdfs:subClassOf gtpo:Type .
+                         rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:AnnotatedAwaitingReview
+###  http://www.guidetopharmacology.com/ns/gtpo/AnnotatedAwaitingReview
 gtpo:AnnotatedAwaitingReview rdf:type owl:Class ;
-                                                                rdfs:subClassOf gtpo:AnnotationStatus .
+                             rdfs:subClassOf gtpo:AnnotationStatus .
 
 
-###  gtpo:AnnotatedExpertReviewed
+###  http://www.guidetopharmacology.com/ns/gtpo/AnnotatedExpertReviewed
 gtpo:AnnotatedExpertReviewed rdf:type owl:Class ;
-                                                                rdfs:subClassOf gtpo:AnnotationStatus .
+                             rdfs:subClassOf gtpo:AnnotationStatus .
 
 
-###  gtpo:AnnotationStatus
+###  http://www.guidetopharmacology.com/ns/gtpo/AnnotationStatus
 gtpo:AnnotationStatus rdf:type owl:Class ;
-                                                         rdfs:comment "Class describing annotation status of targets, defined by Guide to Pharmacology" .
+                      rdfs:comment "Class describing annotation status of targets, defined by Guide to Pharmacology" .
 
 
-###  gtpo:Antagonist
+###  http://www.guidetopharmacology.com/ns/gtpo/Antagonist
 gtpo:Antagonist rdf:type owl:Class ;
-                                                   rdfs:subClassOf gtpo:Type .
+                rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:AntagonistAction
+###  http://www.guidetopharmacology.com/ns/gtpo/AntagonistAction
 gtpo:AntagonistAction rdf:type owl:Class ;
-                                                         rdfs:subClassOf gtpo:Action .
+                      rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Antibody
+###  http://www.guidetopharmacology.com/ns/gtpo/Antibody
 gtpo:Antibody rdf:type owl:Class ;
-                                                 rdfs:subClassOf gtpo:Type .
+              rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:BiasedAgonist
+###  http://www.guidetopharmacology.com/ns/gtpo/BiasedAgonist
 gtpo:BiasedAgonist rdf:type owl:Class ;
-                                                      rdfs:subClassOf gtpo:Action .
+                   rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Binding
+###  http://www.guidetopharmacology.com/ns/gtpo/Binding
 gtpo:Binding rdf:type owl:Class ;
-                                                rdfs:subClassOf gtpo:Action .
+             rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Biphasic
+###  http://www.guidetopharmacology.com/ns/gtpo/Biphasic
 gtpo:Biphasic rdf:type owl:Class ;
-                                                 rdfs:subClassOf gtpo:Action .
+              rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:ChannelBlocker
+###  http://www.guidetopharmacology.com/ns/gtpo/ChannelBlocker
 gtpo:ChannelBlocker rdf:type owl:Class ;
-                                                       rdfs:subClassOf gtpo:Type .
+                    rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:ChemicalClass
+###  http://www.guidetopharmacology.com/ns/gtpo/ChemicalClass
 gtpo:ChemicalClass rdf:type owl:Class ;
-                                                      rdfs:comment "Class describing families for different chemicals, defined by Guide to Pharmacology" .
+                   rdfs:comment "Class describing families for different chemicals, defined by Guide to Pharmacology" .
 
 
-###  gtpo:Competitive
+###  http://www.guidetopharmacology.com/ns/gtpo/Competitive
 gtpo:Competitive rdf:type owl:Class ;
-                                                    rdfs:subClassOf gtpo:Action .
+                 rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:FeedbackInhibition
+###  http://www.guidetopharmacology.com/ns/gtpo/FeedbackInhibition
 gtpo:FeedbackInhibition rdf:type owl:Class ;
-                                                           rdfs:subClassOf gtpo:Action .
+                        rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:FullAgonist
+###  http://www.guidetopharmacology.com/ns/gtpo/FullAgonist
 gtpo:FullAgonist rdf:type owl:Class ;
-                                                    rdfs:subClassOf gtpo:Action .
+                 rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:GatingInhibitor
+###  http://www.guidetopharmacology.com/ns/gtpo/GatingInhibitor
 gtpo:GatingInhibitor rdf:type owl:Class ;
-                                                        rdfs:subClassOf gtpo:Type .
+                     rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:Inhibition
+###  http://www.guidetopharmacology.com/ns/gtpo/Inhibition
 gtpo:Inhibition rdf:type owl:Class ;
-                                                   rdfs:subClassOf gtpo:Action .
+                rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Inhibitor
+###  http://www.guidetopharmacology.com/ns/gtpo/Inhibitor
 gtpo:Inhibitor rdf:type owl:Class ;
-                                                  rdfs:subClassOf gtpo:Type .
+               rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:Interaction
+###  http://www.guidetopharmacology.com/ns/gtpo/Interaction
 gtpo:Interaction rdf:type owl:Class ;
-                                                    rdfs:comment "Class describing the interactions between chemicals and proteins stored in the Guide to Pharmacology data" .
+                 rdfs:comment "Class describing the interactions between chemicals and proteins stored in the Guide to Pharmacology data" .
 
 
-###  gtpo:InverseAgonist
+###  http://www.guidetopharmacology.com/ns/gtpo/InverseAgonist
 gtpo:InverseAgonist rdf:type owl:Class ;
-                                                       rdfs:subClassOf gtpo:Action .
+                    rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:IrreversibleAgonist
+###  http://www.guidetopharmacology.com/ns/gtpo/IrreversibleAgonist
 gtpo:IrreversibleAgonist rdf:type owl:Class ;
-                                                            rdfs:subClassOf gtpo:Action .
+                         rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:IrreversibleInhibition
+###  http://www.guidetopharmacology.com/ns/gtpo/IrreversibleInhibition
 gtpo:IrreversibleInhibition rdf:type owl:Class ;
-                                                               rdfs:subClassOf gtpo:Action .
+                            rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Ligand
+###  http://www.guidetopharmacology.com/ns/gtpo/Ligand
 gtpo:Ligand rdf:type owl:Class ;
-                                               rdfs:comment "Class describing the chemicals stored in the Guide to Pharmacology data" .
+            rdfs:comment "Class describing the chemicals stored in the Guide to Pharmacology data" .
 
 
-###  gtpo:Mixed
+###  http://www.guidetopharmacology.com/ns/gtpo/Mixed
 gtpo:Mixed rdf:type owl:Class ;
-                                              rdfs:subClassOf gtpo:Action .
+           rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Negative
+###  http://www.guidetopharmacology.com/ns/gtpo/Negative
 gtpo:Negative rdf:type owl:Class ;
-                                                 rdfs:subClassOf gtpo:Action .
+              rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Neutral
+###  http://www.guidetopharmacology.com/ns/gtpo/Neutral
 gtpo:Neutral rdf:type owl:Class ;
-                                                rdfs:subClassOf gtpo:Action .
+             rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:NoAction
+###  http://www.guidetopharmacology.com/ns/gtpo/NoAction
 gtpo:NoAction rdf:type owl:Class ;
-                                                 rdfs:subClassOf gtpo:Action .
+              rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:NonCompetitive
+###  http://www.guidetopharmacology.com/ns/gtpo/NonCompetitive
 gtpo:NonCompetitive rdf:type owl:Class ;
-                                                       rdfs:subClassOf gtpo:Action .
+                    rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:None
+###  http://www.guidetopharmacology.com/ns/gtpo/None
 gtpo:None rdf:type owl:Class ;
-                                             rdfs:subClassOf gtpo:Type .
+          rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:PartialAgonist
+###  http://www.guidetopharmacology.com/ns/gtpo/PartialAgonist
 gtpo:PartialAgonist rdf:type owl:Class ;
-                                                       rdfs:subClassOf gtpo:Action .
+                    rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:PoreBlocker
+###  http://www.guidetopharmacology.com/ns/gtpo/PoreBlocker
 gtpo:PoreBlocker rdf:type owl:Class ;
-                                                    rdfs:subClassOf gtpo:Action .
+                 rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Positive
+###  http://www.guidetopharmacology.com/ns/gtpo/Positive
 gtpo:Positive rdf:type owl:Class ;
-                                                 rdfs:subClassOf gtpo:Action .
+              rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:Potentiation
+###  http://www.guidetopharmacology.com/ns/gtpo/Potentiation
 gtpo:Potentiation rdf:type owl:Class ;
-                                                     rdfs:subClassOf gtpo:Action .
+                  rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:SlowsInactivation
+###  http://www.guidetopharmacology.com/ns/gtpo/SlowsInactivation
 gtpo:SlowsInactivation rdf:type owl:Class ;
-                                                          rdfs:subClassOf gtpo:Action .
+                       rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:SubunitSpecific
+###  http://www.guidetopharmacology.com/ns/gtpo/SubunitSpecific
 gtpo:SubunitSpecific rdf:type owl:Class ;
-                                                        rdfs:subClassOf gtpo:Type .
+                     rdfs:subClassOf gtpo:Type .
 
 
-###  gtpo:Target
+###  http://www.guidetopharmacology.com/ns/gtpo/Target
 gtpo:Target rdf:type owl:Class ;
-                                               rdfs:comment "Class describing the different proteins stored in the Guide to Pharmacology data" .
+            rdfs:comment "Class describing the different proteins stored in the Guide to Pharmacology data" .
 
 
-###  gtpo:TargetFamily
+###  http://www.guidetopharmacology.com/ns/gtpo/TargetFamily
 gtpo:TargetFamily rdf:type owl:Class ;
-                                                     rdfs:comment "Class describing families of proteins stored in the Guide to Pharmacology data" .
+                  rdfs:comment "Class describing families of proteins stored in the Guide to Pharmacology data" .
 
 
-###  gtpo:TargetFamilyClass
+###  http://www.guidetopharmacology.com/ns/gtpo/TargetFamilyClass
 gtpo:TargetFamilyClass rdf:type owl:Class ;
-                                                          rdfs:comment "Class describing class of protein families stored in the Guide to Pharmacology data" .
+                       rdfs:comment "Class describing class of protein families stored in the Guide to Pharmacology data" .
 
 
-###  gtpo:Type
+###  http://www.guidetopharmacology.com/ns/gtpo/Type
 gtpo:Type rdf:type owl:Class ;
-                                             rdfs:comment "Class describing different interaction action types, defined by Guide to Pharmacology" .
+          rdfs:comment "Class describing different interaction action types, defined by Guide to Pharmacology" .
 
 
-###  gtpo:UnderDevelopment
+###  http://www.guidetopharmacology.com/ns/gtpo/UnderDevelopment
 gtpo:UnderDevelopment rdf:type owl:Class ;
-                                                         rdfs:subClassOf gtpo:AnnotationStatus .
+                      rdfs:subClassOf gtpo:AnnotationStatus .
 
 
-###  gtpo:Unknown
+###  http://www.guidetopharmacology.com/ns/gtpo/Unknown
 gtpo:Unknown rdf:type owl:Class ;
-                                                rdfs:subClassOf gtpo:Action .
+             rdfs:subClassOf gtpo:Action .
 
 
-###  gtpo:VoltageDependentInbibition
+###  http://www.guidetopharmacology.com/ns/gtpo/VoltageDependentInbibition
 gtpo:VoltageDependentInbibition rdf:type owl:Class ;
-                                                                   rdfs:subClassOf gtpo:Action .
+                                rdfs:subClassOf gtpo:Action .
 
 
 #################################################################
@@ -565,15 +557,6 @@ gtpo:chemicalClassName rdfs:comment "name of a given chemical class" .
 
 
 gtpo:comment rdfs:comment "Guide to Pharmacology comments on a ligand" .
-
-
-gtpo:hasHighValue rdfs:comment "high value of an interaction affinity, also has low value" .
-
-
-gtpo:hasLowValue rdfs:comment "Low value of an interaction affinity, also has high value" .
-
-
-gtpo:hasValue rdfs:comment "Median value of an interaction affinity" .
 
 
 gtpo:isomericSMILES rdfs:comment "isomeric SMILES, describing a ligand" .
