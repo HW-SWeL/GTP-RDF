@@ -239,8 +239,8 @@ gtpo:comment rdf:type owl:DatatypeProperty .
 gtpo:hasHighValue rdf:type owl:DatatypeProperty ;
                   rdfs:domain gtpo:Interaction ;
                   rdfs:range xsd:double ;
-                  rdfs:comment "high value of an interaction affinity, also has low value" ;
                   rdfs:label "has high value" ;
+                  rdfs:comment "High value of an interaction affinity, also has low value" ;
                   rdfs:seeAlso gtpo:hasLowValue .
 
 
@@ -255,10 +255,10 @@ gtpo:hasLowValue rdf:type owl:DatatypeProperty ;
 
 ###  http://www.guidetopharmacology.org/ns/gtpo/hasMedianValue
 gtpo:hasMedianValue rdf:type owl:DatatypeProperty ;
-              rdfs:domain gtpo:Interaction ;
-              rdfs:range xsd:double ;
-              rdfs:comment "Median value of an interaction affinity" ;
-              rdfs:label "has median value" .
+              rdfs:label "has median value" ;
+                    rdfs:domain gtpo:Interaction ;
+                    rdfs:range xsd:double ;
+                    rdfs:comment "Median value of an interaction affinity" .
 
 
 ###  http://www.guidetopharmacology.org/ns/gtpo/isomericSMILES
@@ -292,9 +292,6 @@ gtpo:targetFamilyName rdf:type owl:DatatypeProperty .
 #################################################################
 #    Classes
 #################################################################
-
-###  http://www.xsd.orgstring
-xsd:string rdf:type owl:Class .
 
 ###  http://www.guidetopharmacology.org/ns/gtpo/Action
 gtpo:Action rdf:type owl:Class ;
@@ -529,6 +526,10 @@ gtpo:Unknown rdf:type owl:Class ;
 ###  http://www.guidetopharmacology.org/ns/gtpo/VoltageDependentInbibition
 gtpo:VoltageDependentInbibition rdf:type owl:Class ;
                                 rdfs:subClassOf gtpo:Action .
+
+
+###  http://www.w3.org/2001/XMLSchema#string
+xsd:string rdf:type owl:Class .
 
 
 #################################################################
