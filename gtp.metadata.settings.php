@@ -16,7 +16,7 @@ Alasdair Gray
    limitations under the License.
  */
 
-define("GTP_URI_BASE", "http://www.guidetopharmacology.org/GRAC/");
+define("GTP_URI_BASE", "http://rdf.guidetopharmacology.org/GRAC/");
 
 #CORE Metadata Properties
 define("GTP_DESCRIPTION", "dct:description \"The IUPHAR/BPS Guide to PHARMACOLOGY. An expert-driven guide to pharmacological targets with quantitative information on the prescription medicines and experimental dugs that act on them. Developed as a joint initiative of the International Union of Basic and Clinical Pharmacology (IUPHAR) and the British Pharmacological Society (BPS) and is now the new home of the IUPHAR Database (IUPHAR-DB).\"@en;");

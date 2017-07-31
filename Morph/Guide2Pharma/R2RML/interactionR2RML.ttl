@@ -6,12 +6,12 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix ex: <http://example.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@base <http://www.guidetopharmacology.org/GRAC/> .
+@base <http://rdf.guidetopharmacology.org/GRAC/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix chembl: <http://identifiers.org/chembl.compound/>.
-@prefix gtp: <http://www.guidetopharmacology.org/GRAC/>.
-@prefix gtpo: <http://www.guidetopharmacology.org/ns/>.
+@prefix gtp: <http://rdf.guidetopharmacology.org/GRAC/>.
+@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
 @prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
 @prefix ncbi: <http://purl.obolibrary.org/obo/NCBITaxon_>.
 @prefix pmid: <http://identifiers.org/pubmed/>.
@@ -76,7 +76,7 @@
 		WHERE interaction.species_id = species.species_id;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/interaction{id}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/interaction{id}" ];
 
 	rr:predicateObjectMap
     [
@@ -86,19 +86,19 @@
     rr:predicateObjectMap
     [
       rr:predicate	gtpo:hasLigand ;
-      rr:objectMap	[ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{ligand}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{ligand}" ];
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:hasTarget;
-        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/target{target}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/target{target}" ];
 	];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:hasType;
-        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/{actiontype}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{actiontype}" ];
 	];
 	 rr:predicateObjectMap [
       rr:predicate	gtpo:hasAction;
-      rr:objectMap	[ rr:template "http://www.guidetopharmacology.org/GRAC/{interactionaction}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/GRAC/{interactionaction}" ];
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:hasTaxonomy;
@@ -119,7 +119,7 @@
 	WHERE affinity_units <> '-'
 	AND (affinity_high IS NOT NULL OR affinity_median IS NOT NULL);
 	""";];
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/interaction{id}";];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/interaction{id}";];
 	rr:predicateObjectMap
 	[
 		rr:predicate gtpo:hasAffinity;
@@ -227,7 +227,7 @@
 		AND pubmed_id IS NOT NULL;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/interaction{id}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/interaction{id}" ];
 
     rr:predicateObjectMap
     [
@@ -260,12 +260,12 @@
 		FROM interaction;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/{actiontype}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{actiontype}" ];
 
     rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://www.guidetopharmacology.com/ns/gtpo/{actiontype}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.com/ns/gtpo/{actiontype}" ];
     ]
 	.
 
@@ -308,11 +308,11 @@
 		FROM interaction;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/{interactionaction}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{interactionaction}" ];
 
     rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://www.guidetopharmacology.com/ns/gtpo/{interactionaction}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.com/ns/gtpo/{interactionaction}" ];
     ]
 	.

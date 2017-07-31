@@ -6,12 +6,12 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix ex: <http://example.com/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@base <http://www.guidetopharmacology.org/GRAC/> .
+@base <http://rdf.guidetopharmacology.org/GRAC/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix chembl: <http://identifiers.org/chembl.compound/>.
-@prefix gtp: <http://www.guidetopharmacology.org/GRAC/>.
-@prefix gtpo: <http://www.guidetopharmacology.org/ns/gtpo/>.
+@prefix gtp: <http://rdf.guidetopharmacology.org/GRAC/>.
+@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
 @prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
 @prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_>.
 @prefix pmid: <http://identifiers.org/pubmed/>.
@@ -40,7 +40,7 @@
 		FROM object;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/target{id}"];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/target{id}"];
 
 	rr:predicateObjectMap
     [
@@ -59,7 +59,7 @@
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:annotationStatus;
-        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/{status}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{status}" ];
 	]
 	.
 
@@ -80,11 +80,11 @@
 		AND object.object_id = receptor2family.object_id;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/target{id}"];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/target{id}"];
 
 	 rr:predicateObjectMap [
         rr:predicate gtpo:hasTargetFamily;
-        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/targetFamily{family}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/targetFamily{family}" ];
 	]
 	.
 #####################################################################
@@ -105,7 +105,7 @@
 		AND S.species_id = DL.species_id
 		AND database_id = 5;
 		""";];
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/target{id}";];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/target{id}";];
 	rr:predicateObjectMap
 	[
 		rr:predicate gtpo:hasRef;
@@ -167,7 +167,7 @@
 		FROM family;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/targetFamily{id}"; ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/targetFamily{id}"; ];
 
 	rr:predicateObjectMap
     [
@@ -187,7 +187,7 @@
 	rr:predicateObjectMap
     [
       rr:predicate	gtpo:hasTargetFamilyClass;
-      rr:objectMap	[ rr:template "http://www.guidetopharmacology.org/GRAC/targetFamilyClass_{type}" ]
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/GRAC/targetFamilyClass_{type}" ]
     ]
 	.
 
@@ -217,7 +217,7 @@
 			FROM family;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/targetFamilyClass_{type}";];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/targetFamilyClass_{type}";];
 
 	rr:predicateObjectMap
     [
@@ -253,10 +253,10 @@
 		FROM object WHERE object.annotation_status = 1 OR object.annotation_status = 3 OR object.annotation_status = 5;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/{status}";];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{status}";];
 		rr:predicateObjectMap
     [
       rr:predicate	rdf:type ;
-      rr:objectMap	[ rr:template "http://www.guidetopharmacology.com/ns/gtpo/{status}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.com/ns/gtpo/{status}" ];
     ];
 	.

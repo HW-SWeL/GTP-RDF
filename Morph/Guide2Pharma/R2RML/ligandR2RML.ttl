@@ -5,12 +5,12 @@
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@base <http://www.guidetopharmacology.org/GRAC/> .
+@base <http://rdf.guidetopharmacology.org/GRAC/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix chembl: <http://identifiers.org/chembl.compound/>.
-@prefix gtp: <http://www.guidetopharmacology.org/GRAC/>.
-@prefix gtpo: <http://www.guidetopharmacology.org/ns/gtpo/>.
+@prefix gtp: <http://rdf.guidetopharmacology.org/GRAC/>.
+@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
 @prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
 @prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_>.
 @prefix pmid: <http://identifiers.org/pubmed/>.
@@ -47,7 +47,7 @@
 		FROM ligand L;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}" ];
 
 	rr:predicateObjectMap
     [
@@ -66,7 +66,7 @@
     ];
 	rr:predicateObjectMap [
         rr:predicate gtpo:hasChemicalClass;
-        rr:objectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/chemicalClass{chemicalclass}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/chemicalClass{chemicalclass}" ];
 	];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:approved;
@@ -88,7 +88,7 @@
 	WHERE comments <> '';
 	""";];
 
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}"];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}"];
 
 	rr:predicateObjectMap
 	[
@@ -111,7 +111,7 @@
 	WHERE iupac_name <> '';
 	""";];
 
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}"];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}"];
 
 	rr:predicateObjectMap
 	[
@@ -135,7 +135,7 @@
 	AND  synonym <> '';
 	""";];
 
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}"];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}"];
 
 	rr:predicateObjectMap
 	[
@@ -164,7 +164,7 @@
 		AND LDL.ligand_id = L.ligand_id;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}" ];
 
 	 rr:predicateObjectMap [
         rr:predicate gtpo:xref;
@@ -191,7 +191,7 @@
 		FROM ligand_structure;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/ligand{id}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}" ];
 	rr:predicateObjectMap
 	[
       rr:predicate	gtpo:inChI ;
@@ -233,7 +233,7 @@
 		FROM ligand;
 		""";] ;
 
-    rr:subjectMap [ rr:template "http://www.guidetopharmacology.org/GRAC/chemicalClass{id}" ];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/chemicalClass{id}" ];
 
 	rr:predicateObjectMap
     [
@@ -270,7 +270,7 @@
 		AND S.species_id = LDL.species_id
 		AND database_id = 5;
 		""";];
-	rr:subjectMap [rr:template "http://www.guidetopharmacology.org/GRAC/target{id}";];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/target{id}";];
 	rr:predicateObjectMap
 	[
 		rr:predicate gtpo:hasRef;

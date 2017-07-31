@@ -47,7 +47,7 @@ R2RML allows two ways to create triples using subject maps and predicate / objec
 When creating a literal value such as a string, use a column based value such as [rr:column "name";] where 'name' is the name of some column
 used in the associated query.
 
-When creating a URI based value, use a template value such as ```[rr:template ""http://www.guidetopharmacology.com/data/ligand{id}"";]``` where ```id```
+When creating a URI based value, use a template value such as ```[rr:template ""http://rdf.guidetopharmacology.com/GRAC/ligand{id}"";]``` where ```id```
 is the name of a column used in the associated query. You can use multiple column values to form a template such as ```[rr:template "{namespace}{external_id}";]```
 
 We use SQL cases where necessary to manipulate values, this means that no modification of data in the database is necessary before we can run the RDF conversion,
@@ -67,6 +67,6 @@ segments for gathering variables, opening files, setting input and writing to ap
 ## BioAssay Ontology for Units
 
 During the development of our platform, the units pKi, pKB and pKd were not described by any existing ontology. We have contacted the
-Personel behind the BioAssay ontology, and they are currently working on it. However, because the units are not available these are currently assigned
+maintainers of the BioAssay ontology, and they are currently working on it. However, because the units are not available these are currently assigned
 placeholder values in our interaction R2RML files, in Triples Maps 4&5. This can be easily edited to fit the BAO ontology, once it is updated by editing
 the associated SQL case statements.
