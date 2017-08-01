@@ -24,42 +24,6 @@
 #    Object Properties
 #################################################################
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/InChIID
-gtpo:InChIID rdf:type owl:ObjectProperty ;
-             rdfs:domain gtpo:Ligand ;
-             rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/InChIKEY
-gtpo:InChIKEY rdf:type owl:ObjectProperty ;
-              rdfs:domain gtpo:Ligand ;
-              rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/approved
-gtpo:approved rdf:type owl:ObjectProperty ;
-              rdfs:domain gtpo:Ligand ;
-              rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/canonicalSMILES
-gtpo:canonicalSMILES rdf:type owl:ObjectProperty ;
-                     rdfs:domain gtpo:Ligand ;
-                     rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/chemicalClassName
-gtpo:chemicalClassName rdf:type owl:ObjectProperty ;
-                       rdfs:domain gtpo:ChemicalClass ;
-                       rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/comment
-gtpo:comment rdf:type owl:ObjectProperty ;
-             rdfs:domain gtpo:Ligand ;
-             rdfs:range xsd:string .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasAction
 gtpo:hasAction rdf:type owl:ObjectProperty ;
                rdfs:domain gtpo:Target ;
@@ -155,48 +119,6 @@ gtpo:hasUnit rdf:type owl:ObjectProperty ;
              rdfs:comment "Cross reference to unit description from BAO ontology" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/isomericSMILES
-gtpo:isomericSMILES rdf:type owl:ObjectProperty ;
-                    rdfs:domain gtpo:Ligand ;
-                    rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/iupacName
-gtpo:iupacName rdf:type owl:ObjectProperty ;
-               rdfs:domain gtpo:Ligand ;
-               rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/ligandName
-gtpo:ligandName rdf:type owl:ObjectProperty ;
-                rdfs:domain gtpo:Ligand ;
-                rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/nomenclature
-gtpo:nomenclature rdf:type owl:ObjectProperty ;
-                  rdfs:domain gtpo:Target ;
-                  rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/synonym
-gtpo:synonym rdf:type owl:ObjectProperty ;
-             rdfs:domain gtpo:Ligand ;
-             rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/targetFamilyClassName
-gtpo:targetFamilyClassName rdf:type owl:ObjectProperty ;
-                           rdfs:domain gtpo:TargetFamilyClass ;
-                           rdfs:range xsd:string .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/targetFamilyName
-gtpo:targetFamilyName rdf:type owl:ObjectProperty ;
-                      rdfs:domain gtpo:TargetFamily ;
-                      rdfs:range xsd:string .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/xref
 gtpo:xref rdf:type owl:ObjectProperty ;
           rdfs:domain [ rdf:type owl:Class ;
@@ -212,27 +134,45 @@ gtpo:xref rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/InChIID
-gtpo:InChIID rdf:type owl:DatatypeProperty .
+gtpo:InChIID rdf:type owl:DatatypeProperty ;
+             rdfs:domain gtpo:Ligand ;
+             rdfs:range xsd:string ;
+             rdfs:comment "InChI identifier for a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/InChIKEY
-gtpo:InChIKEY rdf:type owl:DatatypeProperty .
+gtpo:InChIKEY rdf:type owl:DatatypeProperty ;
+              rdfs:domain gtpo:Ligand ;
+              rdfs:range xsd:string ;
+              rdfs:comment "InChI key defining a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/approved
-gtpo:approved rdf:type owl:DatatypeProperty .
+gtpo:approved rdf:type owl:DatatypeProperty ;
+              rdfs:domain gtpo:Ligand ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Approval status of a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/canonicalSMILES
-gtpo:canonicalSMILES rdf:type owl:DatatypeProperty .
+gtpo:canonicalSMILES rdf:type owl:DatatypeProperty ;
+                     rdfs:domain gtpo:Ligand ;
+                     rdfs:range xsd:string ;
+                     rdfs:comment "canonical SMILES, describing a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/chemicalClassName
-gtpo:chemicalClassName rdf:type owl:DatatypeProperty .
+gtpo:chemicalClassName rdf:type owl:DatatypeProperty ;
+                       rdfs:domain gtpo:ChemicalClass ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "name of a given chemical class" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/comment
-gtpo:comment rdf:type owl:DatatypeProperty .
+gtpo:comment rdf:type owl:DatatypeProperty ;
+             rdfs:domain gtpo:Ligand ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Guide to Pharmacology comments on a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasHighValue
@@ -262,31 +202,52 @@ gtpo:hasMedianValue rdf:type owl:DatatypeProperty ;
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/isomericSMILES
-gtpo:isomericSMILES rdf:type owl:DatatypeProperty .
+gtpo:isomericSMILES rdf:type owl:DatatypeProperty ;
+                    rdfs:domain gtpo:Ligand ;
+                    rdfs:range xsd:string ;
+                    rdfs:comment "isomeric SMILES, describing a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/iupacName
-gtpo:iupacName rdf:type owl:DatatypeProperty .
+gtpo:iupacName rdf:type owl:DatatypeProperty ;
+               rdfs:domain gtpo:Ligand ;
+               rdfs:range xsd:string ;
+               rdfs:comment "name of a ligand, defined by the IUPAC" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/ligandName
-gtpo:ligandName rdf:type owl:DatatypeProperty .
+gtpo:ligandName rdf:type owl:DatatypeProperty ;
+                rdfs:domain gtpo:Ligand ;
+                rdfs:range xsd:string ;
+                rdfs:comment "the name of a chemical ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/nomenclature
-gtpo:nomenclature rdf:type owl:DatatypeProperty .
+gtpo:nomenclature rdf:type owl:DatatypeProperty ;
+                  rdfs:domain gtpo:Target ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "nomenclature, the name of a target" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/synonym
-gtpo:synonym rdf:type owl:DatatypeProperty .
+gtpo:synonym rdf:type owl:DatatypeProperty ;
+             rdfs:domain gtpo:Ligand ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Synony of a ligand" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/targetFamilyClassName
-gtpo:targetFamilyClassName rdf:type owl:DatatypeProperty .
+gtpo:targetFamilyClassName rdf:type owl:DatatypeProperty ;
+                           rdfs:domain gtpo:TargetFamilyClass ;
+                           rdfs:range xsd:string ;
+                           rdfs:comment "name for target family class" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/targetFamilyName
-gtpo:targetFamilyName rdf:type owl:DatatypeProperty .
+gtpo:targetFamilyName rdf:type owl:DatatypeProperty ;
+                      rdfs:domain gtpo:TargetFamily ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "name for target family" .
 
 
 #################################################################
@@ -526,53 +487,6 @@ gtpo:Unknown rdf:type owl:Class ;
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/VoltageDependentInbibition
 gtpo:VoltageDependentInbibition rdf:type owl:Class ;
                                 rdfs:subClassOf gtpo:Action .
-
-
-###  http://www.w3.org/2001/XMLSchema#string
-xsd:string rdf:type owl:Class .
-
-
-#################################################################
-#    Annotations
-#################################################################
-
-gtpo:InChIID rdfs:comment "InChI identifier for a ligand" .
-
-
-gtpo:InChIKEY rdfs:comment "InChI key defining a ligand" .
-
-
-gtpo:approved rdfs:comment "approval status of a ligand" .
-
-
-gtpo:canonicalSMILES rdfs:comment "canonical SMILES, describing a ligand" .
-
-
-gtpo:chemicalClassName rdfs:comment "name of a given chemical class" .
-
-
-gtpo:comment rdfs:comment "Guide to Pharmacology comments on a ligand" .
-
-
-gtpo:isomericSMILES rdfs:comment "isomeric SMILES, describing a ligand" .
-
-
-gtpo:iupacName rdfs:comment "name of a ligand, defined by the IUPAC" .
-
-
-gtpo:ligandName rdfs:comment "the name of a chemical ligand" .
-
-
-gtpo:nomenclature rdfs:comment "nomenclature, the name of a target" .
-
-
-gtpo:synonym rdfs:comment "synonym of a ligand" .
-
-
-gtpo:targetFamilyClassName rdfs:comment "name for target family class" .
-
-
-gtpo:targetFamilyName rdfs:comment "name for target family" .
 
 
 ###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
