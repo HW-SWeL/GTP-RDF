@@ -265,7 +265,7 @@
     rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.com/ns/gtpo/{actiontype}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{actiontype}" ];
     ]
 	.
 
@@ -313,6 +313,6 @@
     rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.com/ns/gtpo/{interactionaction}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{interactionaction}" ];
     ]
 	.

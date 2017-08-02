@@ -47,7 +47,7 @@ R2RML allows two ways to create triples using subject maps and predicate / objec
 When creating a literal value such as a string, use a column based value such as [rr:column "name";] where 'name' is the name of some column
 used in the associated query.
 
-When creating a URI based value, use a template value such as ```[rr:template ""http://rdf.guidetopharmacology.com/GRAC/ligand{id}"";]``` where ```id```
+When creating a URI based value, use a template value such as ```[rr:template ""http://rdf.guidetopharmacology.org/GRAC/ligand{id}"";]``` where ```id```
 is the name of a column used in the associated query. You can use multiple column values to form a template such as ```[rr:template "{namespace}{external_id}";]```
 
 We use SQL cases where necessary to manipulate values, this means that no modification of data in the database is necessary before we can run the RDF conversion,
