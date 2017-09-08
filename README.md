@@ -70,3 +70,7 @@ During the development of our platform, the units pKi, pKB and pKd were not desc
 maintainers of the BioAssay ontology, and they are currently working on it. However, because the units are not available these are currently assigned
 placeholder values in our interaction R2RML files, in Triples Maps 4&5. This can be easily edited to fit the BAO ontology, once it is updated by editing
 the associated SQL case statements.
+
+## GTP Ontology Diagram
+
+The overview diagram ```G2PRDF.xml``` has been generated using [draw.io](www.draw.io).
