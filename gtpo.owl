@@ -31,6 +31,13 @@ gtpo:hasAction rdf:type owl:ObjectProperty ;
                rdfs:comment "Action of an interaction" .
 
 
+###  http://rdf.guidetopharmacology.org/ns/gtpo/hasActionType
+gtpo:hasActionType rdf:type owl:ObjectProperty ;
+                   rdfs:domain gtpo:Interaction ;
+                   rdfs:range gtpo:InteractionActionType ;
+                   rdfs:comment "Action type of an interaction" .
+
+
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasAffinity
 gtpo:hasAffinity rdf:type owl:ObjectProperty ;
                  rdfs:domain gtpo:Interaction ;
@@ -104,13 +111,6 @@ gtpo:hasTargetFamilyClass rdf:type owl:ObjectProperty ;
                           rdfs:domain gtpo:TargetFamily ;
                           rdfs:range gtpo:TargetFamilyClass ;
                           rdfs:comment "Class of target family" .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/hasType
-gtpo:hasType rdf:type owl:ObjectProperty ;
-             rdfs:domain gtpo:Interaction ;
-             rdfs:range gtpo:InteractionActionType ;
-             rdfs:comment "Action type of an interaction" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasUnit

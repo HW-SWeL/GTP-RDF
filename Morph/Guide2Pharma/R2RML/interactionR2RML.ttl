@@ -93,7 +93,7 @@
         rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/target{target}" ];
 	];
 	 rr:predicateObjectMap [
-        rr:predicate gtpo:hasType;
+        rr:predicate gtpo:hasActionType;
         rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{actiontype}" ];
 	];
 	 rr:predicateObjectMap [
