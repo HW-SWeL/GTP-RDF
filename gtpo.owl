@@ -51,13 +51,6 @@ gtpo:hasAnnotationStatus rdf:type owl:ObjectProperty ;
                          rdfs:comment "Annotation status of a given target" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/hasChemicalClass
-gtpo:hasChemicalClass rdf:type owl:ObjectProperty ;
-                      rdfs:domain gtpo:Ligand ;
-                      rdfs:range gtpo:ChemicalClass ;
-                      rdfs:comment "Chemical class of a ligand" .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasLigand
 gtpo:hasLigand rdf:type owl:ObjectProperty ;
                rdfs:domain gtpo:Interaction ;
@@ -161,13 +154,6 @@ gtpo:canonicalSMILES rdf:type owl:DatatypeProperty ;
                      rdfs:comment "canonical SMILES, describing a ligand" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/chemicalClassName
-gtpo:chemicalClassName rdf:type owl:DatatypeProperty ;
-                       rdfs:domain gtpo:ChemicalClass ;
-                       rdfs:range xsd:string ;
-                       rdfs:comment "name of a given chemical class" .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/comment
 gtpo:comment rdf:type owl:DatatypeProperty ;
              rdfs:domain gtpo:Ligand ;
@@ -254,6 +240,31 @@ gtpo:targetFamilyName rdf:type owl:DatatypeProperty ;
 #    Classes
 #################################################################
 
+###  http://rdf.guidetopharmacology.org/ns/gtpo#Inorganic
+:Inorganic rdf:type owl:Class ;
+           rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#Metabolite
+:Metabolite rdf:type owl:Class ;
+            rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#NaturalProduct
+:NaturalProduct rdf:type owl:Class ;
+                rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#Peptide
+:Peptide rdf:type owl:Class ;
+         rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#SyntheticOrganic
+:SyntheticOrganic rdf:type owl:Class ;
+                  rdfs:subClassOf gtpo:Ligand .
+
+
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/Action
 gtpo:Action rdf:type owl:Class ;
             rdfs:comment "Class describing different interaction actions, defined by Guide to Pharmacology" .
@@ -332,11 +343,6 @@ gtpo:Biphasic rdf:type owl:Class ;
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/ChannelBlocker
 gtpo:ChannelBlocker rdf:type owl:Class ;
                     rdfs:subClassOf gtpo:InteractionActionType .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/ChemicalClass
-gtpo:ChemicalClass rdf:type owl:Class ;
-                   rdfs:comment "Class describing families for different chemicals, defined by Guide to Pharmacology" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/Competitive

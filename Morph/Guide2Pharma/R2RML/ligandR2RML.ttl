@@ -19,7 +19,6 @@
 
 ########################################################
 # Generate key ligand Data: name, type approval status #
-# and chemical class relation                          #
 ########################################################
 
 <TriplesMap1>
@@ -32,12 +31,12 @@
 		type,
 		approved,
 		CASE
-			WHEN type = 'Synthetic organic' THEN '6'
-			WHEN type = 'Natural product' THEN '1'
-			WHEN type = 'Metabolite' THEN '3'
-			WHEN type = 'Inorganic' THEN '2'
-			WHEN type = 'Antibody' THEN '5'
-			WHEN type = 'Peptide' THEN '4'
+			WHEN type = 'Synthetic organic' THEN 'SyntheticOrganic'
+			WHEN type = 'Natural product' THEN 'NaturalProduct'
+			WHEN type = 'Metabolite' THEN 'Metabolite'
+			WHEN type = 'Inorganic' THEN 'Inorganic'
+			WHEN type = 'Antibody' THEN 'Antibody'
+			WHEN type = 'Peptide' THEN 'Peptide'
 		END AS chemicalclass,
 		CASE
 			WHEN approved = 't' THEN 't'
@@ -52,7 +51,7 @@
 	rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:constant gtpo:Ligand ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{chemicalclass}" ];
     ];
 	rr:predicateObjectMap
     [
@@ -64,10 +63,6 @@
       rr:predicate	gtpo:ligandName;
       rr:objectMap	[ rr:column "name" ];
     ];
-	rr:predicateObjectMap [
-        rr:predicate gtpo:hasChemicalClass;
-        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/chemicalClass{chemicalclass}" ];
-	];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:approved;
         rr:objectMap [ rr:column "approval" ];
@@ -210,46 +205,6 @@
 		rr:predicate gtpo:canonicalSMILES;
 		rr:objectMap [rr:column "smiles"];
 	]
-	.
-##################################
-# Generate chemical class data - #
-# id, name and label             #
-##################################
-
-	<TriplesMap7>
-    a rr:TriplesMap;
-
-    rr:logicalTable [ rr:sqlQuery """
-		SELECT
-		distinct type,
-		CASE
-			WHEN type = 'Synthetic organic' THEN '6'
-			WHEN type = 'Natural product' THEN '1'
-			WHEN type = 'Metabolite' THEN '3'
-			WHEN type = 'Inorganic' THEN '2'
-			WHEN type = 'Antibody' THEN '5'
-			WHEN type = 'Peptide' THEN '4'
-		END as id
-		FROM ligand;
-		""";] ;
-
-    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/chemicalClass{id}" ];
-
-	rr:predicateObjectMap
-    [
-      rr:predicate	rdf:type;
-      rr:objectMap	[ rr:constant gtpo:ChemicalClass ];
-    ];
-	rr:predicateObjectMap
-    [
-      rr:predicate	rdfs:label ;
-      rr:objectMap	[ rr:column "type" ];
-    ];
-    rr:predicateObjectMap
-    [
-      rr:predicate	gtpo:chemicalClassName ;
-      rr:objectMap	[ rr:column "type" ]
-    ]
 	.
 
 #####################################################################
