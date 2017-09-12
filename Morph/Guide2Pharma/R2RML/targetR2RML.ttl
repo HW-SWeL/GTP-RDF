@@ -59,7 +59,7 @@
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:annotationStatus;
-        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{status}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{status}" ];
 	]
 	.
 
@@ -163,7 +163,19 @@
     rr:logicalTable [ rr:sqlQuery """
 		SELECT distinct family_id AS id,
 		name,
-		type
+    CASE
+    WHEN type = 'catalytic_receptor' THEN 'CatalyticReceptorTargetFamily'
+    WHEN type = 'enzyme' THEN 'EnzymeTargetFamily'
+    WHEN type = 'grouping' THEN 'GroupingTargetFamily'
+    WHEN type = 'gpcr' THEN 'GProteinCoupledReceptorTargetFamily'
+    WHEN type = 'lgic' THEN 'LigandGatedIonChannelTargetFamily'
+    WHEN type = 'ligand' THEN 'LigandTargetFamily'
+    WHEN type = 'nhr' THEN 'NuclearHormoneReceptorTargetFamily'
+    WHEN type = 'other_ic' THEN 'OtherIonChannelTargetFamily'
+    WHEN type = 'other_protein' THEN 'OtherProteinTargetFamily'
+    WHEN type = 'transporter' THEN 'TransporterTargetFamily'
+    WHEN type = 'vgic' THEN 'VoltageGatedIonChannelTargetFamily'
+		END AS type
 		FROM family;
 		""";] ;
 
@@ -172,7 +184,7 @@
 	rr:predicateObjectMap
     [
       rr:predicate	rdf:type ;
-      rr:objectMap	[ rr:constant gtpo:TargetFamily ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{type}" ];
     ];
 	rr:predicateObjectMap
     [
@@ -183,80 +195,5 @@
     [
       rr:predicate	gtpo:targetFamilyName;
       rr:objectMap	[ rr:column "name" ]
-    ];
-	rr:predicateObjectMap
-    [
-      rr:predicate	gtpo:hasTargetFamilyClass;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/GRAC/targetFamilyClass_{type}" ]
-    ]
-	.
-
-#######################################
-# Generate target family class data - #
-# id and name                         #
-#######################################
-
-	<TriplesMap6>
-    a rr:TriplesMap;
-
-    rr:logicalTable [ rr:sqlQuery """
-			SELECT
-			distinct(type),
-			CASE
-			WHEN type = 'vgic' THEN 'Voltage-gated ion channel'
-			WHEN type = 'catalytic_receptor' THEN 'Catalytic Receptor'
-			WHEN type = 'nhr' THEN 'Nuclear hormone receptors'
-			WHEN type = 'enzyme' THEN 'Enzyme'
-			WHEN type = 'grouping' THEN 'Grouping'
-			WHEN type = 'gpcr' THEN 'G-protein coupled receptors'
-			WHEN type = 'other_protein' THEN 'Other protein'
-			WHEN type = 'transporter' THEN 'Transporter'
-			WHEN type = 'other_ic' THEN 'Other ion channel'
-			WHEN type = 'lgic' THEN 'Ligand-gated ion channel'
-			END AS familyclassname
-			FROM family;
-		""";] ;
-
-    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/targetFamilyClass_{type}";];
-
-	rr:predicateObjectMap
-    [
-      rr:predicate	rdf:type ;
-      rr:objectMap	[ rr:constant gtpo:TargetFamilyClass ];
-    ];
-	rr:predicateObjectMap
-    [
-      rr:predicate	rdfs:label;
-      rr:objectMap	[ rr:column "familyclassname" ]
-    ];
-    rr:predicateObjectMap
-    [
-      rr:predicate	gtpo:targetFamilyClassName;
-      rr:objectMap	[ rr:column "familyclassname" ]
-    ].
-
-##########################################
-# Generate classes for annotation_status #
-##########################################
-
-	<TriplesMap7>
-    a rr:TriplesMap;
-
-    rr:logicalTable [ rr:sqlQuery """
-		SELECT
-		distinct annotation_status,
-		CASE
-			WHEN object.annotation_status = '1' OR object.annotation_status = '2' THEN 'AnnotatedExpertReviewed'
-			WHEN object.annotation_status = '3' THEN 'AnnotatedAwaitingReview'
-			WHEN object.annotation_status = '5' OR object.annotation_status = '4' THEN 'UnderDevelopment'
-		END AS status
-		FROM object WHERE object.annotation_status = 1 OR object.annotation_status = 3 OR object.annotation_status = 5;
-		""";] ;
-
-    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{status}";];
-		rr:predicateObjectMap
-    [
-      rr:predicate	rdf:type ;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{status}" ];
     ];
 	.

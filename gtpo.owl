@@ -92,13 +92,6 @@ gtpo:hasTargetFamily rdf:type owl:ObjectProperty ;
                      rdfs:comment "target family of a target" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/hasTargetFamilyClass
-gtpo:hasTargetFamilyClass rdf:type owl:ObjectProperty ;
-                          rdfs:domain gtpo:TargetFamily ;
-                          rdfs:range gtpo:TargetFamilyClass ;
-                          rdfs:comment "Class of target family" .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasUnit
 gtpo:hasUnit rdf:type owl:ObjectProperty ;
              rdfs:domain gtpo:Interaction ;
@@ -136,7 +129,7 @@ gtpo:InChIKEY rdf:type owl:DatatypeProperty ;
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/approved
 gtpo:approved rdf:type owl:DatatypeProperty ;
               rdfs:domain gtpo:Ligand ;
-              rdfs:range xsd:string ;
+              rdfs:range xsd:boolean ;
               rdfs:comment "Approval status of a ligand" .
 
 
@@ -215,13 +208,6 @@ gtpo:synonym rdf:type owl:DatatypeProperty ;
              rdfs:comment "Synony of a ligand" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/targetFamilyClassName
-gtpo:targetFamilyClassName rdf:type owl:DatatypeProperty ;
-                           rdfs:domain gtpo:TargetFamilyClass ;
-                           rdfs:range xsd:string ;
-                           rdfs:comment "name for target family class" .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/targetFamilyName
 gtpo:targetFamilyName rdf:type owl:DatatypeProperty ;
                       rdfs:domain gtpo:TargetFamily ;
@@ -233,29 +219,89 @@ gtpo:targetFamilyName rdf:type owl:DatatypeProperty ;
 #    Classes
 #################################################################
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo#Inorganic
-:Inorganic rdf:type owl:Class ;
-           rdfs:subClassOf gtpo:Ligand .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo#Metabolite
-:Metabolite rdf:type owl:Class ;
-            rdfs:subClassOf gtpo:Ligand .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo#NaturalProduct
-:NaturalProduct rdf:type owl:Class ;
+###  http://rdf.guidetopharmacology.org/ns/gtpo#AntibodyLigand
+:AntibodyLigand rdf:type owl:Class ;
                 rdfs:subClassOf gtpo:Ligand .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo#Peptide
-:Peptide rdf:type owl:Class ;
-         rdfs:subClassOf gtpo:Ligand .
+###  http://rdf.guidetopharmacology.org/ns/gtpo#CatalyticReceptorTargetFamily
+:CatalyticReceptorTargetFamily rdf:type owl:Class ;
+                               rdfs:subClassOf gtpo:TargetFamily .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo#SyntheticOrganic
-:SyntheticOrganic rdf:type owl:Class ;
+###  http://rdf.guidetopharmacology.org/ns/gtpo#EnzymeTargetFamily
+:EnzymeTargetFamily rdf:type owl:Class ;
+                    rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#GProteinCoupledReceptorTargetFamily
+:GProteinCoupledReceptorTargetFamily rdf:type owl:Class ;
+                                     rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#GroupingTargetFamily
+:GroupingTargetFamily rdf:type owl:Class ;
+                      rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#InorganicLigand
+:InorganicLigand rdf:type owl:Class ;
+                 rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#LigandGatedIonChannelTargetFamily
+:LigandGatedIonChannelTargetFamily rdf:type owl:Class ;
+                                   rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#LigandTargetFamily
+:LigandTargetFamily rdf:type owl:Class ;
+                    rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#MetaboliteLigand
+:MetaboliteLigand rdf:type owl:Class ;
                   rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#NaturalProductLigand
+:NaturalProductLigand rdf:type owl:Class ;
+                      rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#NuclearHormoneReceptorTargetFamily
+:NuclearHormoneReceptorTargetFamily rdf:type owl:Class ;
+                                    rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#OtherIonChannelTargetFamily
+:OtherIonChannelTargetFamily rdf:type owl:Class ;
+                             rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#OtherProteinTargetFamily
+:OtherProteinTargetFamily rdf:type owl:Class ;
+                          rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#PeptideLigand
+:PeptideLigand rdf:type owl:Class ;
+               rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#SyntheticOrganicLigand
+:SyntheticOrganicLigand rdf:type owl:Class ;
+                        rdfs:subClassOf gtpo:Ligand .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#TransporterTargetFamily
+:TransporterTargetFamily rdf:type owl:Class ;
+                         rdfs:subClassOf gtpo:TargetFamily .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo#VoltageGatedIonChannelTargetFamily
+:VoltageGatedIonChannelTargetFamily rdf:type owl:Class ;
+                                    rdfs:subClassOf gtpo:TargetFamily .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/Action
@@ -263,19 +309,14 @@ gtpo:Action rdf:type owl:Class ;
             rdfs:comment "Class describing different interaction actions, defined by Guide to Pharmacology" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Activation
-gtpo:Activation rdf:type owl:Class ;
-                rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/ActivationAction
+gtpo:ActivationAction rdf:type owl:Class ;
+                      rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Activator
-gtpo:Activator rdf:type owl:Class ;
-               rdfs:subClassOf gtpo:Interaction .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Agonist
-gtpo:Agonist rdf:type owl:Class ;
-             rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/ActivatorInteraction
+gtpo:ActivatorInteraction rdf:type owl:Class ;
+                          rdfs:subClassOf gtpo:Interaction .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/AgonistAction
@@ -283,9 +324,14 @@ gtpo:AgonistAction rdf:type owl:Class ;
                    rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/AllostericModulator
-gtpo:AllostericModulator rdf:type owl:Class ;
-                         rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/AgonistInteraction
+gtpo:AgonistInteraction rdf:type owl:Class ;
+                        rdfs:subClassOf gtpo:Interaction .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo/AllostericModulatorInteraction
+gtpo:AllostericModulatorInteraction rdf:type owl:Class ;
+                                    rdfs:subClassOf gtpo:Interaction .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/AnnotatedAwaitingReview
@@ -303,70 +349,69 @@ gtpo:AnnotationStatus rdf:type owl:Class ;
                       rdfs:comment "Class describing annotation status of targets, defined by Guide to Pharmacology" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Antagonist
-gtpo:Antagonist rdf:type owl:Class ;
-                rdfs:subClassOf gtpo:Interaction .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/AntagonistAction
 gtpo:AntagonistAction rdf:type owl:Class ;
                       rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Antibody
-gtpo:Antibody rdf:type owl:Class ;
-              rdfs:subClassOf gtpo:Interaction ,
-                              gtpo:Ligand .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/AntagonistInteraction
+gtpo:AntagonistInteraction rdf:type owl:Class ;
+                           rdfs:subClassOf gtpo:Interaction .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/BiasedAgonist
-gtpo:BiasedAgonist rdf:type owl:Class ;
+###  http://rdf.guidetopharmacology.org/ns/gtpo/AntibodyInteraction
+gtpo:AntibodyInteraction rdf:type owl:Class ;
+                         rdfs:subClassOf gtpo:Interaction .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo/BiasedAgonistAction
+gtpo:BiasedAgonistAction rdf:type owl:Class ;
+                         rdfs:subClassOf gtpo:Action .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo/BindingAction
+gtpo:BindingAction rdf:type owl:Class ;
                    rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Binding
-gtpo:Binding rdf:type owl:Class ;
-             rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/BiphasicAction
+gtpo:BiphasicAction rdf:type owl:Class ;
+                    rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Biphasic
-gtpo:Biphasic rdf:type owl:Class ;
-              rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/ChannelBlockerInteraction
+gtpo:ChannelBlockerInteraction rdf:type owl:Class ;
+                               rdfs:subClassOf gtpo:Interaction .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/ChannelBlocker
-gtpo:ChannelBlocker rdf:type owl:Class ;
-                    rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/CompetitiveAction
+gtpo:CompetitiveAction rdf:type owl:Class ;
+                       rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Competitive
-gtpo:Competitive rdf:type owl:Class ;
-                 rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/FeedbackInhibitionAction
+gtpo:FeedbackInhibitionAction rdf:type owl:Class ;
+                              rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/FeedbackInhibition
-gtpo:FeedbackInhibition rdf:type owl:Class ;
-                        rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/FullAgonistAction
+gtpo:FullAgonistAction rdf:type owl:Class ;
+                       rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/FullAgonist
-gtpo:FullAgonist rdf:type owl:Class ;
-                 rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/GatingInhibitorInteraction
+gtpo:GatingInhibitorInteraction rdf:type owl:Class ;
+                                rdfs:subClassOf gtpo:Interaction .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/GatingInhibitor
-gtpo:GatingInhibitor rdf:type owl:Class ;
-                     rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/InhibitionAction
+gtpo:InhibitionAction rdf:type owl:Class ;
+                      rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Inhibition
-gtpo:Inhibition rdf:type owl:Class ;
-                rdfs:subClassOf gtpo:Action .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Inhibitor
-gtpo:Inhibitor rdf:type owl:Class ;
-               rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/InhibitorInteraction
+gtpo:InhibitorInteraction rdf:type owl:Class ;
+                          rdfs:subClassOf gtpo:Interaction .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/Interaction
@@ -374,19 +419,19 @@ gtpo:Interaction rdf:type owl:Class ;
                  rdfs:comment "Class describing the interactions between chemicals and proteins stored in the Guide to Pharmacology data" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/InverseAgonist
-gtpo:InverseAgonist rdf:type owl:Class ;
-                    rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/InverseAgonistAction
+gtpo:InverseAgonistAction rdf:type owl:Class ;
+                          rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/IrreversibleAgonist
-gtpo:IrreversibleAgonist rdf:type owl:Class ;
-                         rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/IrreversibleAgonistAction
+gtpo:IrreversibleAgonistAction rdf:type owl:Class ;
+                               rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/IrreversibleInhibition
-gtpo:IrreversibleInhibition rdf:type owl:Class ;
-                            rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/IrreversibleInhibitionAction
+gtpo:IrreversibleInhibitionAction rdf:type owl:Class ;
+                                  rdfs:subClassOf gtpo:Action .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/Ligand
@@ -394,19 +439,19 @@ gtpo:Ligand rdf:type owl:Class ;
             rdfs:comment "Class describing the chemicals stored in the Guide to Pharmacology data" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Mixed
-gtpo:Mixed rdf:type owl:Class ;
-           rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/MixedAction
+gtpo:MixedAction rdf:type owl:Class ;
+                 rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Negative
-gtpo:Negative rdf:type owl:Class ;
-              rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/NegativeAction
+gtpo:NegativeAction rdf:type owl:Class ;
+                    rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Neutral
-gtpo:Neutral rdf:type owl:Class ;
-             rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/NeutralAction
+gtpo:NeutralAction rdf:type owl:Class ;
+                   rdfs:subClassOf gtpo:Action .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/NoAction
@@ -414,44 +459,39 @@ gtpo:NoAction rdf:type owl:Class ;
               rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/NonCompetitive
-gtpo:NonCompetitive rdf:type owl:Class ;
-                    rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/NonCompetitiveAction
+gtpo:NonCompetitiveAction rdf:type owl:Class ;
+                          rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/None
-gtpo:None rdf:type owl:Class ;
-          rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/PartialAgonistAction
+gtpo:PartialAgonistAction rdf:type owl:Class ;
+                          rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/PartialAgonist
-gtpo:PartialAgonist rdf:type owl:Class ;
-                    rdfs:subClassOf gtpo:Action .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/PoreBlocker
-gtpo:PoreBlocker rdf:type owl:Class ;
-                 rdfs:subClassOf gtpo:Action .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Positive
-gtpo:Positive rdf:type owl:Class ;
-              rdfs:subClassOf gtpo:Action .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/Potentiation
-gtpo:Potentiation rdf:type owl:Class ;
-                  rdfs:subClassOf gtpo:Action .
-
-
-###  http://rdf.guidetopharmacology.org/ns/gtpo/SlowsInactivation
-gtpo:SlowsInactivation rdf:type owl:Class ;
+###  http://rdf.guidetopharmacology.org/ns/gtpo/PoreBlockerAction
+gtpo:PoreBlockerAction rdf:type owl:Class ;
                        rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/SubunitSpecific
-gtpo:SubunitSpecific rdf:type owl:Class ;
-                     rdfs:subClassOf gtpo:Interaction .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/PositiveAction
+gtpo:PositiveAction rdf:type owl:Class ;
+                    rdfs:subClassOf gtpo:Action .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo/PotentiationAction
+gtpo:PotentiationAction rdf:type owl:Class ;
+                        rdfs:subClassOf gtpo:Action .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo/SlowsInactivationAction
+gtpo:SlowsInactivationAction rdf:type owl:Class ;
+                             rdfs:subClassOf gtpo:Action .
+
+
+###  http://rdf.guidetopharmacology.org/ns/gtpo/SubunitSpecificInteraction
+gtpo:SubunitSpecificInteraction rdf:type owl:Class ;
+                                rdfs:subClassOf gtpo:Interaction .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/Target
@@ -464,11 +504,6 @@ gtpo:TargetFamily rdf:type owl:Class ;
                   rdfs:comment "Class describing families of proteins stored in the Guide to Pharmacology data" .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/TargetFamilyClass
-gtpo:TargetFamilyClass rdf:type owl:Class ;
-                       rdfs:comment "Class describing class of protein families stored in the Guide to Pharmacology data" .
-
-
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/UnderDevelopment
 gtpo:UnderDevelopment rdf:type owl:Class ;
                       rdfs:subClassOf gtpo:AnnotationStatus .
@@ -479,9 +514,9 @@ gtpo:Unknown rdf:type owl:Class ;
              rdfs:subClassOf gtpo:Action .
 
 
-###  http://rdf.guidetopharmacology.org/ns/gtpo/VoltageDependentInbibition
-gtpo:VoltageDependentInbibition rdf:type owl:Class ;
-                                rdfs:subClassOf gtpo:Action .
+###  http://rdf.guidetopharmacology.org/ns/gtpo/VoltageDependentInbibitionAction
+gtpo:VoltageDependentInbibitionAction rdf:type owl:Class ;
+                                      rdfs:subClassOf gtpo:Action .
 
 
 #################################################################
@@ -489,16 +524,28 @@ gtpo:VoltageDependentInbibition rdf:type owl:Class ;
 #################################################################
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( gtpo:Activator
-                gtpo:Agonist
-                gtpo:AllostericModulator
-                gtpo:Antagonist
-                gtpo:Antibody
-                gtpo:ChannelBlocker
-                gtpo:GatingInhibitor
-                gtpo:Inhibitor
-                gtpo:None
-                gtpo:SubunitSpecific
+  owl:members ( :CatalyticReceptorTargetFamily
+                :EnzymeTargetFamily
+                :GProteinCoupledReceptorTargetFamily
+                :GroupingTargetFamily
+                :LigandGatedIonChannelTargetFamily
+                :LigandTargetFamily
+                :NuclearHormoneReceptorTargetFamily
+                :OtherIonChannelTargetFamily
+                :OtherProteinTargetFamily
+                :TransporterTargetFamily
+                :VoltageGatedIonChannelTargetFamily
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :InorganicLigand
+                :MetaboliteLigand
+                :NaturalProductLigand
+                :PeptideLigand
+                :SyntheticOrganicLigand
+                gtpo:AntibodyInteraction
               )
 ] .
 
