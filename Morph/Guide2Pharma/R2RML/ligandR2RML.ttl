@@ -31,12 +31,12 @@
 		type,
 		approved,
 		CASE
-			WHEN type = 'Synthetic organic' THEN 'SyntheticOrganic'
-			WHEN type = 'Natural product' THEN 'NaturalProduct'
-			WHEN type = 'Metabolite' THEN 'Metabolite'
-			WHEN type = 'Inorganic' THEN 'Inorganic'
-			WHEN type = 'Antibody' THEN 'Antibody'
-			WHEN type = 'Peptide' THEN 'Peptide'
+      WHEN type = 'Antibody' THEN 'AntibodyLigand'
+      WHEN type = 'Inorganic' THEN 'InorganicLigand'
+      WHEN type = 'Natural product' THEN 'NaturalProductLigand'
+			WHEN type = 'Metabolite' THEN 'MetaboliteLigand'
+      WHEN type = 'Peptide' THEN 'PeptideLigand'
+      WHEN type = 'Synthetic organic' THEN 'SyntheticOrganicLigand'
 		END AS chemicalclass,
 		CASE
 			WHEN approved = 't' THEN 't'

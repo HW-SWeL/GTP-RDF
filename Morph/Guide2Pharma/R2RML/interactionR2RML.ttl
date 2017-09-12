@@ -33,44 +33,44 @@
 		interaction.type AS type,
 		species.ncbi_taxonomy_id AS ncbi,
 		CASE
-		WHEN type = 'Allosteric modulator' THEN 'AllostericModulator'
-		WHEN type = 'Antagonist' THEN 'Antagonist'
-		WHEN type = 'Activator' THEN 'Activator'
-		WHEN type = 'Antibody' THEN 'Antibody'
-		WHEN type = 'Agonist' THEN 'Agonist'
-		WHEN type = 'Gating inhibitor' THEN 'GatingInhibitor'
-		WHEN type = 'Channel blocker' THEN 'ChannelBlocker'
-		WHEN type = 'None' THEN 'None'
-		WHEN type = 'Subunit-specific' THEN 'SubunitSpecific'
-		WHEN type = 'Inhibitor' THEN 'Inhibitor'
+		WHEN type = 'Activator' THEN 'ActivatorInteraction'
+		WHEN type = 'Agonist' THEN 'AgonistInteraction'
+		WHEN type = 'Allosteric modulator' THEN 'AllostericModulatorInteraction'
+		WHEN type = 'Antagonist' THEN 'AntagonistInteraction'
+		WHEN type = 'Antibody' THEN 'AntibodyInteraction'
+		WHEN type = 'Channel blocker' THEN 'ChannelBlockerInteraction'
+		WHEN type = 'Gating inhibitor' THEN 'GatingInhibitorInteraction'
+		WHEN type = 'Inhibitor' THEN 'InhibitorInteraction'
+		WHEN type = 'None' THEN 'Interaction'
+		WHEN type = 'Subunit-specific' THEN 'SubunitSpecificInteraction'
 		END AS actiontype,
 		action,
 		CASE
-		WHEN action = 'Activation' THEN 'Activation'
+		WHEN action = 'Activation' THEN 'ActivationAction'
 		WHEN action = 'Agonist' THEN 'AgonistAction'
 		WHEN action = 'Antagonist' THEN 'AntagonistAction'
-		WHEN action = 'Biased agonist' THEN 'BiasedAgonist'
-		WHEN action = 'Binding' THEN 'Binding'
-		WHEN action = 'Biphasic' THEN 'Biphasic'
-		WHEN action = 'Competitive' THEN 'Competitive'
-		WHEN action = 'Feedback inhibition' THEN 'FeedbackInhibition'
-		WHEN action = 'Full agonist' THEN 'FullAgonist'
-		WHEN action = 'Inhibition' THEN 'Inhibition'
-		WHEN action = 'Inverse agonist' THEN 'InverseAgonist'
-		WHEN action = 'Irreversible agonist' THEN 'IrreversibleAgonist'
-		WHEN action = 'Irreversible inhibition' THEN 'IrreversibleInhibition'
-		WHEN action = 'Mixed' THEN 'Mixed'
-		WHEN action = 'Negative' THEN 'Negative'
-		WHEN action = 'Neutral' THEN 'Neutral'
+		WHEN action = 'Biased agonist' THEN 'BiasedAgonistAction'
+		WHEN action = 'Binding' THEN 'BindingAction'
+		WHEN action = 'Biphasic' THEN 'BiphasicAction'
+		WHEN action = 'Competitive' THEN 'CompetitiveAction'
+		WHEN action = 'Feedback inhibition' THEN 'FeedbackInhibitionAction'
+		WHEN action = 'Full agonist' THEN 'FullAgonistAction'
+		WHEN action = 'Inhibition' THEN 'InhibitionAction'
+		WHEN action = 'Inverse agonist' THEN 'InverseAgonistAction'
+		WHEN action = 'Irreversible agonist' THEN 'IrreversibleAgonistAction'
+		WHEN action = 'Irreversible inhibition' THEN 'IrreversibleInhibitionAction'
+		WHEN action = 'Mixed' THEN 'MixedAction'
+		WHEN action = 'Negative' THEN 'NegativeAction'
+		WHEN action = 'Neutral' THEN 'NeutralAction'
 		WHEN action = 'None' THEN 'NoAction'
-		WHEN action = 'Non-competitive' THEN 'NonCompetitive'
-		WHEN action = 'Partial agonist' THEN 'PartialAgonist'
-		WHEN action = 'Pore blocker' THEN 'PoreBlocker'
-		WHEN action = 'Positive' THEN 'Positive'
-		WHEN action = 'Potentiation' THEN 'Potentiation'
-		WHEN action = 'Slows inactivation' THEN 'SlowsInactivation'
-		WHEN action = 'Unknown' THEN 'Unknown'
-		WHEN action = 'Voltage-dependent inhibition' THEN 'VoltageDependentInhibition'
+		WHEN action = 'Non-competitive' THEN 'NonCompetitiveAction'
+		WHEN action = 'Partial agonist' THEN 'PartialAgonistAction'
+		WHEN action = 'Pore blocker' THEN 'PoreBlockerAction'
+		WHEN action = 'Positive' THEN 'PositiveAction'
+		WHEN action = 'Potentiation' THEN 'PotentiationAction'
+		WHEN action = 'Slows inactivation' THEN 'SlowsInactivationAction'
+		WHEN action = 'Unknown' THEN 'Action'
+		WHEN action = 'Voltage-dependent inhibition' THEN 'VoltageDependentInhibitionAction'
 		END AS interactionaction
 		FROM interaction, species
 		WHERE interaction.species_id = species.species_id;
@@ -81,7 +81,7 @@
 	rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:constant gtpo:Interaction ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{actiontype}" ];
     ];
     rr:predicateObjectMap
     [
@@ -93,12 +93,8 @@
         rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/target{target}" ];
 	];
 	 rr:predicateObjectMap [
-        rr:predicate gtpo:hasActionType;
-        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{actiontype}" ];
-	];
-	 rr:predicateObjectMap [
       rr:predicate	gtpo:hasAction;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/GRAC/{interactionaction}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{interactionaction}" ];
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:hasTaxonomy;
@@ -233,86 +229,5 @@
     [
       rr:predicate	gtpo:hasReference;
       rr:objectMap	[ rr:template "http://identifiers.org/pubmed/{pmid}" ];
-    ]
-	.
-
-#####################################################
-# Generate class definitions for interaction action #
-#####################################################
-
-	<TriplesMap6>
-    a rr:TriplesMap;
-
-    rr:logicalTable [ rr:sqlQuery """
-		SELECT distinct type,
-		CASE
-		WHEN type = 'Allosteric modulator' THEN 'AllostericModulator'
-		WHEN type = 'Antagonist' THEN 'Antagonist'
-		WHEN type = 'Activator' THEN 'Activator'
-		WHEN type = 'Antibody' THEN 'Antibody'
-		WHEN type = 'Agonist' THEN 'Agonist'
-		WHEN type = 'Gating inhibitor' THEN 'GatingInhibitor'
-		WHEN type = 'Channel blocker' THEN 'ChannelBlocker'
-		WHEN type = 'None' THEN 'None'
-		WHEN type = 'Subunit-specific' THEN 'SubunitSpecific'
-		WHEN type = 'Inhibitor' THEN 'Inhibitor'
-		END AS actiontype
-		FROM interaction;
-		""";] ;
-
-    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{actiontype}" ];
-
-    rr:predicateObjectMap
-    [
-      rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{actiontype}" ];
-    ]
-	.
-
-##########################################################
-# Generate class definitions for interaction action type #
-##########################################################
-
-	<TriplesMap7>
-    a rr:TriplesMap;
-
-    rr:logicalTable [ rr:sqlQuery """
-		SELECT distinct action,
-		CASE
-		WHEN action = 'Negative' THEN 'Negative'
-		WHEN action = 'Full agonist' THEN 'FullAntagonist'
-		WHEN action = 'Potentiation' THEN 'Potentiation'
-		WHEN action = 'Non-competitive' THEN 'NonCompetitive'
-		WHEN action = 'Agonist' THEN 'AgonistAction'
-		WHEN action = 'Slows inactivation' THEN 'SlowsInactivation'
-		WHEN action = 'Voltage-dependent inhibition' THEN 'VoltageDependentInhibition'
-		WHEN action = 'Binding' THEN 'Binding'
-		WHEN action = 'None' THEN 'NoAction'
-		WHEN action = 'Partial agonist' THEN 'PartialAgonist'
-		WHEN action = 'Positive' THEN 'Positive'
-		WHEN action = 'Unknown' THEN 'Unknown'
-		WHEN action = 'Competitive' THEN 'Competitive'
-		WHEN action = 'Neutral' THEN 'Neutral'
-		WHEN action = 'Activation' THEN 'Activation'
-		WHEN action = 'Biphasic' THEN 'Biphasic'
-		WHEN action = 'Mixed' THEN 'Mixed'
-		WHEN action = 'Pore blocker' THEN 'PoreBlocker'
-		WHEN action = 'Irreversible inhibition' THEN 'Irreversible'
-		WHEN action = 'Antagonist' THEN 'AntagonistAction'
-		WHEN action = 'Inverse agonist' THEN 'InverseAgonist'
-		WHEN action = 'Feedback inhibition' THEN 'FeedbackInhibition'
-		WHEN action = 'Irreversible agonist' THEN 'IrreversibleAgonist'
-		WHEN action = 'Inhibition' THEN 'Inhibition'
-		WHEN action = 'Biased agonist' THEN 'BiasedAgonist'
-		END AS interactionaction
-		FROM interaction;
-		""";] ;
-
-    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/{interactionaction}" ];
-
-    rr:predicateObjectMap
-    [
-      rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{interactionaction}" ];
     ]
 	.
