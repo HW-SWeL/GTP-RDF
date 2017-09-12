@@ -270,7 +270,7 @@
 		AND S.species_id = LDL.species_id
 		AND database_id = 5;
 		""";];
-	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/target{id}";];
+	rr:subjectMap [rr:template "http://rdf.guidetopharmacology.org/GRAC/ligand{id}";];
 	rr:predicateObjectMap
 	[
 		rr:predicate gtpo:hasRef;
