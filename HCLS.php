@@ -17,7 +17,6 @@ Alasdair Gray
  */
 
 include 'gtp.metadata.settings.php';
-include 'summary.description.php';
 
 date_default_timezone_set('Europe/London');
 $db_publish_date = date("Y-m-d");
@@ -70,10 +69,17 @@ if (extension_loaded(pdo_pgsql)) {
     $db_publish_date = $row['publish_date'];
     echo "metadata extracted.\n";
   } else {
-    echo "Unable to connect to the database. Using dummy default values.\n";
-    $db_version_number = date('Y.m');
-    $db_previous_version_number = '';
-    $db_publish_date = date('Y-m-d');
+    do {
+      echo "\nWARNING: Unable to connect to the database.\n";
+      $response = readline("Do you wish to proceed with dummy values? [y|N] ") or $response = "n";
+    } while (!(strcasecmp($response, "y") == 0 or strcasecmp($response, "n") == 0));
+    if (strcasecmp($response, "y") == 0) {
+      $db_version_number = date('Y.m');
+      $db_previous_version_number = '';
+      $db_publish_date = date('Y-m-d');
+    } else {
+      die();
+    }
   }
   pg_close($dbconnection);
 } else {
@@ -306,8 +312,10 @@ $interaction = "
 ";
 
 
-/*Write description to each file*/
+/* Include template metadata files */
+include 'summary.description.php';
 
+/*Write description to each file*/
 fwrite($summaryfile,HCLS_PREFIXES.$summary);
 echo "Summary Description Generated: $summary_filename".PHP_EOL;
 fwrite($versionfile,HCLS_PREFIXES.$version.$postgres.$ligand.$target.$interaction);
