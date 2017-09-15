@@ -66,11 +66,13 @@ if (extension_loaded(pdo_pgsql)) {
     $result = pg_query($dbconnection, $query) or error('Query failed: ' . pg_last_error());
     $row = pg_fetch_assoc($result);
     $db_version_number = $row['version_number'];
+    $db_previous_version_number = $db_version_number - 0.1;
     $db_publish_date = $row['publish_date'];
     echo "metadata extracted.\n";
   } else {
     echo "Unable to connect to the database. Using dummy default values.\n";
     $db_version_number = date('Y.m');
+    $db_previous_version_number = '';
     $db_publish_date = date('Y-m-d');
   }
   pg_close($dbconnection);
@@ -81,6 +83,7 @@ if (extension_loaded(pdo_pgsql)) {
   } while (!(strcasecmp($response, "y") == 0 or strcasecmp($response, "n") == 0));
   if (strcasecmp($response, "y") == 0) {
     $db_version_number = date('Y.m');
+    $db_previous_version_number = '';
     $db_publish_date = date('Y-m-d');
   } else {
     die();
@@ -89,8 +92,15 @@ if (extension_loaded(pdo_pgsql)) {
 
 /*Asks users for inputs, or sets them to placeholder values, while validating date format and correctness.*/
 $version_number = readline("Please enter the Guide to Pharmacology database version used [".$db_version_number."]: ") or $version_number = $db_version_number;
+$previous_version_number = readline("Please enter the previous version number for the Guide to Pharmacology database version used (enter space to remove default value) [".$db_previous_version_number."]: ") or $previous_version_number = $db_previous_version_number;
 $rdf_version_number = readline("Please enter version number for the generated RDF [".$db_version_number."]: ") or $rdf_version_number = $db_version_number;
 $db_source_file = "http://www.guidetopharmacology.org/DATA/public_iuphardb_v".$version_number.".zip";
+
+if ($previous_version_number == '' || $previous_version_number == ' ') {
+  $previous_version_text = '';
+} else {
+  $previous_version_text = "pav:previousVersion ".$previous_version_number.";";
+}
 
 /**
 Issue Date Input and Validation
@@ -109,8 +119,10 @@ $date_created = date_input("creation");
 ####################################################################
  */
 checkDataDir();
-$summaryfile = fopen("Data/gtp.ttl", "w") or die("Unable to open summary file!");
-$versionfile = fopen("Data/gtp".$version_number.".ttl", "w") or die("Unable to open version file!");
+$summary_filename = "Data/gtp.ttl";
+$version_filename = "Data/gtp".$version_number.".ttl";
+$summaryfile = fopen($summary_filename, "w") or die("Unable to open summary file!");
+$versionfile = fopen($version_filename, "w") or die("Unable to open version file!");
 
 $GTP_DATES = "dct:issued \"".$date_issued."\"^^xsd:date;
 	dct:created \"".$date_created."\"^^xsd:date;";
@@ -140,7 +152,7 @@ $version = "
 #PROVENANCE&CHANGE
   pav:version \"".$version_number."\"^^xsd:string;
 	dct:isVersionOf <".GTP_URI_BASE.">;
-  #pav:previousVersion ???
+  ".$previous_version_text."
 #AVAILABILITY/DISTRIBUTIONS
   dcat:distribution :gtp".$version_number.".postgres;
 	.
@@ -169,7 +181,7 @@ $postgres = "
 #IDENTIFIERS
 #PROVENANCE&CHANGE
   pav:version \"".$version_number."\"^^xsd:string;
-  #pav:previousVersion ???
+  ".$previous_version_text."
   pav:createdWith <https://www.postgresql.org/>;
 #AVAILABILITY/DISTRIBUTIONS
   dct:format \"application/sql\";
@@ -204,6 +216,7 @@ $ligand = "
 	void:exampleResource <".GTP_URI_BASE."ligand2527>;
 #PROVENANCE&CHANGE
 	pav:version \"".$rdf_version_number."\"^^xsd:string;
+  ".$previous_version_text."
 	dcat:source <".$db_source_file.">;
   pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
 #AVAILABILITY/DISTRIBUTIONS
@@ -241,6 +254,7 @@ $target = "
 	void:exampleResource <".GTP_URI_BASE."target2400>;
 #PROVENANCE&CHANGE
 	pav:version \"".$rdf_version_number."\"^^xsd:string;
+  ".$previous_version_text."
 	dcat:source <".$db_source_file.">;
   pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
 #AVAILABILITY/DISTRIBUTIONS
@@ -277,16 +291,17 @@ $interaction = "
   void:uriRegexPattern \"".GTP_URI_BASE."interaction\\\\d+\";
 	idot:exampleIdentifier \"interaction2833\"^^xsd:string;
 	void:exampleResource <".GTP_URI_BASE."interaction2833>;
-  #PROVENANCE&CHANGE
+#PROVENANCE&CHANGE
   	pav:version \"".$rdf_version_number."\"^^xsd:string;
+    ".$previous_version_text."
   	dcat:source <".$db_source_file.">;
     pav:createdWith <https://github.com/HW-SWeL/GTP-RDF>;
-  #AVAILABILITY/DISTRIBUTIONS
+#AVAILABILITY/DISTRIBUTIONS
     dct:format <https://www.w3.org/ns/formats/data/N3>;
     void:accessURL <".$GTP_RDF_DATA_DOWNLOAD.">;
     void:downloadURL <".$GTP_RDF_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
     void:dataDump <".$GTP_RDF_DATA_DOWNLOAD."interaction".$rdf_version_number.".n3>;
-  #STATISTICS
+#STATISTICS
 .
 ";
 
@@ -294,7 +309,7 @@ $interaction = "
 /*Write description to each file*/
 
 fwrite($summaryfile,HCLS_PREFIXES.$summary);
-echo "Summary Description Generated".PHP_EOL;
+echo "Summary Description Generated: $summary_filename".PHP_EOL;
 fwrite($versionfile,HCLS_PREFIXES.$version.$postgres.$ligand.$target.$interaction);
-echo "Version Description Generated".PHP_EOL;
+echo "Version Description Generated: ".$version_filename.PHP_EOL;
 ?>
