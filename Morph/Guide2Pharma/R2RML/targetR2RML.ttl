@@ -1,21 +1,13 @@
 #########################
 #Liam Bruce - 24/04/2017#
+#Alasdair Gray          #
 #########################
 
-@prefix rr: <http://www.w3.org/ns/r2rml#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix ex: <http://example.com/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @base <http://rdf.guidetopharmacology.org/GRAC/> .
+@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix chembl: <http://identifiers.org/chembl.compound/>.
-@prefix gtp: <http://rdf.guidetopharmacology.org/GRAC/>.
-@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
-@prefix bao: <http://www.bioassayontology.org/bao/bao_complete.owl#>.
-@prefix ncbiT: <http://purl.obolibrary.org/obo/NCBITaxon_>.
-@prefix pmid: <http://identifiers.org/pubmed/>.
-@prefix uniprot: <http://identifiers.org/uniprot/>.
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
 
 #################################
 # Generate key target data - id #
@@ -130,7 +122,7 @@
 		S.species_id AS species,
 		ncbi_taxonomy_id AS ncbi,
 		CASE
-		WHEN database_id = 5 THEN 'http://identifiers.org/Uniprot/'
+		WHEN database_id = 5 THEN 'http://identifiers.org/uniprot/'
 		END AS namespace
 		FROM object O, database_link DL, species S
 		WHERE O.object_id = DL.object_id
