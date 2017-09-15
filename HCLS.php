@@ -99,7 +99,7 @@ $db_source_file = "http://www.guidetopharmacology.org/DATA/public_iuphardb_v".$v
 if ($previous_version_number == '' || $previous_version_number == ' ') {
   $previous_version_text = '';
 } else {
-  $previous_version_text = "pav:previousVersion ".$previous_version_number.";";
+  $previous_version_text = "pav:previousVersion :gtp".$previous_version_number.";";
 }
 
 /**
