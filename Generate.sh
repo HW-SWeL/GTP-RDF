@@ -17,9 +17,16 @@ generate_rdf() {
 
 #Function to load RDF data into designated triplestore
 load_rdf() {
+  echo "Loading data into triplestore:"
   url="$ENDPOINT/repositories/GRAC/statements?context=%3Curn%3Ax-local%3A$VERSION%3E&$BASEURI_ENCODED"
-  file="Data/ligand.n3"
-  curl -X PUT -H 'Content-Type: text/n3; charset=utf-8' "$url" --upload-file "$file"
+  echo -e "\tDeleting any existing triples in context <urn:x-local:$VERSION>"
+  curl -X DELETE "$url"
+  for file in Data/*.n3
+  do
+    echo -e "\t$file"
+    curl -X POST -H 'Content-Type: text/n3; charset=utf-8' "$url" --upload-file "$file"
+  done
+  echo "Loading complete!"
 }
 
 while getopts glm opt; do
@@ -30,7 +37,6 @@ while getopts glm opt; do
       exit 0
       ;;
     l)
-      echo "Load data into triplestore"
       load_rdf
       exit 0
       ;;
