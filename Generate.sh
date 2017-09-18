@@ -1,4 +1,6 @@
 #!/bin/bash
+ENDPOINT="http://localhost:8080/rdf4j-server"
+BASEURI_ENCODED="baseURI=%3Chttp%3A%2F%2Frdf.guidetopharmacology.org%2FGRAC%2F%3E"
 
 #Function to generate the RDF version of Guide2Pharmacology data
 generate_rdf() {
@@ -13,16 +15,28 @@ generate_rdf() {
   echo "Data generated and can be found in folder Data/"
 }
 
-while getopts mg opt; do
+#Function to load RDF data into designated triplestore
+load_rdf() {
+  url="$ENDPOINT/repositories/GRAC/statements?context=%3Curn%3Ax-local%3A$VERSION%3E&$BASEURI_ENCODED"
+  file="Data/ligand.n3"
+  curl -X PUT -H 'Content-Type: text/n3; charset=utf-8' "$url" --upload-file "$file"
+}
+
+while getopts glm opt; do
   case $opt in
-    m)
-      echo "Generate metadata only"
-      php HCLS.php
-      exit 0
-      ;;
     g)
       echo "Generate RDF data only"
       generate_rdf
+      exit 0
+      ;;
+    l)
+      echo "Load data into triplestore"
+      load_rdf
+      exit 0
+      ;;
+    m)
+      echo "Generate metadata only"
+      php HCLS.php
       exit 0
       ;;
     \?)
