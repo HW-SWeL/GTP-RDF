@@ -34,7 +34,8 @@ gtpo:hasAction rdf:type owl:ObjectProperty ;
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasAffinity
 gtpo:hasAffinity rdf:type owl:ObjectProperty ;
                  rdfs:domain gtpo:Interaction ;
-                 rdfs:comment "Reference to blank node describing interaction affinity values and units" .
+                 rdfs:range :Affinity ;
+                 rdfs:comment "Reference to a node describing interaction affinity values and units" .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasAnnotationStatus
@@ -94,7 +95,7 @@ gtpo:hasTargetFamily rdf:type owl:ObjectProperty ;
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo/hasUnit
 gtpo:hasUnit rdf:type owl:ObjectProperty ;
-             rdfs:domain gtpo:Interaction ;
+             rdfs:domain :Affinity ;
              rdfs:comment "Cross reference to unit description from BAO ontology" .
 
 
@@ -282,6 +283,8 @@ gtpo:targetFamilyName rdf:type owl:DatatypeProperty ;
 ###  http://rdf.guidetopharmacology.org/ns/gtpo#OtherProteinTargetFamily
 :OtherProteinTargetFamily rdf:type owl:Class ;
                           rdfs:subClassOf gtpo:TargetFamily .
+###  http://rdf.guidetopharmacology.org/ns/gtpo#Affinity
+:Affinity rdf:type owl:Class .
 
 
 ###  http://rdf.guidetopharmacology.org/ns/gtpo#PeptideLigand
