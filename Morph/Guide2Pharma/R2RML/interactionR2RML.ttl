@@ -113,10 +113,7 @@
 	rr:predicateObjectMap
 	[
 		rr:predicate gtpo:hasAffinity;
-		rr:objectMap [
-		rr:template "affinity{id}";
-		rr:termType rr:BlankNode;
-		];
+		rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/affinity{id}"	];
 	]
 	.
 
@@ -145,8 +142,13 @@
 		AND affinity_high IS NOT NULL;
 		""";] ;
 
-    rr:subjectMap [ rr:template "affinity{id}";
-					rr:termType rr:BlankNode;];
+    rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/affinity{id}" ];
+
+		rr:predicateObjectMap
+		[
+		rr:predicate	rdf:type;
+		rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo#Affinity" ];
+		];
 
     rr:predicateObjectMap
     [
