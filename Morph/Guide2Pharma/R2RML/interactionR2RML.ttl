@@ -5,7 +5,7 @@
 
 @base <http://rdf.guidetopharmacology.org/GRAC/> .
 @prefix bao: <http://www.bioassayontology.org/bao#>.
-@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
+@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo#>.
 @prefix ncbi: <http://purl.obolibrary.org/obo/NCBITaxon_>.
 @prefix pmid: <http://identifiers.org/pubmed/>.
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
@@ -75,7 +75,7 @@
 	rr:predicateObjectMap
     [
       rr:predicate	rdf:type;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{actiontype}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo#{actiontype}" ];
     ];
     rr:predicateObjectMap
     [
@@ -88,7 +88,7 @@
 	];
 	 rr:predicateObjectMap [
       rr:predicate	gtpo:hasAction;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{interactionaction}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo#{interactionaction}" ];
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:hasTaxonomy;

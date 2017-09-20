@@ -4,7 +4,7 @@
 #########################
 
 @base <http://rdf.guidetopharmacology.org/GRAC/> .
-@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo/>.
+@prefix gtpo: <http://rdf.guidetopharmacology.org/ns/gtpo#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
@@ -51,7 +51,7 @@
     ];
 	 rr:predicateObjectMap [
         rr:predicate gtpo:annotationStatus;
-        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{status}" ];
+        rr:objectMap [ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo#{status}" ];
 	]
 	.
 
@@ -176,7 +176,7 @@
 	rr:predicateObjectMap
     [
       rr:predicate	rdf:type ;
-      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo/{type}" ];
+      rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo#{type}" ];
     ];
 	rr:predicateObjectMap
     [
