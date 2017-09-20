@@ -10,15 +10,17 @@
 @base <http://rdf.guidetopharmacology.org/ns/gtpo> .
 
 <http://rdf.guidetopharmacology.org/ns/gtpo> rdf:type owl:Ontology ;
-                                              dct:creator "Alasdair J G Gray" ;
+                                              dct:creator "Alasdair J G Gray (orcid:0000-0002-5711-4872)" ;
                                               owl:versionInfo 0.3 ;
                                               dct:license <http://creativecommons.org/licenses/by/4.0/> ;
-                                              dct:creator "Liam Bruce" ,
-                                                          <http://orcid.org/0000-0002-5711-4872> ;
+                                              dct:rights "This ontology is distributed under a Creative Commons Attribution License - http://creativecommons.org/licenses/by/4.0/";
+                                              dct:creator "Liam Bruce" ;
                                               rdfs:seeAlso <http://www.guidetopharmacology.org/> ;
                                               dct:title "The Guide to Pharmacology Ontology" ;
                                               vann:preferredNamespacePrefix "gtpo" ;
-                                              dct:description "The Guide to Pharmacoloty Ontoloty (GTPO) is used to define entities, which appear in the Guide to Pharmacology RDF representation. It is based on the Guide to Pharmacology <a href=\"http://www.guidetopharmacology.org/helpPage.jsp#glossary\">glossary of terms</a>."^^xsd:string .
+                                              dct:date "2017-09-20";
+                                              rdfs:comment "The Guide to Pharmacoloty Ontoloty (GTPO) is used to define the entities which appear in the Guide to Pharmacology RDF representation. It is based on the Guide to Pharmacology <a href=\"http://www.guidetopharmacology.org/helpPage.jsp#glossary\">glossary of terms</a>."^^xsd:string ;
+                                              dct:description "The Guide to Pharmacoloty Ontoloty (GTPO) is used to define the entities which appear in the Guide to Pharmacology RDF representation. It is based on the Guide to Pharmacology <a href=\"http://www.guidetopharmacology.org/helpPage.jsp#glossary\">glossary of terms</a>."^^xsd:string.
 
 #################################################################
 #    Object Properties
