@@ -97,7 +97,7 @@
 	.
 
 #######################################################
-# Generates the blank node for storing affinity data, #
+# Generates the node for storing affinity data,       #
 # where there exists an affinity value                #
 #######################################################
 
@@ -131,10 +131,10 @@
 		CASE
 		WHEN affinity_units = 'pIC50' THEN 'BAO_0000199'
 		WHEN affinity_units = 'pEC50' THEN 'BAO_0002583'
-		WHEN affinity_units = 'pKB' THEN 'pKB'
-		WHEN affinity_units = 'pKi' THEN 'pKi'
+		WHEN affinity_units = 'pKB' THEN 'BAO_0190006'
+		WHEN affinity_units = 'pKi' THEN 'BAO_0190004'
 		WHEN affinity_units = 'pA2' THEN 'BAO_0003038'
-		WHEN affinity_units = 'pKd' THEN 'pKd'
+		WHEN affinity_units = 'pKd' THEN 'BAO_0190005'
 		WHEN affinity_units = '-' THEN '-'
 		END AS units
 		FROM interaction
@@ -145,11 +145,10 @@
     rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/affinity{id}" ];
 
 		rr:predicateObjectMap
-		[
-		rr:predicate	rdf:type;
-		rr:objectMap	[ rr:template "http://rdf.guidetopharmacology.org/ns/gtpo#Affinity" ];
-		];
-
+	    [
+	      rr:predicate	rdf:type ;
+	      rr:objectMap	[ rr:constant gtpo:Affinity ];
+	    ];
     rr:predicateObjectMap
     [
       rr:predicate	gtpo:hasHighValue ;
@@ -179,19 +178,23 @@
 			CASE
 			WHEN affinity_units = 'pIC50' THEN 'BAO_0000199'
 			WHEN affinity_units = 'pEC50' THEN 'BAO_0002583'
-			WHEN affinity_units = 'pKB' THEN 'pKB'
-			WHEN affinity_units = 'pKi' THEN 'pKi'
+			WHEN affinity_units = 'pKB' THEN 'BAO_0190006'
+			WHEN affinity_units = 'pKi' THEN 'BAO_0190004'
 			WHEN affinity_units = 'pA2' THEN 'BAO_0003038'
-			WHEN affinity_units = 'pKd' THEN 'pKd'
+			WHEN affinity_units = 'pKd' THEN 'BAO_0190005'
 			END AS units
 			FROM interaction
 			WHERE affinity_units <> '-'
 			AND affinity_median IS NOT NULL;
 		""";] ;
 
-    rr:subjectMap [ rr:template "affinity{id}";
-					rr:termType rr:BlankNode;];
+		rr:subjectMap [ rr:template "http://rdf.guidetopharmacology.org/GRAC/affinity{id}" ];
 
+		rr:predicateObjectMap
+	    [
+	      rr:predicate	rdf:type ;
+	      rr:objectMap	[ rr:constant gtpo:Affinity ];
+	    ];
     rr:predicateObjectMap
     [
       rr:predicate	gtpo:hasMedianValue;
